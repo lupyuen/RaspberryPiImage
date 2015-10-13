@@ -13,7 +13,8 @@ GPIO.setmode(GPIO.BCM)
 # Assumes that we connected the light sensor to GPIO pin 3.
 lightSensor = 3
 
-# We tell the system that the GPIO pin for the light sensor should be an input port, not output.
+# We tell the system that the GPIO pin for the light sensor should
+# be an input port, not output.
 GPIO.setup(lightSensor, GPIO.IN)
 time.sleep(1)
 
