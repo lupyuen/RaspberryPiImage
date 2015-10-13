@@ -219,7 +219,7 @@ if __name__ == "__main__":
 
     import time
     import pigpio
-    import DHT22
+    import dht22 as DHT22
 
     # Intervals of about 2 seconds or less will eventually hang the DHT22.
     INTERVAL = 3
