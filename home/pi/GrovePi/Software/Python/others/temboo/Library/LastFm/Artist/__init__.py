@@ -1,0 +1,17 @@
+from temboo.Library.LastFm.Artist.AddTags import AddTags, AddTagsInputSet, AddTagsResultSet, AddTagsChoreographyExecution
+from temboo.Library.LastFm.Artist.GetCorrection import GetCorrection, GetCorrectionInputSet, GetCorrectionResultSet, GetCorrectionChoreographyExecution
+from temboo.Library.LastFm.Artist.GetEvents import GetEvents, GetEventsInputSet, GetEventsResultSet, GetEventsChoreographyExecution
+from temboo.Library.LastFm.Artist.GetInfo import GetInfo, GetInfoInputSet, GetInfoResultSet, GetInfoChoreographyExecution
+from temboo.Library.LastFm.Artist.GetPastEvents import GetPastEvents, GetPastEventsInputSet, GetPastEventsResultSet, GetPastEventsChoreographyExecution
+from temboo.Library.LastFm.Artist.GetPodcast import GetPodcast, GetPodcastInputSet, GetPodcastResultSet, GetPodcastChoreographyExecution
+from temboo.Library.LastFm.Artist.GetShouts import GetShouts, GetShoutsInputSet, GetShoutsResultSet, GetShoutsChoreographyExecution
+from temboo.Library.LastFm.Artist.GetSimilar import GetSimilar, GetSimilarInputSet, GetSimilarResultSet, GetSimilarChoreographyExecution
+from temboo.Library.LastFm.Artist.GetTags import GetTags, GetTagsInputSet, GetTagsResultSet, GetTagsChoreographyExecution
+from temboo.Library.LastFm.Artist.GetTopAlbums import GetTopAlbums, GetTopAlbumsInputSet, GetTopAlbumsResultSet, GetTopAlbumsChoreographyExecution
+from temboo.Library.LastFm.Artist.GetTopFans import GetTopFans, GetTopFansInputSet, GetTopFansResultSet, GetTopFansChoreographyExecution
+from temboo.Library.LastFm.Artist.GetTopTags import GetTopTags, GetTopTagsInputSet, GetTopTagsResultSet, GetTopTagsChoreographyExecution
+from temboo.Library.LastFm.Artist.GetTopTracks import GetTopTracks, GetTopTracksInputSet, GetTopTracksResultSet, GetTopTracksChoreographyExecution
+from temboo.Library.LastFm.Artist.RemoveTag import RemoveTag, RemoveTagInputSet, RemoveTagResultSet, RemoveTagChoreographyExecution
+from temboo.Library.LastFm.Artist.Search import Search, SearchInputSet, SearchResultSet, SearchChoreographyExecution
+from temboo.Library.LastFm.Artist.Share import Share, ShareInputSet, ShareResultSet, ShareChoreographyExecution
+from temboo.Library.LastFm.Artist.Shout import Shout, ShoutInputSet, ShoutResultSet, ShoutChoreographyExecution

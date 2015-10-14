@@ -1,0 +1,12 @@
+from temboo.Library.Amazon.SQS.AddPermission import AddPermission, AddPermissionInputSet, AddPermissionResultSet, AddPermissionChoreographyExecution
+from temboo.Library.Amazon.SQS.ChangeMessageVisibility import ChangeMessageVisibility, ChangeMessageVisibilityInputSet, ChangeMessageVisibilityResultSet, ChangeMessageVisibilityChoreographyExecution
+from temboo.Library.Amazon.SQS.CreateQueue import CreateQueue, CreateQueueInputSet, CreateQueueResultSet, CreateQueueChoreographyExecution
+from temboo.Library.Amazon.SQS.DeleteMessage import DeleteMessage, DeleteMessageInputSet, DeleteMessageResultSet, DeleteMessageChoreographyExecution
+from temboo.Library.Amazon.SQS.DeleteQueue import DeleteQueue, DeleteQueueInputSet, DeleteQueueResultSet, DeleteQueueChoreographyExecution
+from temboo.Library.Amazon.SQS.GetQueueAttributes import GetQueueAttributes, GetQueueAttributesInputSet, GetQueueAttributesResultSet, GetQueueAttributesChoreographyExecution
+from temboo.Library.Amazon.SQS.ListQueues import ListQueues, ListQueuesInputSet, ListQueuesResultSet, ListQueuesChoreographyExecution
+from temboo.Library.Amazon.SQS.ReceiveMessage import ReceiveMessage, ReceiveMessageInputSet, ReceiveMessageResultSet, ReceiveMessageChoreographyExecution
+from temboo.Library.Amazon.SQS.RemovePermission import RemovePermission, RemovePermissionInputSet, RemovePermissionResultSet, RemovePermissionChoreographyExecution
+from temboo.Library.Amazon.SQS.SendMessage import SendMessage, SendMessageInputSet, SendMessageResultSet, SendMessageChoreographyExecution
+from temboo.Library.Amazon.SQS.SendMessageBatch import SendMessageBatch, SendMessageBatchInputSet, SendMessageBatchResultSet, SendMessageBatchChoreographyExecution
+from temboo.Library.Amazon.SQS.SetQueueAttributes import SetQueueAttributes, SetQueueAttributesInputSet, SetQueueAttributesResultSet, SetQueueAttributesChoreographyExecution

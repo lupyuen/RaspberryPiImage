@@ -1,0 +1,3 @@
+from temboo.Library.Foursquare.Settings.ChangeSetting import ChangeSetting, ChangeSettingInputSet, ChangeSettingResultSet, ChangeSettingChoreographyExecution
+from temboo.Library.Foursquare.Settings.SettingDetail import SettingDetail, SettingDetailInputSet, SettingDetailResultSet, SettingDetailChoreographyExecution
+from temboo.Library.Foursquare.Settings.UserSettings import UserSettings, UserSettingsInputSet, UserSettingsResultSet, UserSettingsChoreographyExecution

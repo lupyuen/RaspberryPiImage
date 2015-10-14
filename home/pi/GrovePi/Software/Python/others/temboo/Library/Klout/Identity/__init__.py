@@ -1,0 +1,4 @@
+from temboo.Library.Klout.Identity.ByGooglePlusID import ByGooglePlusID, ByGooglePlusIDInputSet, ByGooglePlusIDResultSet, ByGooglePlusIDChoreographyExecution
+from temboo.Library.Klout.Identity.ByKloutID import ByKloutID, ByKloutIDInputSet, ByKloutIDResultSet, ByKloutIDChoreographyExecution
+from temboo.Library.Klout.Identity.ByTwitterID import ByTwitterID, ByTwitterIDInputSet, ByTwitterIDResultSet, ByTwitterIDChoreographyExecution
+from temboo.Library.Klout.Identity.ByTwitterScreenName import ByTwitterScreenName, ByTwitterScreenNameInputSet, ByTwitterScreenNameResultSet, ByTwitterScreenNameChoreographyExecution

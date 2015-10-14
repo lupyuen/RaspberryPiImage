@@ -1,0 +1,3 @@
+from temboo.Library.Zendesk.Macros.ApplyMacroToAllTickets import ApplyMacroToAllTickets, ApplyMacroToAllTicketsInputSet, ApplyMacroToAllTicketsResultSet, ApplyMacroToAllTicketsChoreographyExecution
+from temboo.Library.Zendesk.Macros.ApplyMacroToTicket import ApplyMacroToTicket, ApplyMacroToTicketInputSet, ApplyMacroToTicketResultSet, ApplyMacroToTicketChoreographyExecution
+from temboo.Library.Zendesk.Macros.ListMacros import ListMacros, ListMacrosInputSet, ListMacrosResultSet, ListMacrosChoreographyExecution

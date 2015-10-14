@@ -1,0 +1,3 @@
+from temboo.Library.KhanAcademy.Topics.GetTopicExercises import GetTopicExercises, GetTopicExercisesInputSet, GetTopicExercisesResultSet, GetTopicExercisesChoreographyExecution
+from temboo.Library.KhanAcademy.Topics.GetTopicVideos import GetTopicVideos, GetTopicVideosInputSet, GetTopicVideosResultSet, GetTopicVideosChoreographyExecution
+from temboo.Library.KhanAcademy.Topics.TopicData import TopicData, TopicDataInputSet, TopicDataResultSet, TopicDataChoreographyExecution

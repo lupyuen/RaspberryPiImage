@@ -1,0 +1,2 @@
+from temboo.Library.LastFm.Tasteometer.CompareArtists import CompareArtists, CompareArtistsInputSet, CompareArtistsResultSet, CompareArtistsChoreographyExecution
+from temboo.Library.LastFm.Tasteometer.CompareUsers import CompareUsers, CompareUsersInputSet, CompareUsersResultSet, CompareUsersChoreographyExecution

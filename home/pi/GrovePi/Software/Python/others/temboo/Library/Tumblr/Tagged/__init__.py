@@ -1,0 +1,1 @@
+from temboo.Library.Tumblr.Tagged.RetrievePostsWithTag import RetrievePostsWithTag, RetrievePostsWithTagInputSet, RetrievePostsWithTagResultSet, RetrievePostsWithTagChoreographyExecution

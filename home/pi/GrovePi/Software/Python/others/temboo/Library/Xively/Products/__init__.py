@@ -1,0 +1,5 @@
+from temboo.Library.Xively.Products.CreateProduct import CreateProduct, CreateProductInputSet, CreateProductResultSet, CreateProductChoreographyExecution
+from temboo.Library.Xively.Products.DeleteProduct import DeleteProduct, DeleteProductInputSet, DeleteProductResultSet, DeleteProductChoreographyExecution
+from temboo.Library.Xively.Products.ListAllProducts import ListAllProducts, ListAllProductsInputSet, ListAllProductsResultSet, ListAllProductsChoreographyExecution
+from temboo.Library.Xively.Products.ReadProduct import ReadProduct, ReadProductInputSet, ReadProductResultSet, ReadProductChoreographyExecution
+from temboo.Library.Xively.Products.UpdateProduct import UpdateProduct, UpdateProductInputSet, UpdateProductResultSet, UpdateProductChoreographyExecution

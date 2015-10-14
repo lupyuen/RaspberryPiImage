@@ -1,0 +1,2 @@
+from temboo.Library.Instagram.OAuth.FinalizeOAuth import FinalizeOAuth, FinalizeOAuthInputSet, FinalizeOAuthResultSet, FinalizeOAuthChoreographyExecution
+from temboo.Library.Instagram.OAuth.InitializeOAuth import InitializeOAuth, InitializeOAuthInputSet, InitializeOAuthResultSet, InitializeOAuthChoreographyExecution

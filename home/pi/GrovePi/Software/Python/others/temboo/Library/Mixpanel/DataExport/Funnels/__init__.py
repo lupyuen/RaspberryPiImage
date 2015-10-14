@@ -1,0 +1,2 @@
+from temboo.Library.Mixpanel.DataExport.Funnels.FunnelData import FunnelData, FunnelDataInputSet, FunnelDataResultSet, FunnelDataChoreographyExecution
+from temboo.Library.Mixpanel.DataExport.Funnels.FunnelList import FunnelList, FunnelListInputSet, FunnelListResultSet, FunnelListChoreographyExecution

@@ -1,0 +1,3 @@
+from temboo.Library.Wordnik.WordList.DeleteWordList import DeleteWordList, DeleteWordListInputSet, DeleteWordListResultSet, DeleteWordListChoreographyExecution
+from temboo.Library.Wordnik.WordList.GetWordList import GetWordList, GetWordListInputSet, GetWordListResultSet, GetWordListChoreographyExecution
+from temboo.Library.Wordnik.WordList.GetWordsInWordList import GetWordsInWordList, GetWordsInWordListInputSet, GetWordsInWordListResultSet, GetWordsInWordListChoreographyExecution

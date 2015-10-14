@@ -1,0 +1,2 @@
+from temboo.Library.Dwolla.Contacts.NearbyContacts import NearbyContacts, NearbyContactsInputSet, NearbyContactsResultSet, NearbyContactsChoreographyExecution
+from temboo.Library.Dwolla.Contacts.UserContacts import UserContacts, UserContactsInputSet, UserContactsResultSet, UserContactsChoreographyExecution

@@ -1,0 +1,6 @@
+from temboo.Library.Google.Places.DeletePlace import DeletePlace, DeletePlaceInputSet, DeletePlaceResultSet, DeletePlaceChoreographyExecution
+from temboo.Library.Google.Places.PlaceDetails import PlaceDetails, PlaceDetailsInputSet, PlaceDetailsResultSet, PlaceDetailsChoreographyExecution
+from temboo.Library.Google.Places.PlaceSearch import PlaceSearch, PlaceSearchInputSet, PlaceSearchResultSet, PlaceSearchChoreographyExecution
+from temboo.Library.Google.Places.RadarSearch import RadarSearch, RadarSearchInputSet, RadarSearchResultSet, RadarSearchChoreographyExecution
+from temboo.Library.Google.Places.TextSearch import TextSearch, TextSearchInputSet, TextSearchResultSet, TextSearchChoreographyExecution
+from temboo.Library.Google.Places.UserPlaceReports import UserPlaceReports, UserPlaceReportsInputSet, UserPlaceReportsResultSet, UserPlaceReportsChoreographyExecution

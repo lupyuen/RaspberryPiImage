@@ -1,0 +1,4 @@
+from temboo.Library.Facebook.Actions.Music.Playlists.CreatePlaylist import CreatePlaylist, CreatePlaylistInputSet, CreatePlaylistResultSet, CreatePlaylistChoreographyExecution
+from temboo.Library.Facebook.Actions.Music.Playlists.DeletePlaylist import DeletePlaylist, DeletePlaylistInputSet, DeletePlaylistResultSet, DeletePlaylistChoreographyExecution
+from temboo.Library.Facebook.Actions.Music.Playlists.ReadPlaylist import ReadPlaylist, ReadPlaylistInputSet, ReadPlaylistResultSet, ReadPlaylistChoreographyExecution
+from temboo.Library.Facebook.Actions.Music.Playlists.UpdatePlaylist import UpdatePlaylist, UpdatePlaylistInputSet, UpdatePlaylistResultSet, UpdatePlaylistChoreographyExecution

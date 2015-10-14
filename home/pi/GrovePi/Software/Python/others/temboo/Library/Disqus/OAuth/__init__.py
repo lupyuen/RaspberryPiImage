@@ -1,0 +1,3 @@
+from temboo.Library.Disqus.OAuth.FinalizeOAuth import FinalizeOAuth, FinalizeOAuthInputSet, FinalizeOAuthResultSet, FinalizeOAuthChoreographyExecution
+from temboo.Library.Disqus.OAuth.InitializeOAuth import InitializeOAuth, InitializeOAuthInputSet, InitializeOAuthResultSet, InitializeOAuthChoreographyExecution
+from temboo.Library.Disqus.OAuth.RefreshToken import RefreshToken, RefreshTokenInputSet, RefreshTokenResultSet, RefreshTokenChoreographyExecution

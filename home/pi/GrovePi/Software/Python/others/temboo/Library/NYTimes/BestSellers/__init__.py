@@ -1,0 +1,2 @@
+from temboo.Library.NYTimes.BestSellers.GetBestSellerHistory import GetBestSellerHistory, GetBestSellerHistoryInputSet, GetBestSellerHistoryResultSet, GetBestSellerHistoryChoreographyExecution
+from temboo.Library.NYTimes.BestSellers.GetBestSellerList import GetBestSellerList, GetBestSellerListInputSet, GetBestSellerListResultSet, GetBestSellerListChoreographyExecution

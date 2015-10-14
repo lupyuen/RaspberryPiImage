@@ -1,0 +1,5 @@
+from temboo.Library.SendGrid.NewsletterAPI.Identity.CreateIdentity import CreateIdentity, CreateIdentityInputSet, CreateIdentityResultSet, CreateIdentityChoreographyExecution
+from temboo.Library.SendGrid.NewsletterAPI.Identity.DeleteIdentity import DeleteIdentity, DeleteIdentityInputSet, DeleteIdentityResultSet, DeleteIdentityChoreographyExecution
+from temboo.Library.SendGrid.NewsletterAPI.Identity.EditIdentity import EditIdentity, EditIdentityInputSet, EditIdentityResultSet, EditIdentityChoreographyExecution
+from temboo.Library.SendGrid.NewsletterAPI.Identity.GetIdentityInfo import GetIdentityInfo, GetIdentityInfoInputSet, GetIdentityInfoResultSet, GetIdentityInfoChoreographyExecution
+from temboo.Library.SendGrid.NewsletterAPI.Identity.ListAllIdentities import ListAllIdentities, ListAllIdentitiesInputSet, ListAllIdentitiesResultSet, ListAllIdentitiesChoreographyExecution

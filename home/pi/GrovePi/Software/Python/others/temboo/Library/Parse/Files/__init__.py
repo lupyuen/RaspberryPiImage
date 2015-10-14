@@ -1,0 +1,3 @@
+from temboo.Library.Parse.Files.AssociateWithObject import AssociateWithObject, AssociateWithObjectInputSet, AssociateWithObjectResultSet, AssociateWithObjectChoreographyExecution
+from temboo.Library.Parse.Files.DeleteFile import DeleteFile, DeleteFileInputSet, DeleteFileResultSet, DeleteFileChoreographyExecution
+from temboo.Library.Parse.Files.UploadFile import UploadFile, UploadFileInputSet, UploadFileResultSet, UploadFileChoreographyExecution

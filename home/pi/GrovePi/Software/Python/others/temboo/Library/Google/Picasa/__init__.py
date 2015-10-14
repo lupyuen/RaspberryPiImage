@@ -1,0 +1,11 @@
+from temboo.Library.Google.Picasa.AddCommentToPhoto import AddCommentToPhoto, AddCommentToPhotoInputSet, AddCommentToPhotoResultSet, AddCommentToPhotoChoreographyExecution
+from temboo.Library.Google.Picasa.CreateAlbum import CreateAlbum, CreateAlbumInputSet, CreateAlbumResultSet, CreateAlbumChoreographyExecution
+from temboo.Library.Google.Picasa.DeleteAlbum import DeleteAlbum, DeleteAlbumInputSet, DeleteAlbumResultSet, DeleteAlbumChoreographyExecution
+from temboo.Library.Google.Picasa.DeleteTag import DeleteTag, DeleteTagInputSet, DeleteTagResultSet, DeleteTagChoreographyExecution
+from temboo.Library.Google.Picasa.ListAlbums import ListAlbums, ListAlbumsInputSet, ListAlbumsResultSet, ListAlbumsChoreographyExecution
+from temboo.Library.Google.Picasa.ListPhotosByAlbum import ListPhotosByAlbum, ListPhotosByAlbumInputSet, ListPhotosByAlbumResultSet, ListPhotosByAlbumChoreographyExecution
+from temboo.Library.Google.Picasa.PostPhoto import PostPhoto, PostPhotoInputSet, PostPhotoResultSet, PostPhotoChoreographyExecution
+from temboo.Library.Google.Picasa.RetrieveComments import RetrieveComments, RetrieveCommentsInputSet, RetrieveCommentsResultSet, RetrieveCommentsChoreographyExecution
+from temboo.Library.Google.Picasa.RetrieveTagsByUser import RetrieveTagsByUser, RetrieveTagsByUserInputSet, RetrieveTagsByUserResultSet, RetrieveTagsByUserChoreographyExecution
+from temboo.Library.Google.Picasa.SearchPhotosByTag import SearchPhotosByTag, SearchPhotosByTagInputSet, SearchPhotosByTagResultSet, SearchPhotosByTagChoreographyExecution
+from temboo.Library.Google.Picasa.TagPhoto import TagPhoto, TagPhotoInputSet, TagPhotoResultSet, TagPhotoChoreographyExecution
