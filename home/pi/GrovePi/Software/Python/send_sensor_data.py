@@ -12,7 +12,7 @@ import json
 import paho.mqtt.client as mqtt
 
 # TODO: Name of our Raspberry Pi, also known as our "Thing Name"
-deviceName = "g0_temperature_sensor"
+deviceName = "g88_pi"
 # TODO: Public certificate of our Raspberry Pi, as provided by AWS IoT.
 deviceCertificate = "5c46ea701f-certificate.pem.crt"
 # TODO: Private key of our Raspberry Pi, as provided by AWS IoT.
