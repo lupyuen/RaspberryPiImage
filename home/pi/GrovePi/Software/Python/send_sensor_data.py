@@ -77,8 +77,7 @@ while True:
         payload = json.dumps({
             "state": {
                 "reported": {
-                    # "temperature": round(28.12345678, 1),
-                    "temperature": round(grovepi.temp(temp_sensor, '1.1'), 1),
+                    "temperature": round(28.12345678, 1),
                     "timestamp": datetime.datetime.now().isoformat()
                 }
             }
