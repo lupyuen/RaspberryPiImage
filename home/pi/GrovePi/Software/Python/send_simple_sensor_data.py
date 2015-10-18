@@ -298,8 +298,7 @@ if __name__ == "__main__":
         payload = json.dumps({
             "state": {
                 "reported": {
-                    # "temperature": round(28.12345678, 1),
-                    "temperature": round(s.temperature(), 1),
+                    "temperature": round(28.12345678, 1),
                     "timestamp": datetime.datetime.now().isoformat()
                 }
             }
