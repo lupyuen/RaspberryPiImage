@@ -12,7 +12,7 @@ cd /home/pi/GrovePi/Software/Python/
 ##./ngrok tcp --log "stdout" -config=/home/pi/.ngrok2/ngrok.yml --remote-addr=1.tcp.ngrok.io:20400 22 &
 
 ##  Send sensor data in a loop.  Put it in the background so the script can continue.
-python send_sensor_data.py &
+##python send_sensor_data.py &
 
 ##  Loop forever.
 for (( ; ; ))

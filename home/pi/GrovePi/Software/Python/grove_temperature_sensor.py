@@ -47,8 +47,6 @@ THE SOFTWARE.
 
 import time
 import grovepi
-from temboo.Library.Google.Spreadsheets import AddListRows
-from temboo.core.session import TembooSession
 
 # Connect the Grove Temperature Sensor to analog port A0
 # SIG,NC,VCC,GND
