@@ -1,6 +1,6 @@
-#  This is a Python web server that handles requests to switch the Grove LED on/off, buzz the buzzer and show a message on the LCD screen.
-#  Based on code from http://mattrichardson.com/Raspberry-Pi-Flask/
-from flask import Flask, render_template
+#  This is a Python web server that handles requests to switch the Grove LED on/off, buzz the buzzer and show a
+#  message on the LCD screen.  Based on code from http://mattrichardson.com/Raspberry-Pi-Flask/
+from flask import Flask, render_template, request
 from grovepi import *
 from grove_rgb_lcd import *
 import datetime
@@ -17,6 +17,7 @@ pinMode(led, "OUTPUT")
 buzzer = 8
 pinMode(buzzer, "OUTPUT")
 
+
 # http://.../led_on will switch on the LED
 @app.route("/led_on")
 def led_on():
@@ -28,6 +29,7 @@ def led_on():
 
     return response
 
+
 # http://.../led_off will switch off the LED
 @app.route("/led_off")
 def led_off():
@@ -38,6 +40,7 @@ def led_off():
         response = "There was an error switching off the LED"
 
     return response
+
 
 # http://.../buzz will buzz the buzzer
 @app.route("/buzz")
@@ -55,6 +58,7 @@ def buzz():
 
     return response
 
+
 # http://.../lcd/msg will show msg on the LCD screen
 @app.route("/lcd/<msg>")
 def lcd(msg):
@@ -69,18 +73,28 @@ def lcd(msg):
 
     return response
 
+
 # If no URL specified, show the date and time
 @app.route("/")
-def hello():
+@app.route("/things/<thing>/shadow", methods=['GET', 'POST'])  # For debugging AWS IoT signing requests.
+def hello(thing):
+    print("request = " + str(request))
+    print("request.form = " + str(request.form))
+    print("request.args = " + str(request.args))
+    print("request.headers = " + str(request.headers))
+    print("request.data = " + str(request.data))
     now = datetime.datetime.now()
     timeString = now.strftime("%Y-%m-%d %H:%M")
-    return timeString
+    return '"' + timeString + '"'
 
-# Force the web browser not to cache our requests. Sometimes with caching on, the web browser may show the previous result instead of calling our server.
+
+# Force the web browser not to cache our requests. Sometimes with caching on, the web browser may show the previous
+# result instead of calling our server.
 @app.after_request
 def add_header(response):
     response.cache_control.max_age = 0
     return response
 
 if __name__ == "__main__":
+    app.debug = True
     app.run(host='0.0.0.0', port=80, debug=True)
