@@ -32,13 +32,15 @@ grovepi.pinMode(led, "OUTPUT")
 time.sleep(1)
 isConnected = False
 
+# TODO: Set the default LED state.
+
 
 # This is the main logic of the program.  We connect to AWS IoT via MQTT, send sensor data periodically to AWS IoT,
 # and handle any actuation commands received from AWS IoT.
 def main():
     global isConnected
     # Create an MQTT client for connecting to AWS IoT via MQTT.
-    client = mqtt.Client("awsiot")
+    client = mqtt.Client(deviceName)  # Client ID must be unique because AWS will disconnect any duplicate clients.
     client.on_connect = on_connect
     client.on_message = on_message
     client.on_log = on_log
