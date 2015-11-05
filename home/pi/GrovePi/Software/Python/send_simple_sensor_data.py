@@ -62,7 +62,7 @@ def main():
     client.loop_start()
 
     # Prepare the DHT22 sensor. Ensure we don't read from the DHT22 within 2 seconds, else it will eventually hang.
-    dht22_sensor = dht22.Sensor(pigpio.pi(), temp_sensor, led=led, power=power)
+    dht22_sensor = dht22.Sensor(pigpio.pi(), temp_sensor, power=power)
 
     # Loop forever.
     while True:

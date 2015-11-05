@@ -9,6 +9,7 @@ import json
 import paho.mqtt.client as mqtt
 import dht22
 import pigpio
+import RPi.GPIO as GPIO
 
 # TODO: Name of our Raspberry Pi, also known as our "Thing Name"
 deviceName = "g88_pi"
@@ -62,7 +63,12 @@ def main():
     client.loop_start()
 
     # Prepare the DHT22 sensor. Ensure we don't read from the DHT22 within 2 seconds, else it will eventually hang.
-    dht22_sensor = dht22.Sensor(pigpio.pi(), temp_sensor, led=led, power=power)
+    dht22_sensor = dht22.Sensor(pigpio.pi(), temp_sensor, power=power)
+    # Set the pin numbering to the BCM (same as GPIO) numbering format.
+    GPIO.setmode(GPIO.BCM)
+    # We tell the system that the LED port should be an output port, not input.
+    GPIO.setup(led, GPIO.OUT)
+    time.sleep(1)
 
     # Loop forever.
     while True:
@@ -150,21 +156,21 @@ def actuate(client, attribute, value):
         # We actuate the LED for "on", "off" or "flash1".
         if value == "on":
             # Switch on LED.
-            ####TODO grovepi.digitalWrite(led, 1)
+            GPIO.output(led, True)
             send_reported_state(client, "led", "on")
             return
         elif value == "off":
             # Switch off LED.
-            ####TODO grovepi.digitalWrite(led, 0)
+            GPIO.output(led, False)
             send_reported_state(client, "led", "off")
             return
         elif value == "flash1":
             # Switch on LED, wait 1 second, switch it off.
-            ####TODO grovepi.digitalWrite(led, 1)
+            GPIO.output(led, True)
             send_reported_state(client, "led", "on")
             time.sleep(1)
 
-            ####TODO grovepi.digitalWrite(led, 0)
+            GPIO.output(led, False)
             send_reported_state(client, "led", "off")
             time.sleep(1)
             return
