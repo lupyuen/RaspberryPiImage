@@ -4,6 +4,10 @@
       <w>amazonaws</w>
       <w>awsiot</w>
       <w>doza</w>
+      <w>gpio</w>
+      <w>mult</w>
+      <w>pigpio</w>
+      <w>rhum</w>
     </words>
   </dictionary>
 </component>

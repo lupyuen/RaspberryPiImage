@@ -1,6 +1,4 @@
-#!/usr/bin/env python
-
-# Send sensor data from simple sensors continually to AWS IoT.
+# Library to read the temperature and humidity sensor data from DHT22 AM2302.
 # Based on DHT22 AM2302 Python code from http://abyz.co.uk/rpi/pigpio/examples.html
 # (2014-07-11 DHT22.py)
 
@@ -9,7 +7,7 @@ import atexit
 import pigpio
 
 
-class sensor:
+class Sensor:
     """
     A class to read relative humidity and temperature from the
     DHT22 sensor.  The sensor is also known as the AM2302.
@@ -27,7 +25,7 @@ class sensor:
     gpio ------------+
     """
 
-    def __init__(self, pi, gpio, LED=None, power=None):
+    def __init__(self, pi, gpio, led=None, power=None):
         """
         Instantiate with the Pi and gpio to which the DHT22 output
         pin is connected.
@@ -45,7 +43,7 @@ class sensor:
 
         self.pi = pi
         self.gpio = gpio
-        self.LED = LED
+        self.LED = led
         self.power = power
 
         if power is not None:
@@ -208,112 +206,13 @@ class sensor:
             time.sleep(0.017)  # 17 ms
             self.pi.set_mode(self.gpio, pigpio.INPUT)
             self.pi.set_watchdog(self.gpio, 200)
+            time.sleep(0.2)
 
     def cancel(self):
         """Cancel the DHT22 sensor."""
         self.pi.set_watchdog(self.gpio, 0)
-        if self.cb != None:
+        if self.cb is not None:
             self.cb.cancel()
             self.cb = None
 
 
-if __name__ == "__main__":
-
-    import time
-    import pigpio
-    import datetime
-    import ssl
-    import json
-    import paho.mqtt.client as mqtt
-    import send_simple_sensor_data as DHT22
-
-    # TODO: Name of our Raspberry Pi, also known as our "Thing Name"
-    deviceName = "g0_temperature_sensor"
-    # TODO: Public certificate of our Raspberry Pi, as provided by AWS IoT.
-    deviceCertificate = "5c46ea701f-certificate.pem.crt"
-    # TODO: Private key of our Raspberry Pi, as provided by AWS IoT.
-    devicePrivateKey = "5c46ea701f-private.pem.key"
-    # Root certificate to authenticate AWS IoT when we connect to their server.
-    awsCert = "aws-iot-rootCA.crt"
-    isConnected = False
-
-    # This is called when we are connected to AWS IoT via MQTT.
-    def on_connect(client2, userdata, flags, rc):
-        print("Connected to AWS IoT...")
-        # Subscribe to our MQTT topic so that we will receive notifications of updates.
-        client2.subscribe("$aws/things/" + deviceName + "/shadow/update")
-        global isConnected
-        isConnected = True
-
-
-    # This is called when we receive a subscription notification from AWS IoT.
-    def on_message(client2, userdata, msg):
-        print(msg.topic + " " + str(msg.payload))
-
-
-    # Print out log messages for tracing.
-    def on_log(client2, userdata, level, buf):
-        print("Log: " + buf)
-
-
-    # Create an MQTT client for connecting to AWS IoT via MQTT.
-    client = mqtt.Client("awsiot")
-    client.on_connect = on_connect
-    client.on_message = on_message
-    client.on_log = on_log
-
-    # Set the certificates and private key for connecting to AWS IoT.  TLS 1.2 is mandatory for AWS IoT and is supported
-    # only in Python 3.4 and later, compiled with OpenSSL 1.0.1 and later.
-    client.tls_set(awsCert, deviceCertificate, devicePrivateKey, ssl.CERT_REQUIRED, ssl.PROTOCOL_TLSv1_2)
-
-    # Connect to AWS IoT server.  Use AWS command line "aws iot describe-endpoint" to get the address.
-    print("Connecting to AWS IoT...")
-    client.connect("A1P01IYM2DOZA0.iot.us-west-2.amazonaws.com", 8883, 60)
-
-    # Start a background thread to process the MQTT network commands concurrently, including auto-reconnection.
-    client.loop_start()
-
-    # Intervals of about 2 seconds or less will eventually hang the DHT22.
-    INTERVAL = 3
-    pi = pigpio.pi()
-    s = DHT22.sensor(pi, 22, LED=25, power=8)
-    r = 0
-    next_reading = time.time()
-    # Loop forever.
-    while True:
-        # If we are not connected yet to AWS IoT, wait 1 second and try again.
-        if not isConnected:
-            time.sleep(1)
-            continue
-
-        r += 1
-        s.trigger()
-        time.sleep(0.2)
-
-        # Read sensor values. Prepare our sensor data in JSON format.
-        print("{} temperature={:3.1f} {:3.1f} {:3.2f} {} {} {} {}".format(
-            r, s.temperature(), s.humidity(), s.staleness(),
-            s.bad_checksum(), s.short_message(), s.missing_message(),
-            s.sensor_resets()))
-        payload = json.dumps({
-            "state": {
-                "reported": {
-                    # "temperature": round(28.12345678, 1),
-                    "temperature": round(s.temperature(), 1),
-                    "humidity": round(s.humidity(), 1),
-                    "timestamp": datetime.datetime.now().isoformat()
-                }
-            }
-        })
-        print("Sending sensor data to AWS IoT: ", payload)
-
-        # Publish our sensor data to AWS IoT via the MQTT topic, also known as updating our "Thing Shadow".
-        client.publish("$aws/things/" + deviceName + "/shadow/update", payload)
-        print("Sent to AWS IoT")
-
-        # Wait a while for interval before sending the next set of sensor data.
-        next_reading += INTERVAL
-        time.sleep(next_reading - time.time())
-
-    s.cancel()
-    pi.stop()
