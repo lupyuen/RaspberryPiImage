@@ -1,8 +1,6 @@
 #!/usr/bin/env python
 
 # Send Grove sensor data periodically to AWS IoT and process actuation commands received.
-# Based on GrovePi Example for using the Grove Temperature Sensor
-# (http://www.seeedstudio.com/wiki/Grove_-_Temperature_Sensor)
 
 import time
 import datetime
@@ -22,12 +20,14 @@ awsCert = "aws-iot-rootCA.crt"
 isConnected = False
 
 # Assume we connected the Grove Light Sensor to analog port A0,
-# Temperature Sensor to A1, Sound Sensor to A2, Grove LED to digital port D4.
-# TODO: DHT11
+# Digital Humidity/Temperature Sensor (DHT11) to digital port D2,
+# Sound Sensor to A2, Grove LED to digital port D4.
+# If you are using the Grove Analog Temperature Sensor, connect it to analog port A1.
 light_sensor = 0
-temp_sensor = 1
 sound_sensor = 2
+dht_sensor = 2
 led = 4
+temp_sensor = 1
 
 
 # This is the main logic of the program.  We connect to AWS IoT via MQTT, send sensor data periodically to AWS IoT,
@@ -67,8 +67,11 @@ def main():
             payload = {
                 "state": {
                     "reported": {
-                        # TODO: Read from DHT11
-                        "temperature": round(grovepi.temp(temp_sensor, '1.1'), 1),
+                        # Uncomment the next line if you're using the Grove Analog Temperature Sensor.
+                        # "temperature": round(grovepi.temp(temp_sensor, '1.1'), 1),
+                        # Comment out the next 2 lines if you're using the Grove Analog Temperature Sensor.
+                        "temperature": grovepi.dht(dht_sensor, 0)[0],  # The first 0 means that the DHT module is DHT11.
+                        "humidity": grovepi.dht(dht_sensor, 0)[1],
                         "light_level": grovepi.analogRead(light_sensor),
                         "sound_level": grovepi.analogRead(sound_sensor),
                         "timestamp": datetime.datetime.now().isoformat()

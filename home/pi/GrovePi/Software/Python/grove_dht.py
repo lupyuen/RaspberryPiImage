@@ -1,23 +1,29 @@
 #!/usr/bin/env python
-# grovepi_lcd_dht.py
-# From http://www.seeedstudio.com/wiki/Grove_-_Temperature_and_Humidity_Sensor
 
-# dht(pin,module_type), change module_type number to use other kind of dht
-# module_type:
-#             DHT11 0
-#             DHT22 1
-#             DHT21 2
-#             DHT2301 3
+# Read the sensor data from the Grove Digital Humidity/Temperature Sensor (DHT) and display the values.
+# Based on http://www.seeedstudio.com/wiki/Grove_-_Temperature_and_Humidity_Sensor
 
-from grovepi import *
 import time
+import grovepi
 
-dht_sensor_port = 2  # Connect the DHt sensor to port D2
+# Connect the DHT sensor to port D2.
+dht_sensor = 2
 
+# Loop forever.
 while True:
-    [temp, hum] = dht(dht_sensor_port, 0)  # Get the temperature and Humidity from the DHT sensor
+    # Get the temperature and humidity from the DHT sensor.
+    [temp, hum] = grovepi.dht(dht_sensor, 0)  # 0 means we are using DHT11 as the DHT module.
+
+    # Display the temperature and humidity.
     print("temp =", temp, "C\thumidity =", hum, "%")
-    t = str(temp)
-    h = str(hum)
+
+    # Wait 10 seconds and repeat.
     time.sleep(10)
+
+# Note: When calling dht(pin, module_type), change module_type to the number below depending on the DHT module used:
+# DHT Module --> module_type
+#   DHT11   --> 0
+#   DHT22   --> 1
+#   DHT21   --> 2
+#   DHT2301 --> 3
 
