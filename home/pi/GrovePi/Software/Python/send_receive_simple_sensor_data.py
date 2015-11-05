@@ -81,7 +81,7 @@ def main():
             # Read DHT22 sensor values.  Skip if we detect an error.
             dht22_sensor.trigger()
             if dht22_sensor.bad_checksum() + dht22_sensor.short_message() + dht22_sensor.missing_message() + \
-                    dht22_sensor.sensor_resets() != 0:
+                    dht22_sensor.sensor_resets() != 0 or dht22_sensor.temperature() < 0 or dht22_sensor.humidity() < 0:
                 print(("DHT22 may be connected incorrectly: temperature={:3.1f}, humidity={:3.1f}, bad_checksum={}, " +
                       "short_message={}, missing_message={}, sensor_resets={}")
                       .format(dht22_sensor.temperature(), dht22_sensor.humidity(), dht22_sensor.bad_checksum(),
