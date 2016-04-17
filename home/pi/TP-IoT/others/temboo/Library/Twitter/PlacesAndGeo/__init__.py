@@ -1,4 +1,0 @@
-from temboo.Library.Twitter.PlacesAndGeo.GeoSearch import GeoSearch, GeoSearchInputSet, GeoSearchResultSet, GeoSearchChoreographyExecution
-from temboo.Library.Twitter.PlacesAndGeo.GetPlaceInformation import GetPlaceInformation, GetPlaceInformationInputSet, GetPlaceInformationResultSet, GetPlaceInformationChoreographyExecution
-from temboo.Library.Twitter.PlacesAndGeo.ReverseGeocode import ReverseGeocode, ReverseGeocodeInputSet, ReverseGeocodeResultSet, ReverseGeocodeChoreographyExecution
-from temboo.Library.Twitter.PlacesAndGeo.SimilarPlaces import SimilarPlaces, SimilarPlacesInputSet, SimilarPlacesResultSet, SimilarPlacesChoreographyExecution

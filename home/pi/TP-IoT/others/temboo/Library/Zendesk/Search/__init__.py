@@ -1,2 +1,0 @@
-from temboo.Library.Zendesk.Search.SearchAll import SearchAll, SearchAllInputSet, SearchAllResultSet, SearchAllChoreographyExecution
-from temboo.Library.Zendesk.Search.SearchAnonymous import SearchAnonymous, SearchAnonymousInputSet, SearchAnonymousResultSet, SearchAnonymousChoreographyExecution

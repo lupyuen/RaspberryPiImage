@@ -1,1 +1,0 @@
-from temboo.Library.NPR.Transcripts.TranscriptSearch import TranscriptSearch, TranscriptSearchInputSet, TranscriptSearchResultSet, TranscriptSearchChoreographyExecution

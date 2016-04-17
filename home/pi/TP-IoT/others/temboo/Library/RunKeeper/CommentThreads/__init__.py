@@ -1,2 +1,0 @@
-from temboo.Library.RunKeeper.CommentThreads.PostComment import PostComment, PostCommentInputSet, PostCommentResultSet, PostCommentChoreographyExecution
-from temboo.Library.RunKeeper.CommentThreads.RetrieveCommentThread import RetrieveCommentThread, RetrieveCommentThreadInputSet, RetrieveCommentThreadResultSet, RetrieveCommentThreadChoreographyExecution

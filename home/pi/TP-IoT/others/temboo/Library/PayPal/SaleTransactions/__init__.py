@@ -1,2 +1,0 @@
-from temboo.Library.PayPal.SaleTransactions.LookupSale import LookupSale, LookupSaleInputSet, LookupSaleResultSet, LookupSaleChoreographyExecution
-from temboo.Library.PayPal.SaleTransactions.RefundSale import RefundSale, RefundSaleInputSet, RefundSaleResultSet, RefundSaleChoreographyExecution

@@ -1,2 +1,0 @@
-from temboo.Library.LittleSis.Reference.GetReferences import GetReferences, GetReferencesInputSet, GetReferencesResultSet, GetReferencesChoreographyExecution
-from temboo.Library.LittleSis.Reference.GetRelationshipReferences import GetRelationshipReferences, GetRelationshipReferencesInputSet, GetRelationshipReferencesResultSet, GetRelationshipReferencesChoreographyExecution

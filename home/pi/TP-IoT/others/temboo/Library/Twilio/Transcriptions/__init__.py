@@ -1,2 +1,0 @@
-from temboo.Library.Twilio.Transcriptions.GetTranscription import GetTranscription, GetTranscriptionInputSet, GetTranscriptionResultSet, GetTranscriptionChoreographyExecution
-from temboo.Library.Twilio.Transcriptions.ListTranscriptions import ListTranscriptions, ListTranscriptionsInputSet, ListTranscriptionsResultSet, ListTranscriptionsChoreographyExecution

@@ -1,5 +1,0 @@
-from temboo.Library.Google.ComputeEngine.Firewalls.DeleteFirewall import DeleteFirewall, DeleteFirewallInputSet, DeleteFirewallResultSet, DeleteFirewallChoreographyExecution
-from temboo.Library.Google.ComputeEngine.Firewalls.GetFirewall import GetFirewall, GetFirewallInputSet, GetFirewallResultSet, GetFirewallChoreographyExecution
-from temboo.Library.Google.ComputeEngine.Firewalls.InsertFirewall import InsertFirewall, InsertFirewallInputSet, InsertFirewallResultSet, InsertFirewallChoreographyExecution
-from temboo.Library.Google.ComputeEngine.Firewalls.ListFirewalls import ListFirewalls, ListFirewallsInputSet, ListFirewallsResultSet, ListFirewallsChoreographyExecution
-from temboo.Library.Google.ComputeEngine.Firewalls.UpdateFirewall import UpdateFirewall, UpdateFirewallInputSet, UpdateFirewallResultSet, UpdateFirewallChoreographyExecution

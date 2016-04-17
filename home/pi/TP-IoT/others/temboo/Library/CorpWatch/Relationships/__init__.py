@@ -1,3 +1,0 @@
-from temboo.Library.CorpWatch.Relationships.CompanyChildren import CompanyChildren, CompanyChildrenInputSet, CompanyChildrenResultSet, CompanyChildrenChoreographyExecution
-from temboo.Library.CorpWatch.Relationships.CompanyParents import CompanyParents, CompanyParentsInputSet, CompanyParentsResultSet, CompanyParentsChoreographyExecution
-from temboo.Library.CorpWatch.Relationships.TopParent import TopParent, TopParentInputSet, TopParentResultSet, TopParentChoreographyExecution

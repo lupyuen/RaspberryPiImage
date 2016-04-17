@@ -1,1 +1,0 @@
-from temboo.Library.FedEx.CountryService.PostalCodeInquiry import PostalCodeInquiry, PostalCodeInquiryInputSet, PostalCodeInquiryResultSet, PostalCodeInquiryChoreographyExecution

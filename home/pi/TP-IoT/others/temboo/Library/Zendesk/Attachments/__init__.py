@@ -1,1 +1,0 @@
-from temboo.Library.Zendesk.Attachments.UploadAttachment import UploadAttachment, UploadAttachmentInputSet, UploadAttachmentResultSet, UploadAttachmentChoreographyExecution

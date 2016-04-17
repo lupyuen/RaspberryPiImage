@@ -1,2 +1,0 @@
-from temboo.Library.Foursquare.Photos.AddPhoto import AddPhoto, AddPhotoInputSet, AddPhotoResultSet, AddPhotoChoreographyExecution
-from temboo.Library.Foursquare.Photos.PhotoDetails import PhotoDetails, PhotoDetailsInputSet, PhotoDetailsResultSet, PhotoDetailsChoreographyExecution

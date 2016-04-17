@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 # Read the sensor data from the Grove Digital Humidity/Temperature Sensor (DHT) and display the values.
 # Based on http://www.seeedstudio.com/wiki/Grove_-_Temperature_and_Humidity_Sensor

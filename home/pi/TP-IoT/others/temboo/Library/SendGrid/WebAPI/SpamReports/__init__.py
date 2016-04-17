@@ -1,2 +1,0 @@
-from temboo.Library.SendGrid.WebAPI.SpamReports.DeleteEmailAddress import DeleteEmailAddress, DeleteEmailAddressInputSet, DeleteEmailAddressResultSet, DeleteEmailAddressChoreographyExecution
-from temboo.Library.SendGrid.WebAPI.SpamReports.GetSpamReports import GetSpamReports, GetSpamReportsInputSet, GetSpamReportsResultSet, GetSpamReportsChoreographyExecution

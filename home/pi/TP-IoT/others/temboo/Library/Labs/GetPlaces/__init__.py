@@ -1,3 +1,0 @@
-from temboo.Library.Labs.GetPlaces.ByAddress import ByAddress, ByAddressInputSet, ByAddressResultSet, ByAddressChoreographyExecution
-from temboo.Library.Labs.GetPlaces.ByCoordinates import ByCoordinates, ByCoordinatesInputSet, ByCoordinatesResultSet, ByCoordinatesChoreographyExecution
-from temboo.Library.Labs.GetPlaces.ByFoursquare import ByFoursquare, ByFoursquareInputSet, ByFoursquareResultSet, ByFoursquareChoreographyExecution

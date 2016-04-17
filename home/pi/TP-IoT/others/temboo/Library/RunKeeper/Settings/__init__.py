@@ -1,2 +1,0 @@
-from temboo.Library.RunKeeper.Settings.RetrieveSettings import RetrieveSettings, RetrieveSettingsInputSet, RetrieveSettingsResultSet, RetrieveSettingsChoreographyExecution
-from temboo.Library.RunKeeper.Settings.UpdateSettings import UpdateSettings, UpdateSettingsInputSet, UpdateSettingsResultSet, UpdateSettingsChoreographyExecution

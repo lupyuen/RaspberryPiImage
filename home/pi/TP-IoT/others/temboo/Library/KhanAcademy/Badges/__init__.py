@@ -1,3 +1,0 @@
-from temboo.Library.KhanAcademy.Badges.AllCategories import AllCategories, AllCategoriesInputSet, AllCategoriesResultSet, AllCategoriesChoreographyExecution
-from temboo.Library.KhanAcademy.Badges.BadgesByCategory import BadgesByCategory, BadgesByCategoryInputSet, BadgesByCategoryResultSet, BadgesByCategoryChoreographyExecution
-from temboo.Library.KhanAcademy.Badges.GetBadges import GetBadges, GetBadgesInputSet, GetBadgesResultSet, GetBadgesChoreographyExecution

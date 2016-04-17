@@ -1,2 +1,0 @@
-from temboo.Library.Google.Elevation.GetLocationElevation import GetLocationElevation, GetLocationElevationInputSet, GetLocationElevationResultSet, GetLocationElevationChoreographyExecution
-from temboo.Library.Google.Elevation.GetPathElevation import GetPathElevation, GetPathElevationInputSet, GetPathElevationResultSet, GetPathElevationChoreographyExecution

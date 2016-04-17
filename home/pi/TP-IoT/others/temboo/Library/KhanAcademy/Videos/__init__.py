@@ -1,2 +1,0 @@
-from temboo.Library.KhanAcademy.Videos.GetVideoByReadableID import GetVideoByReadableID, GetVideoByReadableIDInputSet, GetVideoByReadableIDResultSet, GetVideoByReadableIDChoreographyExecution
-from temboo.Library.KhanAcademy.Videos.GetVideoExercises import GetVideoExercises, GetVideoExercisesInputSet, GetVideoExercisesResultSet, GetVideoExercisesChoreographyExecution

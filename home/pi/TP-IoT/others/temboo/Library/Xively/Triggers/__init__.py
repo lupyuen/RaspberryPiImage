@@ -1,5 +1,0 @@
-from temboo.Library.Xively.Triggers.CreateTrigger import CreateTrigger, CreateTriggerInputSet, CreateTriggerResultSet, CreateTriggerChoreographyExecution
-from temboo.Library.Xively.Triggers.DeleteTrigger import DeleteTrigger, DeleteTriggerInputSet, DeleteTriggerResultSet, DeleteTriggerChoreographyExecution
-from temboo.Library.Xively.Triggers.ListAllTriggers import ListAllTriggers, ListAllTriggersInputSet, ListAllTriggersResultSet, ListAllTriggersChoreographyExecution
-from temboo.Library.Xively.Triggers.ReadTrigger import ReadTrigger, ReadTriggerInputSet, ReadTriggerResultSet, ReadTriggerChoreographyExecution
-from temboo.Library.Xively.Triggers.UpdateTrigger import UpdateTrigger, UpdateTriggerInputSet, UpdateTriggerResultSet, UpdateTriggerChoreographyExecution

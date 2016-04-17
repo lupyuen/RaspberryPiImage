@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 #
 # GrovePi Example for using the Grove Loudness Sensor (http://www.seeedstudio.com/wiki/Grove_-_Loudness_Sensor)
 #

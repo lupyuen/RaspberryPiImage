@@ -1,2 +1,0 @@
-from temboo.Library.Utilities.XML.GetValuesFromXML import GetValuesFromXML, GetValuesFromXMLInputSet, GetValuesFromXMLResultSet, GetValuesFromXMLChoreographyExecution
-from temboo.Library.Utilities.XML.RunXPathQuery import RunXPathQuery, RunXPathQueryInputSet, RunXPathQueryResultSet, RunXPathQueryChoreographyExecution

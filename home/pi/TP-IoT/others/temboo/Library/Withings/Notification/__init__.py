@@ -1,4 +1,0 @@
-from temboo.Library.Withings.Notification.GetSubscription import GetSubscription, GetSubscriptionInputSet, GetSubscriptionResultSet, GetSubscriptionChoreographyExecution
-from temboo.Library.Withings.Notification.ListSubscriptions import ListSubscriptions, ListSubscriptionsInputSet, ListSubscriptionsResultSet, ListSubscriptionsChoreographyExecution
-from temboo.Library.Withings.Notification.RevokeSubscription import RevokeSubscription, RevokeSubscriptionInputSet, RevokeSubscriptionResultSet, RevokeSubscriptionChoreographyExecution
-from temboo.Library.Withings.Notification.Subscribe import Subscribe, SubscribeInputSet, SubscribeResultSet, SubscribeChoreographyExecution

@@ -1,2 +1,0 @@
-from temboo.Library.Twilio.AvailablePhoneNumbers.LocalList import LocalList, LocalListInputSet, LocalListResultSet, LocalListChoreographyExecution
-from temboo.Library.Twilio.AvailablePhoneNumbers.TollFreeList import TollFreeList, TollFreeListInputSet, TollFreeListResultSet, TollFreeListChoreographyExecution

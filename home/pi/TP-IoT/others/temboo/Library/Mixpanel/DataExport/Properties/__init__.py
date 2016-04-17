@@ -1,3 +1,0 @@
-from temboo.Library.Mixpanel.DataExport.Properties.PropertyData import PropertyData, PropertyDataInputSet, PropertyDataResultSet, PropertyDataChoreographyExecution
-from temboo.Library.Mixpanel.DataExport.Properties.TopProperties import TopProperties, TopPropertiesInputSet, TopPropertiesResultSet, TopPropertiesChoreographyExecution
-from temboo.Library.Mixpanel.DataExport.Properties.TopValues import TopValues, TopValuesInputSet, TopValuesResultSet, TopValuesChoreographyExecution

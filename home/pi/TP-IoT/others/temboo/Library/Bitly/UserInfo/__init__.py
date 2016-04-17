@@ -1,2 +1,0 @@
-from temboo.Library.Bitly.UserInfo.GetLinkHistory import GetLinkHistory, GetLinkHistoryInputSet, GetLinkHistoryResultSet, GetLinkHistoryChoreographyExecution
-from temboo.Library.Bitly.UserInfo.GetUserInfo import GetUserInfo, GetUserInfoInputSet, GetUserInfoResultSet, GetUserInfoChoreographyExecution

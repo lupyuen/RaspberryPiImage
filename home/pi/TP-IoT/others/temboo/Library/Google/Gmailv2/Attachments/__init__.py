@@ -1,1 +1,0 @@
-from temboo.Library.Google.Gmailv2.Attachments.GetAttachment import GetAttachment, GetAttachmentInputSet, GetAttachmentResultSet, GetAttachmentChoreographyExecution

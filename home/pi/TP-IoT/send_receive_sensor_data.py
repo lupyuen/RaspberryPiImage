@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 # Send Grove sensor data periodically to AWS IoT and process actuation commands received.
 
@@ -9,14 +9,16 @@ import json
 import paho.mqtt.client as mqtt
 import grovepi
 
-# TODO: Name of our Raspberry Pi, also known as our "Thing Name"
+# TODO: Change this to the name of our Raspberry Pi, also known as our "Thing Name"
 deviceName = "g88_pi"
-# TODO: Public certificate of our Raspberry Pi, as provided by AWS IoT.
-deviceCertificate = "5c46ea701f-certificate.pem.crt"
-# TODO: Private key of our Raspberry Pi, as provided by AWS IoT.
-devicePrivateKey = "5c46ea701f-private.pem.key"
+
+# Public certificate of our Raspberry Pi, as provided by AWS IoT.
+deviceCertificate = "tp-iot-certificate.pem.crt"
+# Private key of our Raspberry Pi, as provided by AWS IoT.
+devicePrivateKey = "tp-iot-private.pem.key"
 # Root certificate to authenticate AWS IoT when we connect to their server.
 awsCert = "aws-iot-rootCA.crt"
+
 isConnected = False
 
 # Assume we connected the Grove Light Sensor to analog port A0,
