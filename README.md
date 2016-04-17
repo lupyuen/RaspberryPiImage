@@ -2,7 +2,7 @@
 This is the Raspberry Pi image for the Temasek Polytechnic Smart IoT Applications course.
 
 The interesting files are here: 
-https://github.com/lupyuen/RaspberryPiImage/tree/master/home/pi/GrovePi/Software/Python
+https://github.com/lupyuen/RaspberryPiImage/tree/master/home/pi/TP-IoT
 
 See also:
 - https://github.com/lupyuen/AWSIOT
