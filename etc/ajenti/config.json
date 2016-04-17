@@ -1,0 +1,84 @@
+{
+    "users": {
+        "pi": {
+            "configs": {
+                "ajenti.plugins.terminal.main.Terminals": "{\"shell\": \"su -c bash pi\"}", 
+                "ajenti.plugins.logs.main.Logs": "{\"root\": \"/var/log\"}", 
+                "ajenti.plugins.dashboard.dash.Dash": "{\"widgets\": [{\"index\": 0, \"container\": \"1\", \"config\": null, \"class\": \"ajenti.plugins.sensors.memory.MemoryWidget\"}, {\"index\": 1, \"container\": \"1\", \"config\": {\"device\": \"/\"}, \"class\": \"ajenti.plugins.fstab.widget.DiskSpaceWidget\"}, {\"index\": 2, \"container\": \"1\", \"config\": {\"device\": \"/\"}, \"class\": \"ajenti.plugins.fstab.widget.DiskFreeSpaceWidget\"}, {\"index\": 0, \"container\": \"0\", \"config\": {\"text\": \"<a target='_blank' href='http://raspberrypi:3000'>Open Web Terminal</a>\"}, \"class\": \"ajenti.plugins.dashboard.text.TextWidget\"}, {\"index\": 1, \"container\": \"0\", \"config\": null, \"class\": \"ajenti.plugins.sensors.cpu.CPUWidget\"}, {\"index\": 2, \"container\": \"0\", \"config\": null, \"class\": \"ajenti.plugins.power.power.PowerWidget\"}]}"
+            }, 
+            "password": "sha512|$6$rounds=60000$lrW7H68DduZOGjp7$uhvf/E/pGQyIhaiML1Iem//b7mRqOA/pYvWk8p0GL3lPgTNRn52T/Yw/uzYwtfjOhemwo/UtXEmMTtIxQonHZ.", 
+            "permissions": [
+                "section:Configurator", 
+                "section:Dash", 
+                "section:PasswordChangeSection", 
+                "section:PluginsPlugin", 
+                "section:Exports", 
+                "section:Services", 
+                "section:Cron", 
+                "section:NTPDPlugin", 
+                "section:Filesystems", 
+                "section:Firewall", 
+                "section:IPv6Firewall", 
+                "section:Hosts", 
+                "section:Logs", 
+                "section:Resolv", 
+                "section:Packages", 
+                "section:TaskManager", 
+                "section:Users", 
+                "section:FileManager", 
+                "section:Notepad", 
+                "section:Tasks", 
+                "widget:CPUWidget", 
+                "widget:DiskSpaceWidget", 
+                "widget:DiskFreeSpaceWidget", 
+                "widget:HDPARMWidget", 
+                "widget:ImmediateIOWidget", 
+                "widget:ImmediateTrafficWidget", 
+                "widget:LoadWidget", 
+                "widget:MemoryWidget", 
+                "widget:PowerWidget", 
+                "widget:ScriptWidget", 
+                "widget:ServiceWidget", 
+                "widget:SwapWidget", 
+                "widget:TextWidget", 
+                "widget:TrafficWidget", 
+                "widget:UptimeWidget", 
+                "widget:WelcomeWidget", 
+                "widget:MyUnameWidget", 
+                "terminal:custom", 
+                "packages:modify", 
+                "packages:refresh", 
+                "power:reboot", 
+                "power:shutdown", 
+                "scripts:run", 
+                "configurator:configure", 
+                "configurator:restart"
+            ]
+        }, 
+        "root": {
+            "configs": {
+                "ajenti.plugins.notepad.notepad.Notepad": "{\"bookmarks\": [], \"root\": \"/\"}", 
+                "ajenti.plugins.terminal.main.Terminals": "{\"shell\": \"sh -c $SHELL || bash\"}", 
+                "ajenti.plugins.logs.main.Logs": "{\"root\": \"/var/log\"}", 
+                "ajenti.plugins.dashboard.dash.Dash": "{\"widgets\": [{\"index\": 0, \"config\": null, \"container\": \"1\", \"class\": \"ajenti.plugins.sensors.memory.MemoryWidget\"}, {\"index\": 1, \"config\": null, \"container\": \"1\", \"class\": \"ajenti.plugins.sensors.memory.SwapWidget\"}, {\"index\": 2, \"config\": null, \"container\": \"1\", \"class\": \"ajenti.plugins.dashboard.welcome.WelcomeWidget\"}, {\"index\": 0, \"config\": null, \"container\": \"0\", \"class\": \"ajenti.plugins.sensors.uptime.UptimeWidget\"}, {\"index\": 1, \"config\": null, \"container\": \"0\", \"class\": \"ajenti.plugins.power.power.PowerWidget\"}, {\"index\": 2, \"config\": null, \"container\": \"0\", \"class\": \"ajenti.plugins.sensors.cpu.CPUWidget\"}]}", 
+                "ajenti.plugins.fm.fm.FileManager": "{\"start\": \"/\", \"root\": \"/\"}", 
+                "ajenti.users.UserManager": "{\"sync-provider\": \"unix\"}", 
+                "ajenti.plugins.tasks.manager.TaskManager": "{\"task_definitions\": []}"
+            }, 
+            "password": "sha512|$6$rounds=40000$nIVrqqz638rB8wOo$VbMv8y2lStgcsYxEuu7JfHiEd06eeiSoIbg7Hvivj9K1vPayaCbAiAqtpyOoIkNfIXFmMD0jK6Dd4WFnvywkY1", 
+            "permissions": []
+        }
+    }, 
+    "language": "", 
+    "bind": {
+        "host": "0.0.0.0", 
+        "port": 8000
+    }, 
+    "enable_feedback": false, 
+    "ssl": {
+        "enable": false, 
+        "certificate_path": ""
+    }, 
+    "authentication": true, 
+    "installation_id": 212942
+}
