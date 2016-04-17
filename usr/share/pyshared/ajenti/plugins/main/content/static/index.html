@@ -2,6 +2,8 @@
 <html class="ui-light">
     <head>
         <meta charset='utf-8' />
+        <!--  Lup Yuen: Include Font Awesome for icons used in text widgets  -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
         <link rel="icon" type="image/png" href="/ajenti:static/main/favicon.png" />
         <title></title>
         <link rel="stylesheet" href="/ajenti:static/resources.css" />
@@ -17,7 +19,8 @@
 
     <body>
         <div id="content-root" style="display: none">
-            <div id="ssl-alert">
+            <!--  Lup Yuen: Don't show SSL alert when running on Raspberry Pi.  -->
+            <div id="ssl-alert" style="visibility: hidden">
                 <i class="icon-white icon-unlock"></i>
                 &nbsp;<b>Insecure communication</b>
                 <br/>
