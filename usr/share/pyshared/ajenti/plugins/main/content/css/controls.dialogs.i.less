@@ -1,0 +1,43 @@
+.control {
+	&.dialog {
+		position: fixed;
+		left: 0;
+		top: 0;
+		width: 100%;
+		height: 100%;
+		overflow: auto;
+		z-index: 100;
+
+		&>.backdrop {
+			background: rgba(0,0,0,0.7);
+			width: 100%;
+			height: 100%;
+			overflow-x: hidden;
+			overflow-y: auto;
+
+			&>.content {
+				width: 400px;
+				margin: 60px auto;
+
+				background: #fbfbfb;
+				.border-radius(5px);
+				border: 2px solid @controlBorder;
+
+				&>.buttons {
+					&>* {
+						float:right;
+					}
+
+					padding: 8px 10px;
+					overflow: hidden;
+					border-top: 1px solid @controlBorder;
+				}
+			}
+		}
+
+	}
+
+	&.dialog.wide > .backdrop > .content {
+		width: 800px;
+	}
+}

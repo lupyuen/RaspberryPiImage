@@ -1,0 +1,47 @@
+<box xmlns:dashboard="dashboard">
+    <vc>
+        <body>
+            <dashboard:header id="header">
+                <hc>
+                    <button text="{Add widget}" icon="plus" id="add-button" />
+                    <tooltip text="{Refresh}">
+                        <togglebutton icon="refresh" style="mini" id="refresh-button" />
+                    </tooltip>
+                    <tooltip text="{Automatic refresh}">
+                        <togglebutton icon="time" style="mini" id="auto-refresh-button" />
+                    </tooltip>
+                </hc>
+            </dashboard:header>
+        </body>
+
+        <body id="update-panel" visible="False">
+            <pad>
+                <right>
+                    <button id="update-ajenti" style="normal big" icon="refresh" text="{Update Ajenti}" />
+                </right>
+                <hc>
+                    <icon icon="warning-sign" style="yellow" />
+                    <label style="bold" text="{Ajenti update is available}" />
+                </hc>
+            </pad>
+        </body>
+
+        <dashboard:dash id="dash" />
+
+        <dialog id="add-dialog" buttons="[{'text': _('Cancel'), 'id': 'cancel'}]" visible="False">
+            <bind:collection id="add-widgets">
+                <pad>
+                    <list bind="__items" />
+                </pad>
+                <bind:template>
+                    <listitem id="listitem">
+                        <hc>
+                            <icon bind="icon" />
+                            <label bind="name" id="button" />
+                        </hc>
+                    </listitem>
+                </bind:template>
+            </bind:collection>
+        </dialog>
+    </vc>
+</box>

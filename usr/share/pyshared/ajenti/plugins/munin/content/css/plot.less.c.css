@@ -1,0 +1,29 @@
+.control.munin-plot {
+  overflow: hidden;
+  border-radius: 5px;
+  box-shadow: 0 1px 3px black;
+  width: 493px;
+  margin: 30px auto;
+  position: relative;
+}
+.control.munin-plot img {
+  max-width: inherit;
+  opacity: .75;
+  margin: -2px;
+}
+.control.munin-plot a {
+  position: absolute !important;
+  right: -5px;
+  top: -5px !important;
+}
+.control.munin-plot.widget-mode {
+  margin: 0;
+  box-shadow: none;
+  width: 340px;
+}
+.control.munin-plot.widget-mode img {
+  width: 344px;
+}
+.control.munin-plot.widget-mode a {
+  display: none;
+}

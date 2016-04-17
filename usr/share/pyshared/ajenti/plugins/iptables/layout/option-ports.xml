@@ -1,0 +1,9 @@
+<hc>
+    <bind:list bind="arguments">
+        <bind:item>
+            <formline text="{Ports}">
+                <textbox bind="value" />
+            </formline>
+        </bind:item>
+    </bind:list>
+</hc>

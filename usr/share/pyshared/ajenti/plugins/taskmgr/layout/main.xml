@@ -1,0 +1,69 @@
+<vc>
+    <body>
+        <pad>
+            <bind:collection bind="processes" id="processes">
+                <box scroll="True" width="750">
+                    <dt bind="__items" style="compressed">
+                        <dtr header="True">
+                            <dth />
+                            <dth forcewidth="80">
+                                <button id="sort-by-pid" style="link" text="PID" />
+                            </dth>
+                            <dth forcewidth="80" text="{Parent}" />
+                            <dth>
+                                <button id="sort-by-_sort_name" style="link" text="{Name}" />
+                            </dth>
+                            <dth text="{Command}" />
+                            <dth forcewidth="80">
+                                <button id="sort-by-_cpu" style="link" text="{CPU}" />
+                            </dth>
+                            <dth forcewidth="80">
+                                <button id="sort-by-_sort_ram" style="link" text="{RAM}" />
+                            </dth>
+                            <dth forcewidth="80" text="{User}" />
+                            <dth forcewidth="60" />
+                        </dtr>
+                    </dt>
+                </box>
+                <bind:template>
+                    <dtr>
+                        <dtd>
+                            <icon icon="cog" />
+                        </dtd>
+                        <dtd>
+                            <label bind="pid" style="bold" />
+                        </dtd>
+                        <dtd>
+                            <label bind="_ppid" />
+                        </dtd>
+                        <dtd forcewidth="100">
+                            <label bind="_name" style="bold" />
+                        </dtd>
+                        <dtd forcewidth="250">
+                            <label bind="_cmd" />   
+                        </dtd>
+                        <dtd>
+                            <label bind="_cpu" />
+                        </dtd>
+                        <dtd>
+                            <label bind="_ram" />
+                        </dtd>
+                        <dtd>
+                            <label bind="_username" />
+                        </dtd>
+                        <dtd>
+                            <hc>
+                                <tooltip text="{Terminate}">
+                                    <button id="term" style="mini" icon="stop" />
+                                </tooltip>
+                                <tooltip text="{Kill}">
+                                    <button id="kill" style="mini" icon="trash" />
+                                </tooltip>
+                            </hc>
+                        </dtd>
+                    </dtr>
+                </bind:template>
+            </bind:collection>
+        </pad>
+    </body>
+</vc> 

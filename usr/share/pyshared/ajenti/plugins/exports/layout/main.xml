@@ -1,0 +1,63 @@
+<vc>
+    <body>
+        <pad>
+            <box width="750">
+                <bind:collection bind="exports" id="exports">
+                    <dt bind="__items" addrow="{Add}" />
+                    <bind:template>
+                        <collapserow>
+                            <box>
+                                <right>
+                                    <button bind="__delete" icon="remove" style="icon" warning="{Confirm deletion}" />
+                                </right>
+                                <hc>
+                                    <icon icon="hdd" />
+                                    <label bind="name" />
+                                </hc>
+                            </box>
+
+                            <pad>
+                                <vc>
+                                    <formline text="{Directory}">
+                                        <pathbox directory="True" bind="name" />
+                                    </formline>
+                                    <vc>
+                                        <bind:collection id="clients" bind="clients">
+                                            <formline text="{Clients}">
+                                                <dt bind="__items" addrow="{Add}">
+                                                    <dtr header="True">
+                                                        <dth width="1" />
+                                                        <dth text="{Address}" />
+                                                        <dth text="{Options}" />
+                                                        <dth width="1" />
+                                                    </dtr>
+                                                </dt>
+                                            </formline>
+                                            <bind:template>
+                                                <dtr>
+                                                    <dtd>
+                                                        <icon icon="desktop" />
+                                                    </dtd>
+                                                    <dtd>
+                                                        <textbox bind="name" />
+                                                    </dtd>
+                                                    <dtd>
+                                                        <textbox bind="options" />
+                                                    </dtd>
+                                                    <dtd>
+                                                        <button bind="__delete" icon="remove" style="icon" />
+                                                    </dtd>
+                                                </dtr>
+                                            </bind:template>
+                                        </bind:collection>
+                                    </vc>
+                                </vc>
+                            </pad>
+                        </collapserow>
+                    </bind:template>
+                </bind:collection>
+            </box>
+        </pad>
+    </body>
+    <button id="save" text="{Save}" icon="ok" />
+</vc>

@@ -1,0 +1,3 @@
+<hc xmlns:munin="munin">
+    <munin:plot id="plot" widget="True" />
+</hc>

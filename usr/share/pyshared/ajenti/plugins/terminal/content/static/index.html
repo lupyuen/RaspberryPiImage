@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset='utf-8' />
+        <title></title>
+        <link rel="stylesheet" href="/ajenti:static/resources.css" />
+        <script src="/ajenti:static/resources.js"></script>
+        <link href='//fonts.googleapis.com/css?family=Ubuntu+Mono:400,700' rel='stylesheet' type='text/css'>
+    </head>
+    
+    <body class="terminal">
+        <div id="term">
+        </div>
+        <div id="paste">
+            <textarea id="paste-input" placeholder="Paste here"></textarea>
+        </div>
+
+        <div id="loading" class="full-overlay">
+            <div class="spinner"></div>
+        </div>
+        
+        <script>
+            new Terminal();
+        </script>
+    </body>
+</html>

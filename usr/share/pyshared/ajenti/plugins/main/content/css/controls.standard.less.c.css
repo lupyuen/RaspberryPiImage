@@ -1,0 +1,691 @@
+.clearfix {
+  *zoom: 1;
+}
+.clearfix:before,
+.clearfix:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+.clearfix:after {
+  clear: both;
+}
+.hide-text {
+  font: 0/0 a;
+  color: transparent;
+  text-shadow: none;
+  background-color: transparent;
+  border: 0;
+}
+.input-block-level {
+  display: block;
+  width: 100%;
+  min-height: 30px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.control-inset {
+  width: 150px;
+  height: 26px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 2px solid #eee;
+  background: white;
+}
+.control-textinput {
+  color: #7c8c99;
+  font-family: "Open Sans", sans-serif;
+  font-size: 11px;
+  padding: 0 4px;
+  width: 150px;
+  height: 26px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 2px solid #eee;
+  background: white;
+}
+.control-textinput:hover {
+  border-color: #eee;
+}
+.control-textinput:focus {
+  border-color: #ed930d;
+}
+.actionlink {
+  display: inline-block;
+  color: #7c8c99;
+  min-height: 0;
+  padding: 7px 0 0px;
+  line-height: normal;
+  border-bottom: 1px dotted #99a5af;
+  margin: 1px 0 3px;
+  cursor: pointer;
+  width: auto;
+}
+.actionlink:hover {
+  color: #99a5af;
+  border-bottom: 1px dotted #c4cbd1;
+}
+.changed-badge {
+  position: relative;
+}
+.changed-badge span {
+  position: absolute;
+  display: block;
+  z-index: 3;
+  right: 2px;
+  top: -5px;
+  font-size: 24px;
+  font-weight: bold;
+  color: #ed930d;
+}
+.control {
+  display: block;
+  margin: 1px;
+}
+.control:after {
+  content: ".";
+  display: block;
+  clear: both;
+  visibility: hidden;
+  line-height: 0;
+  height: 0;
+  font-size: 0;
+}
+.control.mini {
+  width: 50px !important;
+}
+.control.big {
+  width: 240px !important;
+}
+.control.container {
+  margin: 0;
+}
+.control.pad {
+  padding: 10px;
+}
+.control.indent {
+  padding: 0 10px;
+}
+.control.center {
+  text-align: center;
+}
+.control.center > div {
+  display: inline-block;
+  margin: auto;
+}
+.control.right {
+  float: right;
+}
+.control.box {
+  overflow: visible;
+}
+.control.hc {
+  white-space: nowrap;
+}
+.control.hc > tbody > tr > td {
+  vertical-align: top;
+  padding: 0;
+}
+.control.vc > div {
+  padding-bottom: 5px;
+}
+.control.vc > div:last-child {
+  padding-bottom: 0;
+}
+.control.vc.nopad > div {
+  padding-bottom: 0;
+}
+.control.label {
+  text-decoration: none;
+  color: #7c8c99;
+  line-height: 30px;
+  min-height: 30px;
+  display: inline-block;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+  max-width: 100%;
+}
+.control.label.bold {
+  font-weight: bold;
+}
+.control.label.small {
+  font-size: 9.9px;
+  height: auto;
+}
+.control.tooltip {
+  position: relative;
+  display: inline-block;
+  overflow: visible;
+  margin: 0;
+}
+.control.tooltip.body {
+  position: relative;
+}
+.control.tooltip.body > :last-child {
+  display: block;
+  width: 1px;
+  margin-left: 10px;
+  border-style: solid;
+  border-color: rgba(0, 0, 0, 0.75) transparent;
+  border-width: 5px 5px 0 5px;
+}
+.control.tooltip.body > :first-child {
+  display: block;
+  background: rgba(0, 0, 0, 0.75);
+  color: white;
+  padding: 3px 8px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+}
+.control.tooltip:hover > .tip {
+  display: block;
+  opacity: 1;
+}
+.control.icon {
+  width: 16px;
+  height: 30px;
+  display: inline-block;
+  line-height: 23.1px;
+}
+.control.icon i {
+  display: block;
+}
+.control.icon.style-yellow i:before {
+  color: #ed930d;
+}
+.control.button {
+  width: 120px;
+  height: auto;
+  padding: 6px 0 5px;
+  text-decoration: none;
+  color: #7c8c99;
+}
+.control.button.style-normal {
+  background: #fcfcfc;
+  font-size: 11px;
+  font-weight: bold;
+  text-align: center;
+  text-transform: uppercase;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 2px solid #eee;
+  position: relative;
+}
+.control.button.style-normal,
+.control.button.style-normal i::before {
+  color: rgba(0, 0, 0, 0.45);
+}
+.control.button.style-normal:hover {
+  background: #ffffff;
+}
+.control.button.style-normal:active {
+  background: #ffffff;
+  border-color: #ed930d;
+}
+.control.button.style-link {
+  display: inline-block;
+  color: #7c8c99;
+  min-height: 0;
+  padding: 7px 0 0px;
+  line-height: normal;
+  border-bottom: 1px dotted #99a5af;
+  margin: 1px 0 3px;
+  cursor: pointer;
+  width: auto;
+}
+.control.button.style-link:hover {
+  color: #99a5af;
+  border-bottom: 1px dotted #c4cbd1;
+}
+.control.button.style-mini {
+  background: #fcfcfc;
+  font-size: 11px;
+  font-weight: bold;
+  text-align: center;
+  text-transform: uppercase;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 2px solid #eee;
+  position: relative;
+  min-width: 20px;
+  width: auto;
+  display: inline-block;
+  padding: 5px 4px 6px;
+}
+.control.button.style-mini,
+.control.button.style-mini i::before {
+  color: rgba(0, 0, 0, 0.45);
+}
+.control.button.style-mini:hover {
+  background: #ffffff;
+}
+.control.button.style-mini:active {
+  background: #ffffff;
+  border-color: #ed930d;
+}
+.control.button.style-raw {
+  width: auto;
+}
+.control.button.pressed {
+  background: #ffffff;
+  border-color: #ed930d;
+}
+.control.button i {
+  top: 1px;
+  position: relative;
+  color: black;
+}
+.control.button.style-icon {
+  background: #fcfcfc;
+  font-size: 11px;
+  font-weight: bold;
+  text-align: center;
+  text-transform: uppercase;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 2px solid #eee;
+  position: relative;
+  min-width: 20px;
+  width: auto;
+  padding: 5px 4px 6px;
+  opacity: .75;
+}
+.control.button.style-icon,
+.control.button.style-icon i::before {
+  color: rgba(0, 0, 0, 0.45);
+}
+.control.button.style-icon:hover {
+  background: #ffffff;
+}
+.control.button.style-icon:active {
+  background: #ffffff;
+  border-color: #ed930d;
+}
+.control.textbox {
+  color: #7c8c99;
+  font-family: "Open Sans", sans-serif;
+  font-size: 11px;
+  padding: 0 4px;
+  width: 150px;
+  height: 26px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 2px solid #eee;
+  background: white;
+}
+.control.textbox:hover {
+  border-color: #eee;
+}
+.control.textbox:focus {
+  border-color: #ed930d;
+}
+.control.datetime {
+  position: relative;
+}
+.control.datetime > .date,
+.control.datetime > .time {
+  width: 125px;
+  display: inline-block;
+}
+.control.editable i:before {
+  top: 1px;
+}
+.control.editable > .label {
+  display: inline-block;
+  color: #7c8c99;
+  min-height: 0;
+  padding: 7px 0 0px;
+  line-height: normal;
+  border-bottom: 1px dotted #99a5af;
+  margin: 1px 0 3px;
+  cursor: pointer;
+  width: auto;
+}
+.control.editable > .label:hover {
+  color: #99a5af;
+  border-bottom: 1px dotted #c4cbd1;
+}
+.control.checkbox {
+  white-space: nowrap;
+}
+.control.checkbox > .label {
+  float: left;
+}
+.control.checkbox > input {
+  float: left;
+  display: none;
+}
+.control.checkbox > input + label {
+  float: left;
+  margin: 4px 7px 0 1px;
+  width: 18px;
+  height: 18px;
+  padding: 1px;
+  background: #ffffff;
+  font-size: 11px;
+  font-weight: bold;
+  text-align: center;
+  text-transform: uppercase;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 2px solid #eee;
+  position: relative;
+}
+.control.checkbox > input + label,
+.control.checkbox > input + label i::before {
+  color: rgba(0, 0, 0, 0.45);
+}
+.control.checkbox > input + label:hover {
+  background: #ffffff;
+}
+.control.checkbox > input + label:active {
+  background: #ffffff;
+  border-color: #ed930d;
+}
+.control.checkbox > input + label .tick {
+  -webkit-transition: 0.125s;
+  -moz-transition: 0.125s;
+  -o-transition: 0.125s;
+  transition: 0.125s;
+  opacity: 0;
+}
+.control.checkbox > input:checked + label {
+  border-color: #ed930d;
+  background: #f8c881;
+}
+.control.checkbox > input:checked + label .tick {
+  opacity: 1;
+  padding-top: 1px;
+}
+.control.checkbox > input:checked + label .tick::before {
+  color: #bd750a;
+}
+.control.checkbox .label {
+  margin: 0;
+}
+.control.dropdown {
+  width: 160px;
+  height: 32px;
+}
+.control.combobox {
+  color: #7c8c99;
+  font-family: "Open Sans", sans-serif;
+  font-size: 11px;
+  padding: 0 4px;
+  width: 150px;
+  height: 26px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 2px solid #eee;
+  background: white;
+}
+.control.combobox:hover {
+  border-color: #eee;
+}
+.control.combobox:focus {
+  border-color: #ed930d;
+}
+.control.formline > div:first-child {
+  width: 120px;
+  text-align: right;
+  padding-right: 20px;
+  float: left;
+}
+.control.formline > div:last-child {
+  float: left;
+}
+.control.formline > div {
+  padding: 1px;
+}
+.control.formgroup > div:first-child {
+  color: #b5bec6;
+  text-transform: uppercase;
+  font-weight: bold;
+  border-bottom: 2px solid #eee;
+}
+.control.formgroup > div:last-child {
+  padding: 10px 0;
+}
+.control.collapse > .header {
+  cursor: pointer;
+}
+.control.collapserow {
+  padding: 0 !important;
+}
+.control.collapserow > .header {
+  padding: 5px;
+}
+.control.collapserow > .header:hover {
+  background: #fff;
+}
+.control.collapserow > .children,
+.control.collapserow > * > .children {
+  background: white !important;
+  padding: 5px;
+  border-top: 1px solid #eee;
+}
+.control.list {
+  width: 150px;
+  height: 26px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 2px solid #eee;
+  background: white;
+  width: auto;
+  height: auto;
+}
+.control.list > div {
+  border-bottom: 1px solid #eee;
+  cursor: default;
+}
+.control.list > div:last-child {
+  border-bottom: none;
+}
+.control.listitem {
+  padding: 0 5px;
+}
+.control.listitem:active {
+  background: #f5b351;
+}
+.control.listitem:active *,
+.control.listitem:active *:before {
+  color: white;
+}
+.control.table {
+  display: table;
+  margin: 1px;
+  width: 99%;
+  border-spacing: 0;
+  border: 1px solid #eee;
+  -webkit-border-radius: 1px;
+  -moz-border-radius: 1px;
+  border-radius: 1px;
+}
+.control.table.wide {
+  table-layout: fixed;
+}
+.control.table.compressed > tbody > tr > td {
+  padding: 2px 5px 0;
+}
+.control.table.has-filterrow > tbody > tr.filterrow,
+.control.table.has-addrow > tbody > tr.addrow,
+.control.table.empty > tbody > tr.emptyrow {
+  display: table-row !important;
+}
+.control.table > tbody {
+  margin: 0;
+}
+.control.table > tbody > tr {
+  margin: 0;
+}
+.control.table > tbody > tr.emptyrow,
+.control.table > tbody > tr.addrow,
+.control.table > tbody > tr.filterrow {
+  display: none;
+}
+.control.table > tbody > tr.filterrow td {
+  background: #fefefe;
+  border-top: 1px solid #eee;
+  line-height: 18px;
+  padding: 5px !important;
+  border-bottom: 1px solid #eee;
+}
+.control.table > tbody > tr.filterrow td i::before {
+  color: #888;
+}
+.control.table > tbody > tr.filterrow td input {
+  background: transparent;
+  width: 75%;
+  color: #888;
+  border: none;
+  height: 20px;
+}
+.control.table > tbody > tr.emptyrow td {
+  padding: 10px;
+  text-align: center;
+  color: #888;
+}
+.control.table > tbody > tr.addrow td {
+  padding: 0;
+  border-top: 1px solid #eee;
+}
+.control.table > tbody > tr.addrow td a {
+  line-height: 17px;
+  display: block;
+  padding: 10px;
+  text-align: center;
+  color: rgba(0, 0, 0, 0.75);
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+  text-transform: uppercase;
+  font-weight: bold;
+  opacity: .5;
+  background: #fcfcfc;
+}
+.control.table > tbody > tr.addrow td a:hover {
+  opacity: 1;
+  background: white;
+}
+.control.table > tbody > tr > th {
+  padding-top: 3px;
+  color: #7c8c99;
+}
+.control.table > tbody > tr > td {
+  overflow: hidden;
+  background: #fcfcfc;
+  border: 1px solid #f0f0f0;
+  border-width: 1px 0 0 1px;
+  padding: 3px 5px 5px;
+  vertical-align: top;
+}
+.control.table > tbody > tr:first-child td {
+  border-top: none;
+}
+.control.table > tbody > tr > *:first-child {
+  border-left: none !important;
+}
+.control.table > tbody > tr > th {
+  background: #f6f6f6;
+  padding: 10px 7px;
+  border-left: 1px solid #e3e3e3;
+  border-bottom: 2px solid #f0f0f0;
+  font-weight: bold;
+  text-align: left;
+}
+.control.table > tbody > tr > th:last-child {
+  border-right-width: 0px;
+}
+.control.table > tbody > tr > th.nopad {
+  padding: 0 7px;
+}
+.control.layout-table > tbody > tr > td {
+  padding: 0 5px;
+}
+.control.progressbar {
+  margin: 8px 1px;
+  height: 17px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  background: #eee;
+}
+.control.progressbar div.fill {
+  height: 17px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  background: #f5b351;
+  position: relative;
+  overflow: hidden;
+}
+.control.paging {
+  overflow: hidden;
+  padding: 5px 0;
+}
+.control.paging > * {
+  float: left;
+}
+.control.paging .select2-container {
+  margin: 0 5px;
+}
+.control.paging .select2-container .select2-choice {
+  width: 70px;
+}
+.control.pathbox {
+  overflow: hidden;
+}
+.control.pathbox > * {
+  float: left;
+}
+.control.tabs {
+  position: relative;
+  padding: .2em;
+  overflow: hidden;
+}
+.control.tabs > ul {
+  overflow: hidden;
+  margin: 0;
+  padding: .2em .2em 0;
+}
+.control.tabs > ul li {
+  list-style: none;
+  float: left;
+  position: relative;
+  top: 0;
+  margin: 1px .5em 0 0;
+  white-space: nowrap;
+  border-bottom: 3px solid #eee;
+}
+.control.tabs > ul li:hover {
+  background: rgba(0, 0, 0, 0.1);
+}
+.control.tabs > ul li a {
+  float: left;
+  font-weight: bold;
+  padding: 4px 10px;
+  color: #7c8c99;
+  text-decoration: none;
+}
+.control.tabs > ul li.active {
+  background: #ed930d;
+  border-color: #d5840c;
+}
+.control.tabs > ul li.active > a {
+  color: white;
+}
+.control.tabs > div > div {
+  display: block;
+  border-width: 0;
+  padding: 1em 0;
+  background: none;
+}

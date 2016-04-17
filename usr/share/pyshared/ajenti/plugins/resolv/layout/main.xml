@@ -1,0 +1,36 @@
+<vc>
+    <body>
+        <pad id="resolv-config">
+            <bind:collection bind="items" id="items">
+                <dt bind="__items" addrow="{Add}" />
+                <bind:template>
+                    <collapserow>
+                        <box>
+                            <right>
+                                <button bind="__delete" icon="remove" style="icon" warning="{Confirm deletion}" />
+                            </right>
+                            <hc>
+                                <icon icon="globe" />
+                                <label bind="name" />
+                                <label bind="value" />
+                            </hc>
+                        </box>
+
+                        <pad>
+                            <vc>
+                                <formline text="{Type}">
+                                    <dropdown id="name-box" bind="name" />
+                                </formline>
+                                <formline text="{Value}">
+                                    <textbox bind="value" />
+                                </formline>
+                            </vc>
+                        </pad>
+                    </collapserow>
+                </bind:template>
+            </bind:collection>
+        </pad>
+    </body>
+
+    <button id="save" icon="ok" text="{Save}" />
+</vc>

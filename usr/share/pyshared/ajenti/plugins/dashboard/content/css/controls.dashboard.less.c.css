@@ -1,0 +1,275 @@
+.clearfix {
+  *zoom: 1;
+}
+.clearfix:before,
+.clearfix:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+.clearfix:after {
+  clear: both;
+}
+.hide-text {
+  font: 0/0 a;
+  color: transparent;
+  text-shadow: none;
+  background-color: transparent;
+  border: 0;
+}
+.input-block-level {
+  display: block;
+  width: 100%;
+  min-height: 30px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.control.dashboard-dash > .container {
+  float: left;
+  padding-top: 10px;
+  width: 394px;
+  min-height: 200px;
+}
+.control.dashboard-dash > .container.container-1 {
+  padding-left: 10px;
+  margin: 0 -1px 0 0;
+}
+.control.dashboard-dash > .container > .placeholder {
+  border: 2px dashed #68a;
+  height: 40px;
+  width: 100%;
+  padding: 10px 5px;
+  margin: 5px 0;
+  box-sizing: border-box;
+}
+.control.dashboard-dash > .container.trash {
+  display: none;
+  border: 2px dashed #a86;
+  box-sizing: border-box;
+  width: 100%;
+  font-weight: bold;
+  padding: 20px 0;
+  text-align: center;
+  float: none;
+  clear: both;
+  min-height: 0;
+}
+.control.dashboard-dash > .container.trash i:before {
+  color: #a86;
+  font-size: 60px;
+}
+.control.dashboard-dash > .container.trash .placeholder {
+  display: none;
+}
+.control.dashboard-widget {
+  padding: 10px 5px 10px 4px;
+  box-sizing: border-box;
+  border-radius: 3px;
+  border: 1px solid #eee;
+  margin: 0 0 10px;
+  background: white;
+  position: relative;
+}
+.control.dashboard-widget > .handle {
+  width: 8px;
+  height: 30px;
+  background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAYAAAAGCAYAAADgzO9IAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH2wkeCyEzNuGfhQAAABl0RVh0Q29tbWVudABDcmVhdGVkIHdpdGggR0lNUFeBDhcAAAAVSURBVAjXYzh9+vR/BnyAeAXUMwoAFlwUQUDbs/QAAAAASUVORK5CYII=') repeat;
+  float: left;
+  margin: 0 5px 0 5px;
+  opacity: 0;
+  cursor: move;
+}
+.control.dashboard-widget:hover > .handle {
+  opacity: .75;
+}
+.control.dashboard-widget > .content {
+  float: left;
+}
+.control.dashboard-widget.ui-sortable-helper {
+  background: white;
+  box-shadow: 10px 10px 0 rgba(0, 0, 0, 0.0625);
+}
+.control.dashboard-widget > a {
+  position: absolute;
+  top: -10px;
+  color: white;
+  width: 19px;
+  height: 19px;
+  text-align: center;
+  line-height: 17px;
+  border-radius: 10px;
+  opacity: 0;
+  -webkit-transition: 0.25s opacity;
+  -moz-transition: 0.25s opacity;
+  -o-transition: 0.25s opacity;
+  transition: 0.25s opacity;
+  transition-delay: 0;
+}
+.control.dashboard-widget > a *::before {
+  color: white;
+}
+.control.dashboard-widget > .configure {
+  right: 25px;
+  background: #aaa;
+}
+.control.dashboard-widget > .configure:hover {
+  background: #bbb;
+}
+.control.dashboard-widget > .delete {
+  right: 1px;
+  background: #F56D51;
+}
+.control.dashboard-widget > .delete:hover {
+  background: #FF3B12;
+}
+.control.dashboard-widget:hover > a {
+  opacity: 1;
+  -webkit-transition: 2s opacity;
+  -moz-transition: 2s opacity;
+  -o-transition: 2s opacity;
+  transition: 2s opacity;
+  transition-delay: 1s;
+}
+.control .label.dashboard-host {
+  font-size: 20px;
+  margin: 0 0 0 10px;
+  font-weight: bold;
+  color: rgba(255, 255, 255, 0.75);
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.5);
+}
+.control.dashboard-header > .icon {
+  float: left;
+  width: 60px;
+  height: 60px;
+  margin: 10px;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  border-radius: 2px;
+  border: 1px solid rgba(0, 0, 0, 0.25);
+  position: relative;
+}
+.control.dashboard-header > .icon.ubuntu {
+  background-color: #FF9900;
+  background-image: -webkit-gradient(radial, center center, 0, center center, 460, from(#FFD18C), to(#FF9900));
+  background-image: -webkit-radial-gradient(circle, #FFD18C, #FF9900);
+  background-image: -moz-radial-gradient(circle, #FFD18C, #FF9900);
+  background-image: -o-radial-gradient(circle, #FFD18C, #FF9900);
+  background-repeat: no-repeat;
+}
+.control.dashboard-header > .icon.ubuntu > .image.ubuntu {
+  display: block;
+}
+.control.dashboard-header > .icon.debian {
+  background-color: #6D0329;
+  background-image: -webkit-gradient(radial, center center, 0, center center, 460, from(#f94b89), to(#6D0329));
+  background-image: -webkit-radial-gradient(circle, #f94b89, #6D0329);
+  background-image: -moz-radial-gradient(circle, #f94b89, #6D0329);
+  background-image: -o-radial-gradient(circle, #f94b89, #6D0329);
+  background-repeat: no-repeat;
+}
+.control.dashboard-header > .icon.debian > .image.debian {
+  display: block;
+}
+.control.dashboard-header > .icon.centos {
+  background-color: #601950;
+  background-image: -webkit-gradient(radial, center center, 0, center center, 460, from(#d447b4), to(#601950));
+  background-image: -webkit-radial-gradient(circle, #d447b4, #601950);
+  background-image: -moz-radial-gradient(circle, #d447b4, #601950);
+  background-image: -o-radial-gradient(circle, #d447b4, #601950);
+  background-repeat: no-repeat;
+}
+.control.dashboard-header > .icon.centos > .image.centos {
+  display: block;
+}
+.control.dashboard-header > .icon.rhel {
+  background-color: #8A2222;
+  background-image: -webkit-gradient(radial, center center, 0, center center, 460, from(#ff6666), to(#8A2222));
+  background-image: -webkit-radial-gradient(circle, #ff6666, #8A2222);
+  background-image: -moz-radial-gradient(circle, #ff6666, #8A2222);
+  background-image: -o-radial-gradient(circle, #ff6666, #8A2222);
+  background-repeat: no-repeat;
+}
+.control.dashboard-header > .icon.rhel > .image.rhel {
+  display: block;
+}
+.control.dashboard-header > .icon.freebsd {
+  background-color: #6A0606;
+  background-image: -webkit-gradient(radial, center center, 0, center center, 460, from(#ff6666), to(#6A0606));
+  background-image: -webkit-radial-gradient(circle, #ff6666, #6A0606);
+  background-image: -moz-radial-gradient(circle, #ff6666, #6A0606);
+  background-image: -o-radial-gradient(circle, #ff6666, #6A0606);
+  background-repeat: no-repeat;
+}
+.control.dashboard-header > .icon.freebsd > .image.freebsd {
+  display: block;
+}
+.control.dashboard-header > .icon.arch {
+  background-color: #0A405B;
+  background-image: -webkit-gradient(radial, center center, 0, center center, 460, from(#60bfee), to(#0A405B));
+  background-image: -webkit-radial-gradient(circle, #60bfee, #0A405B);
+  background-image: -moz-radial-gradient(circle, #60bfee, #0A405B);
+  background-image: -o-radial-gradient(circle, #60bfee, #0A405B);
+  background-repeat: no-repeat;
+}
+.control.dashboard-header > .icon.arch > .image.arch {
+  display: block;
+}
+.control.dashboard-header > .icon.osx {
+  background-color: #08364d;
+  background-image: -webkit-gradient(radial, center center, 0, center center, 460, from(#1BB0A5), to(#08364d));
+  background-image: -webkit-radial-gradient(circle, #1BB0A5, #08364d);
+  background-image: -moz-radial-gradient(circle, #1BB0A5, #08364d);
+  background-image: -o-radial-gradient(circle, #1BB0A5, #08364d);
+  background-repeat: no-repeat;
+}
+.control.dashboard-header > .icon.osx > .image.osx {
+  display: block;
+}
+.control.dashboard-header > .icon > .bar {
+  position: absolute;
+  width: 62px;
+  padding: 4px 0 5px;
+  bottom: -1px;
+  left: -1px;
+  -webkit-border-radius: 0 0 2px 2px;
+  -moz-border-radius: 0 0 2px 2px;
+  border-radius: 0 0 2px 2px;
+  background: #555;
+  color: white;
+  text-transform: uppercase;
+  text-align: center;
+  font-weight: bold;
+  font-size: 10px;
+}
+.control.dashboard-header > .icon > .image {
+  width: 32px;
+  height: 32px;
+  position: absolute;
+  left: 50%;
+  top: 30%;
+  margin: -16px;
+  display: none;
+}
+.control.dashboard-header > .labels {
+  float: left;
+  padding: 8px 0 0;
+}
+.control.dashboard-header > .labels .hostname {
+  font-size: 24px;
+  color: #888;
+  text-shadow: 0 1px 0 #eee;
+  font-weight: bold;
+}
+.control.dashboard-header > .labels .distro {
+  font-size: 16px;
+  color: #aaa;
+}
+.control.dashboard-header > .inner {
+  float: right;
+  padding: 20px;
+}
+.control.welcome {
+  width: 350px;
+  color: #444;
+}

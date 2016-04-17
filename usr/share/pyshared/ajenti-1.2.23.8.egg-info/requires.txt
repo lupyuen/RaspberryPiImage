@@ -1,0 +1,14 @@
+gevent==1.1b4
+gevent-socketio
+gevent-websocket
+lxml>=2.2.4
+passlib
+psutil>=0.6.0
+python-catcher
+python-daemon
+python-exconsole>=0.1.5
+python-ldap
+requests>=0.12.0
+reconfigure>=0.1.43
+pyOpenSSL
+Pillow

@@ -1,0 +1,25 @@
+<vc>
+    <box>
+        <right>
+            <hc>
+                <textbox id="command" />
+                <button id="run-button" text="{Run}" icon="chevron-right" />
+            </hc>
+        </right>
+        <box>
+            <button id="new-button" text="{New}" icon="plus" />
+        </box>
+    </box>
+    <body>
+        <pad>
+            <box id="list" />
+            <box id="empty">
+                <pad>
+                    <center>
+                        <label text="{No active terminals}" />
+                    </center>
+                </pad>
+            </box>
+        </pad>
+    </body>
+</vc>

@@ -1,0 +1,20 @@
+<dtr>
+    <dtd>
+        <icon bind="_icon" />
+    </dtd>
+    <dtd><label bind="name" /></dtd>
+    <dtd><label bind="version" /></dtd>
+    <dtd>
+        <hc>
+            <tooltip text="{Mark for installation/upgrade}">
+                <button id="install" style="mini" icon="ok" />
+            </tooltip>
+            <tooltip text="{Mark for removal}">
+                <button id="remove" style="mini" icon="remove" />
+            </tooltip>
+            <tooltip text="{Cancel}">
+                <button id="cancel" style="mini" icon="remove-sign" />
+            </tooltip>
+        </hc>
+    </dtd>
+</dtr>

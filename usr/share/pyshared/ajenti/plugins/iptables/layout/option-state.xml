@@ -1,0 +1,12 @@
+<hc>
+    <bind:list bind="arguments">
+        <bind:item>
+            <formline text="{States}">
+                <combobox bind="value" separator="," 
+                    labels="['NEW','ESTABLISHED','INVALID','RELATED','UNTRACKED']" 
+                    values="['NEW','ESTABLISHED','INVALID','RELATED','UNTRACKED']" 
+                />
+            </formline>
+        </bind:item>
+    </bind:list>
+</hc>

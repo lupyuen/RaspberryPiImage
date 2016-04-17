@@ -1,0 +1,34 @@
+<body>
+    <pad id="main">
+        <bind:collection bind="services" id="services">
+            <dt bind="__items">
+                <dtr header="True">
+                    <dth width="1%" />
+                    <dth text="Name" />
+                    <dth width="10%" text="{Origin}" />
+                    <dth width="1%" text="{Actions}" />
+                </dtr>
+            </dt>
+            <bind:template>
+                <dtr>
+                    <dtd><icon bind="icon" /></dtd>
+                    <dtd><label bind="name" /></dtd>
+                    <dtd><label bind="source" /></dtd>
+                    <dtd>
+                        <hc>
+                            <tooltip text="{Start}">
+                                <button id="start" icon="play" style="mini" />
+                            </tooltip>
+                            <tooltip text="{Stop}">
+                                <button id="stop" icon="stop" style="mini" />
+                            </tooltip>
+                            <tooltip text="{Restart}">
+                                <button id="restart" icon="restart" style="mini" />
+                            </tooltip>
+                        </hc>
+                    </dtd>
+                </dtr>
+            </bind:template>
+        </bind:collection>
+    </pad>
+</body>

@@ -1,0 +1,16 @@
+.control.label.iptables-action {
+  border-radius: 3px;
+  background: #888;
+  color: white;
+  padding: 0 5px;
+  font-weight: bold;
+}
+.control.label.iptables-action.iptables-ACCEPT {
+  background: #62BD00;
+}
+.control.label.iptables-action.iptables-REJECT {
+  background: #F51D1D;
+}
+.control.label.iptables-action.iptables-DROP {
+  background: #E47620;
+}

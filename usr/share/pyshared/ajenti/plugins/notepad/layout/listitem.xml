@@ -1,0 +1,11 @@
+<listitem>
+	<right>
+		<button style="icon" id="close" icon="remove" />
+	</right>
+	<hc>
+		<icon icon="file" id="icon" />
+        <box width="150">
+    		<label id="name" />
+        </box>
+	</hc>
+</listitem>

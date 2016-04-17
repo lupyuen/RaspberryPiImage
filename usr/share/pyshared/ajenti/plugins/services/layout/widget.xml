@@ -1,0 +1,26 @@
+<hc>
+    <box width="20">
+        <icon id="icon" />
+    </box>
+    <box width="250">
+        <label id="name" style="bold" text="---" />
+    </box>
+
+    <tooltip text="{Start}">
+        <button id="start" icon="play" style="mini" visible="False" />
+    </tooltip>
+    <tooltip text="{Stop}">
+        <button id="stop" icon="stop" style="mini" visible="False" />
+    </tooltip>
+    <tooltip text="{Restart}">
+        <button id="restart" icon="restart" style="mini" visible="False" />
+    </tooltip>
+    
+    <dialog id="config-dialog" visible="False">
+        <pad>
+            <formline text="{Service}">
+                <dropdown id="service" bind="service" />
+            </formline>
+        </pad>
+    </dialog>
+</hc>

@@ -1,0 +1,14 @@
+<dtr>
+    <dtd width="150">
+        <label bind="cmdline" style="bold" />
+    </dtd>
+    <dtd>
+        <checkbox bind="negative" text="Invert" />
+    </dtd>
+    <dtd>
+        <box id="slot" />
+    </dtd>
+    <dtd width="1">
+        <button bind="__delete" icon="remove" style="icon" warning="{Confirm deletion}" />
+    </dtd>
+</dtr>

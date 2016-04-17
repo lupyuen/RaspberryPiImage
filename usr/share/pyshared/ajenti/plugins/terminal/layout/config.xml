@@ -1,0 +1,7 @@
+<box>
+    <vc binder:context="classconfig">
+        <formline text="{Default shell}">
+            <textbox bind="[shell]" />
+        </formline>
+    </vc>
+</box>

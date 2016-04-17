@@ -1,0 +1,22 @@
+<hc>
+    <box width="275">
+        <label id="name" style="bold" text="---" />
+    </box>
+
+    <button style="mini" id="edit" icon="edit" />
+    <button style="mini" id="start" icon="play" />
+
+    <dialog id="config-dialog" visible="False">
+        <pad>
+            <formline text="{Name}">
+                <textbox id="title" />
+            </formline>
+            <formline text="{Command}">
+                <pathbox id="command" />
+            </formline>
+            <formline>
+                <checkbox id="terminal" text="{Run in terminal}" />
+            </formline>
+        </pad>
+    </dialog>
+</hc>

@@ -1,0 +1,161 @@
+<vc>
+    <body>
+        <pad>
+            <tabs id="tabs">
+                <tab title="{General}">
+                    <vc id="ajenti-config">
+                        <formgroup text="{General}">
+                            <vc>
+                                <formline text="{Language}">
+                                    <dropdown bind="language" id="language" />
+                                </formline>
+                            </vc>
+                        </formgroup>
+                        <formgroup text="{HTTP Server}" binder:context="http_binding">
+                            <vc>
+                                <formline text="{Host}">
+                                    <vc>
+                                        <textbox bind="host" />
+                                        <label style="small" text="{or UNIX socket path}" />
+                                    </vc>
+                                </formline>
+                                <formline text="{Port}">
+                                    <textbox bind="port" type="integer" />
+                                </formline>
+                            </vc>
+                        </formgroup>
+                        <formgroup text="SSL" binder:context="ssl">
+                            <vc>
+                                <formline text="{Use SSL}">
+                                    <checkbox bind="enable" />
+                                </formline>
+                                <formline text="{Path to certificate}">
+                                    <pathbox bind="certificate_path" />
+                                </formline>
+                            </vc>
+                        </formgroup>
+                        <formgroup text="{SSL Self-Signed Certificate Generator}">
+                            <vc>
+                                <formline text="{Hostname}">
+                                    <hc>
+                                        <textbox id="fake-ssl-host" />
+                                        <button id="fake-ssl" text="{Generate}" icon="cogs" />
+                                    </hc>
+                                </formline>
+                            </vc>
+                        </formgroup>
+                        <formgroup text="{Users}">
+                            <vc>
+                                <formline text="{Authentication}">
+                                    <checkbox text="{Enable}" bind="authentication" />
+                                </formline>
+                                <formline text="{Sync with}">
+                                    <vc>
+                                        <hc>
+                                            <dropdown id="sync-providers" />
+                                            <button icon="refresh" text="{Sync now}" id="sync-users-button" />
+                                            <button icon="cog" text="{Configure}" id="configure-sync-button" />
+                                        </hc>
+                                        <hc id="sync-status-ok">
+                                            <icon icon="ok" />
+                                            <label text="{Configured correctly}" />
+                                        </hc>
+                                        <hc id="sync-status-fail">
+                                            <icon icon="remove" />
+                                            <label text="{Failed to sync}" />
+                                        </hc>
+                                    </vc>
+                                </formline>
+                                <formline text="{Accounts}">
+                                    <!-- magic: sort so that root is first -->
+                                    <bind:collection
+                                            id="users"
+                                            bind="users"
+                                            values="lambda c: sorted(c.values(), key=lambda x: {'root': ''}.get(x.name, x.name))"
+                                            add_item="lambda i,c: c.update({i.name: i})"
+                                            delete_item="lambda i,c: c.pop(i.name) if i.name != 'root' else None">
+                                        <vc>
+                                            <dt id="users-dt" bind="__items" width="500" />
+                                            <bind:template>
+                                                <collapserow>
+                                                    <box>
+                                                        <right>
+                                                            <hc>
+                                                                <tooltip text="{Duplicate}">
+                                                                    <button id="copy" icon="copy" style="mini" />
+                                                                </tooltip>
+                                                                <button id="delete" bind="__delete" icon="remove" style="mini" warning="{Confirm deletion}" />
+                                                            </hc>
+                                                        </right>
+                                                        <hc>
+                                                            <icon icon="user" />
+                                                            <box width="100">
+                                                                <editable bind="name" style="mini" id="name-edit" />
+                                                                <label bind="name" style="mini" id="name-label" />
+                                                            </box>
+                                                            <editable id="password" bind="password" placeholder="{Change password}" icon="lock" />
+                                                        </hc>
+                                                    </box>
+                                                    <vc>
+                                                        <formgroup text="{General}">
+                                                            <formline text="E-mail">
+                                                                <textbox bind="email" />
+                                                            </formline>
+                                                        </formgroup>
+                                                        <formgroup text="{Permissions}" bind:visible="name" bindtransform="lambda x: x != 'root'">
+                                                            <tabs id="permissions" client="True" />
+                                                        </formgroup>
+                                                    </vc>
+                                                </collapserow>
+                                            </bind:template>
+                                        </vc>
+                                    </bind:collection>
+                                </formline>
+                            </vc>
+                        </formgroup>
+                        <formgroup text="{Other}">
+                            <formline text="{Send feedback}">
+                                <vc>
+                                    <checkbox bind="enable_feedback" text="{Enable}" />
+                                    <label style="small" text="{Ajenti will anonymously send its version, your OS name, and which plugins you use most to ajenti.org}" />
+                                </vc>
+                            </formline>
+                        </formgroup>
+                    </vc>
+                </tab>
+
+                <tab title="{Plugins}" id="classconfigs">
+                    <dialog id="dialog" visible="False">
+                        <pad id="container" />
+                    </dialog>
+
+                    <bind:collection bind="classes" id="classes">
+                        <dt bind="__items" />
+
+                        <bind:template>
+                            <dtr>
+                                <dtd width="1" binder:context="classconfig_editor">
+                                    <icon bind="icon" />
+                                </dtd>
+                                <dtd binder:context="classconfig_editor">
+                                    <label style="bold" bind="title" />
+                                </dtd>
+                                <dtd width="1">
+                                    <button id="configure" icon="cog" text="{Configure}" />
+                                </dtd>
+                            </dtr>
+                        </bind:template>
+                    </bind:collection>
+                </tab>
+
+                <tab title="{License}" id="licensing">
+                </tab>
+            </tabs>
+        </pad>
+    </body>
+
+    <hc>
+        <button text="{Save}" id="save-button" icon="ok" />
+        <button text="{Restart}" id="restart-button" icon="refresh" warning="{Restart Ajenti?}" />
+    </hc>
+</vc>
