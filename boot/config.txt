@@ -56,3 +56,8 @@
 dtparam=audio=on
 dtparam=spi=on
 dtparam=i2c_arm=on
+
+# Lup Yuen: Disable the onboard Bluetooth because it interferes with console cable
+# https://www.abelectronics.co.uk/kb/article/1035/raspberry-pi-3-serial-port-usage
+dtoverlay=pi3-miniuart-bt
+
