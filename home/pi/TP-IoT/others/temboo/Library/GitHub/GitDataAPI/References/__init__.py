@@ -1,0 +1,4 @@
+from temboo.Library.GitHub.GitDataAPI.References.CreateReference import CreateReference, CreateReferenceInputSet, CreateReferenceResultSet, CreateReferenceChoreographyExecution
+from temboo.Library.GitHub.GitDataAPI.References.DeleteReference import DeleteReference, DeleteReferenceInputSet, DeleteReferenceResultSet, DeleteReferenceChoreographyExecution
+from temboo.Library.GitHub.GitDataAPI.References.GetAllReferences import GetAllReferences, GetAllReferencesInputSet, GetAllReferencesResultSet, GetAllReferencesChoreographyExecution
+from temboo.Library.GitHub.GitDataAPI.References.GetReference import GetReference, GetReferenceInputSet, GetReferenceResultSet, GetReferenceChoreographyExecution

@@ -1,0 +1,3 @@
+from temboo.Library.YouTube.Videos.DeleteVideo import DeleteVideo, DeleteVideoInputSet, DeleteVideoResultSet, DeleteVideoChoreographyExecution
+from temboo.Library.YouTube.Videos.ListVideosByID import ListVideosByID, ListVideosByIDInputSet, ListVideosByIDResultSet, ListVideosByIDChoreographyExecution
+from temboo.Library.YouTube.Videos.UpdateVideo import UpdateVideo, UpdateVideoInputSet, UpdateVideoResultSet, UpdateVideoChoreographyExecution

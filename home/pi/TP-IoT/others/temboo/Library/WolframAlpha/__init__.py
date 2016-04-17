@@ -1,0 +1,2 @@
+from temboo.Library.WolframAlpha.GetSearchResult import GetSearchResult, GetSearchResultInputSet, GetSearchResultResultSet, GetSearchResultChoreographyExecution
+from temboo.Library.WolframAlpha.Query import Query, QueryInputSet, QueryResultSet, QueryChoreographyExecution

@@ -1,0 +1,3 @@
+from temboo.Library.Flickr.Geo.GetPhotoLocation import GetPhotoLocation, GetPhotoLocationInputSet, GetPhotoLocationResultSet, GetPhotoLocationChoreographyExecution
+from temboo.Library.Flickr.Geo.ListPhotosForLocation import ListPhotosForLocation, ListPhotosForLocationInputSet, ListPhotosForLocationResultSet, ListPhotosForLocationChoreographyExecution
+from temboo.Library.Flickr.Geo.SetPhotoLocation import SetPhotoLocation, SetPhotoLocationInputSet, SetPhotoLocationResultSet, SetPhotoLocationChoreographyExecution

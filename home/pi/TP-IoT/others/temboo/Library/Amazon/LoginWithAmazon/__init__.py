@@ -1,0 +1,2 @@
+from temboo.Library.Amazon.LoginWithAmazon.FinalizeOAuth import FinalizeOAuth, FinalizeOAuthInputSet, FinalizeOAuthResultSet, FinalizeOAuthChoreographyExecution
+from temboo.Library.Amazon.LoginWithAmazon.InitializeOAuth import InitializeOAuth, InitializeOAuthInputSet, InitializeOAuthResultSet, InitializeOAuthChoreographyExecution

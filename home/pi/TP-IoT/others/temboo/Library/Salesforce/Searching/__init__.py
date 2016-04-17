@@ -1,0 +1,2 @@
+from temboo.Library.Salesforce.Searching.Search import Search, SearchInputSet, SearchResultSet, SearchChoreographyExecution
+from temboo.Library.Salesforce.Searching.SearchScopeAndOrder import SearchScopeAndOrder, SearchScopeAndOrderInputSet, SearchScopeAndOrderResultSet, SearchScopeAndOrderChoreographyExecution

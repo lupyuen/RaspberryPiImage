@@ -1,0 +1,5 @@
+from temboo.Library.Google.ComputeEngine.Addresses.AggregatedList import AggregatedList, AggregatedListInputSet, AggregatedListResultSet, AggregatedListChoreographyExecution
+from temboo.Library.Google.ComputeEngine.Addresses.DeleteAddress import DeleteAddress, DeleteAddressInputSet, DeleteAddressResultSet, DeleteAddressChoreographyExecution
+from temboo.Library.Google.ComputeEngine.Addresses.GetAddress import GetAddress, GetAddressInputSet, GetAddressResultSet, GetAddressChoreographyExecution
+from temboo.Library.Google.ComputeEngine.Addresses.InsertAddress import InsertAddress, InsertAddressInputSet, InsertAddressResultSet, InsertAddressChoreographyExecution
+from temboo.Library.Google.ComputeEngine.Addresses.ListAddresses import ListAddresses, ListAddressesInputSet, ListAddressesResultSet, ListAddressesChoreographyExecution

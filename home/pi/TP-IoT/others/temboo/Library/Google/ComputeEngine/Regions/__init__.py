@@ -1,0 +1,2 @@
+from temboo.Library.Google.ComputeEngine.Regions.GetRegion import GetRegion, GetRegionInputSet, GetRegionResultSet, GetRegionChoreographyExecution
+from temboo.Library.Google.ComputeEngine.Regions.ListRegions import ListRegions, ListRegionsInputSet, ListRegionsResultSet, ListRegionsChoreographyExecution

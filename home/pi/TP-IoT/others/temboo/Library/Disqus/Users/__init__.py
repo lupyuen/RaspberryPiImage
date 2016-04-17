@@ -1,0 +1,6 @@
+from temboo.Library.Disqus.Users.CheckUsername import CheckUsername, CheckUsernameInputSet, CheckUsernameResultSet, CheckUsernameChoreographyExecution
+from temboo.Library.Disqus.Users.FollowUser import FollowUser, FollowUserInputSet, FollowUserResultSet, FollowUserChoreographyExecution
+from temboo.Library.Disqus.Users.ListActiveForums import ListActiveForums, ListActiveForumsInputSet, ListActiveForumsResultSet, ListActiveForumsChoreographyExecution
+from temboo.Library.Disqus.Users.ListForums import ListForums, ListForumsInputSet, ListForumsResultSet, ListForumsChoreographyExecution
+from temboo.Library.Disqus.Users.ListPosts import ListPosts, ListPostsInputSet, ListPostsResultSet, ListPostsChoreographyExecution
+from temboo.Library.Disqus.Users.UnfollowUser import UnfollowUser, UnfollowUserInputSet, UnfollowUserResultSet, UnfollowUserChoreographyExecution

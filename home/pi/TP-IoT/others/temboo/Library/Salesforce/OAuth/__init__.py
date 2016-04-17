@@ -1,0 +1,2 @@
+from temboo.Library.Salesforce.OAuth.FinalizeOAuth import FinalizeOAuth, FinalizeOAuthInputSet, FinalizeOAuthResultSet, FinalizeOAuthChoreographyExecution
+from temboo.Library.Salesforce.OAuth.InitializeOAuth import InitializeOAuth, InitializeOAuthInputSet, InitializeOAuthResultSet, InitializeOAuthChoreographyExecution

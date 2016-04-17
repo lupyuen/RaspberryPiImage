@@ -1,0 +1,2 @@
+from temboo.Library.KhanAcademy.OAuth.FinalizeOAuth import FinalizeOAuth, FinalizeOAuthInputSet, FinalizeOAuthResultSet, FinalizeOAuthChoreographyExecution
+from temboo.Library.KhanAcademy.OAuth.InitializeOAuth import InitializeOAuth, InitializeOAuthInputSet, InitializeOAuthResultSet, InitializeOAuthChoreographyExecution

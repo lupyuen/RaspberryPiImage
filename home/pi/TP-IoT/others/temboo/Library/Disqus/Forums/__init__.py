@@ -1,0 +1,9 @@
+from temboo.Library.Disqus.Forums.AddModerator import AddModerator, AddModeratorInputSet, AddModeratorResultSet, AddModeratorChoreographyExecution
+from temboo.Library.Disqus.Forums.CreateForum import CreateForum, CreateForumInputSet, CreateForumResultSet, CreateForumChoreographyExecution
+from temboo.Library.Disqus.Forums.ForumHasViews import ForumHasViews, ForumHasViewsInputSet, ForumHasViewsResultSet, ForumHasViewsChoreographyExecution
+from temboo.Library.Disqus.Forums.GetForumDetails import GetForumDetails, GetForumDetailsInputSet, GetForumDetailsResultSet, GetForumDetailsChoreographyExecution
+from temboo.Library.Disqus.Forums.ListModerators import ListModerators, ListModeratorsInputSet, ListModeratorsResultSet, ListModeratorsChoreographyExecution
+from temboo.Library.Disqus.Forums.ListPosts import ListPosts, ListPostsInputSet, ListPostsResultSet, ListPostsChoreographyExecution
+from temboo.Library.Disqus.Forums.ListThreads import ListThreads, ListThreadsInputSet, ListThreadsResultSet, ListThreadsChoreographyExecution
+from temboo.Library.Disqus.Forums.ListUsers import ListUsers, ListUsersInputSet, ListUsersResultSet, ListUsersChoreographyExecution
+from temboo.Library.Disqus.Forums.RemoveModerator import RemoveModerator, RemoveModeratorInputSet, RemoveModeratorResultSet, RemoveModeratorChoreographyExecution

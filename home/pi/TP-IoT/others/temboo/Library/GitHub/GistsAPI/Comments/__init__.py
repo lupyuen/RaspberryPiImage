@@ -1,0 +1,4 @@
+from temboo.Library.GitHub.GistsAPI.Comments.CreateComment import CreateComment, CreateCommentInputSet, CreateCommentResultSet, CreateCommentChoreographyExecution
+from temboo.Library.GitHub.GistsAPI.Comments.DeleteComment import DeleteComment, DeleteCommentInputSet, DeleteCommentResultSet, DeleteCommentChoreographyExecution
+from temboo.Library.GitHub.GistsAPI.Comments.GetComment import GetComment, GetCommentInputSet, GetCommentResultSet, GetCommentChoreographyExecution
+from temboo.Library.GitHub.GistsAPI.Comments.ListComments import ListComments, ListCommentsInputSet, ListCommentsResultSet, ListCommentsChoreographyExecution

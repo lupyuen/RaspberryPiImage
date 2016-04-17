@@ -1,0 +1,4 @@
+from temboo.Library.Facebook.Actions.Books.Rates.CreateRating import CreateRating, CreateRatingInputSet, CreateRatingResultSet, CreateRatingChoreographyExecution
+from temboo.Library.Facebook.Actions.Books.Rates.DeleteRating import DeleteRating, DeleteRatingInputSet, DeleteRatingResultSet, DeleteRatingChoreographyExecution
+from temboo.Library.Facebook.Actions.Books.Rates.ReadRatings import ReadRatings, ReadRatingsInputSet, ReadRatingsResultSet, ReadRatingsChoreographyExecution
+from temboo.Library.Facebook.Actions.Books.Rates.UpdateRating import UpdateRating, UpdateRatingInputSet, UpdateRatingResultSet, UpdateRatingChoreographyExecution

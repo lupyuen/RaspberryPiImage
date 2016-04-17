@@ -1,0 +1,16 @@
+from temboo.Library.Foursquare.Venues.Explore import Explore, ExploreInputSet, ExploreResultSet, ExploreChoreographyExecution
+from temboo.Library.Foursquare.Venues.HereNow import HereNow, HereNowInputSet, HereNowResultSet, HereNowChoreographyExecution
+from temboo.Library.Foursquare.Venues.Like import Like, LikeInputSet, LikeResultSet, LikeChoreographyExecution
+from temboo.Library.Foursquare.Venues.Likes import Likes, LikesInputSet, LikesResultSet, LikesChoreographyExecution
+from temboo.Library.Foursquare.Venues.Menu import Menu, MenuInputSet, MenuResultSet, MenuChoreographyExecution
+from temboo.Library.Foursquare.Venues.NextVenue import NextVenue, NextVenueInputSet, NextVenueResultSet, NextVenueChoreographyExecution
+from temboo.Library.Foursquare.Venues.PhotosFromVenue import PhotosFromVenue, PhotosFromVenueInputSet, PhotosFromVenueResultSet, PhotosFromVenueChoreographyExecution
+from temboo.Library.Foursquare.Venues.SearchVenues import SearchVenues, SearchVenuesInputSet, SearchVenuesResultSet, SearchVenuesChoreographyExecution
+from temboo.Library.Foursquare.Venues.Similar import Similar, SimilarInputSet, SimilarResultSet, SimilarChoreographyExecution
+from temboo.Library.Foursquare.Venues.TipsFromVenue import TipsFromVenue, TipsFromVenueInputSet, TipsFromVenueResultSet, TipsFromVenueChoreographyExecution
+from temboo.Library.Foursquare.Venues.TrendingVenues import TrendingVenues, TrendingVenuesInputSet, TrendingVenuesResultSet, TrendingVenuesChoreographyExecution
+from temboo.Library.Foursquare.Venues.VenueCategories import VenueCategories, VenueCategoriesInputSet, VenueCategoriesResultSet, VenueCategoriesChoreographyExecution
+from temboo.Library.Foursquare.Venues.VenueDetail import VenueDetail, VenueDetailInputSet, VenueDetailResultSet, VenueDetailChoreographyExecution
+from temboo.Library.Foursquare.Venues.VenueEvents import VenueEvents, VenueEventsInputSet, VenueEventsResultSet, VenueEventsChoreographyExecution
+from temboo.Library.Foursquare.Venues.VenueHours import VenueHours, VenueHoursInputSet, VenueHoursResultSet, VenueHoursChoreographyExecution
+from temboo.Library.Foursquare.Venues.VenueLinks import VenueLinks, VenueLinksInputSet, VenueLinksResultSet, VenueLinksChoreographyExecution

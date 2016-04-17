@@ -1,0 +1,4 @@
+from temboo.Library.Box.Discussions.AddComment import AddComment, AddCommentInputSet, AddCommentResultSet, AddCommentChoreographyExecution
+from temboo.Library.Box.Discussions.CreateDiscussion import CreateDiscussion, CreateDiscussionInputSet, CreateDiscussionResultSet, CreateDiscussionChoreographyExecution
+from temboo.Library.Box.Discussions.GetComments import GetComments, GetCommentsInputSet, GetCommentsResultSet, GetCommentsChoreographyExecution
+from temboo.Library.Box.Discussions.GetDiscussion import GetDiscussion, GetDiscussionInputSet, GetDiscussionResultSet, GetDiscussionChoreographyExecution

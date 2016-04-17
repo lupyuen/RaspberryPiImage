@@ -1,0 +1,7 @@
+from temboo.Library.Fitbit.Social.AcceptInvite import AcceptInvite, AcceptInviteInputSet, AcceptInviteResultSet, AcceptInviteChoreographyExecution
+from temboo.Library.Fitbit.Social.ConfigureFriendsLeaderboard import ConfigureFriendsLeaderboard, ConfigureFriendsLeaderboardInputSet, ConfigureFriendsLeaderboardResultSet, ConfigureFriendsLeaderboardChoreographyExecution
+from temboo.Library.Fitbit.Social.CreateInvite import CreateInvite, CreateInviteInputSet, CreateInviteResultSet, CreateInviteChoreographyExecution
+from temboo.Library.Fitbit.Social.GetBadges import GetBadges, GetBadgesInputSet, GetBadgesResultSet, GetBadgesChoreographyExecution
+from temboo.Library.Fitbit.Social.GetFriends import GetFriends, GetFriendsInputSet, GetFriendsResultSet, GetFriendsChoreographyExecution
+from temboo.Library.Fitbit.Social.GetFriendsLeaderboard import GetFriendsLeaderboard, GetFriendsLeaderboardInputSet, GetFriendsLeaderboardResultSet, GetFriendsLeaderboardChoreographyExecution
+from temboo.Library.Fitbit.Social.GetInvites import GetInvites, GetInvitesInputSet, GetInvitesResultSet, GetInvitesChoreographyExecution

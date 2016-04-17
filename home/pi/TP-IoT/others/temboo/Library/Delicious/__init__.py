@@ -1,0 +1,11 @@
+from temboo.Library.Delicious.AddBookmark import AddBookmark, AddBookmarkInputSet, AddBookmarkResultSet, AddBookmarkChoreographyExecution
+from temboo.Library.Delicious.DeleteBookmark import DeleteBookmark, DeleteBookmarkInputSet, DeleteBookmarkResultSet, DeleteBookmarkChoreographyExecution
+from temboo.Library.Delicious.DeleteTag import DeleteTag, DeleteTagInputSet, DeleteTagResultSet, DeleteTagChoreographyExecution
+from temboo.Library.Delicious.GetAllBookmarks import GetAllBookmarks, GetAllBookmarksInputSet, GetAllBookmarksResultSet, GetAllBookmarksChoreographyExecution
+from temboo.Library.Delicious.GetBookmark import GetBookmark, GetBookmarkInputSet, GetBookmarkResultSet, GetBookmarkChoreographyExecution
+from temboo.Library.Delicious.GetBookmarkDates import GetBookmarkDates, GetBookmarkDatesInputSet, GetBookmarkDatesResultSet, GetBookmarkDatesChoreographyExecution
+from temboo.Library.Delicious.GetChangeSignatures import GetChangeSignatures, GetChangeSignaturesInputSet, GetChangeSignaturesResultSet, GetChangeSignaturesChoreographyExecution
+from temboo.Library.Delicious.GetRecentBookmarks import GetRecentBookmarks, GetRecentBookmarksInputSet, GetRecentBookmarksResultSet, GetRecentBookmarksChoreographyExecution
+from temboo.Library.Delicious.GetTags import GetTags, GetTagsInputSet, GetTagsResultSet, GetTagsChoreographyExecution
+from temboo.Library.Delicious.RenameTag import RenameTag, RenameTagInputSet, RenameTagResultSet, RenameTagChoreographyExecution
+from temboo.Library.Delicious.SuggestTags import SuggestTags, SuggestTagsInputSet, SuggestTagsResultSet, SuggestTagsChoreographyExecution

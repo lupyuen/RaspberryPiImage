@@ -1,0 +1,3 @@
+from temboo.Library.Flickr.Tags.ListPhotoTags import ListPhotoTags, ListPhotoTagsInputSet, ListPhotoTagsResultSet, ListPhotoTagsChoreographyExecution
+from temboo.Library.Flickr.Tags.ListPopularTags import ListPopularTags, ListPopularTagsInputSet, ListPopularTagsResultSet, ListPopularTagsChoreographyExecution
+from temboo.Library.Flickr.Tags.ListUserTags import ListUserTags, ListUserTagsInputSet, ListUserTagsResultSet, ListUserTagsChoreographyExecution

@@ -1,0 +1,2 @@
+from temboo.Library.PayPal.AdaptivePayments.ConvertCurrency import ConvertCurrency, ConvertCurrencyInputSet, ConvertCurrencyResultSet, ConvertCurrencyChoreographyExecution
+from temboo.Library.PayPal.AdaptivePayments.PaymentDetails import PaymentDetails, PaymentDetailsInputSet, PaymentDetailsResultSet, PaymentDetailsChoreographyExecution

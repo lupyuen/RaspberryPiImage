@@ -1,0 +1,9 @@
+from temboo.Library.LastFm.Album.AddTags import AddTags, AddTagsInputSet, AddTagsResultSet, AddTagsChoreographyExecution
+from temboo.Library.LastFm.Album.GetBuyLinks import GetBuyLinks, GetBuyLinksInputSet, GetBuyLinksResultSet, GetBuyLinksChoreographyExecution
+from temboo.Library.LastFm.Album.GetInfo import GetInfo, GetInfoInputSet, GetInfoResultSet, GetInfoChoreographyExecution
+from temboo.Library.LastFm.Album.GetShouts import GetShouts, GetShoutsInputSet, GetShoutsResultSet, GetShoutsChoreographyExecution
+from temboo.Library.LastFm.Album.GetTags import GetTags, GetTagsInputSet, GetTagsResultSet, GetTagsChoreographyExecution
+from temboo.Library.LastFm.Album.GetTopTags import GetTopTags, GetTopTagsInputSet, GetTopTagsResultSet, GetTopTagsChoreographyExecution
+from temboo.Library.LastFm.Album.RemoveTag import RemoveTag, RemoveTagInputSet, RemoveTagResultSet, RemoveTagChoreographyExecution
+from temboo.Library.LastFm.Album.Search import Search, SearchInputSet, SearchResultSet, SearchChoreographyExecution
+from temboo.Library.LastFm.Album.Share import Share, ShareInputSet, ShareResultSet, ShareChoreographyExecution
