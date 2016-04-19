@@ -21,6 +21,9 @@ from ajenti.ui import *
 from ajenti.util import make_report
 import ajenti.feedback
 import random
+import pwd
+import grp
+import os
 
 from api import SectionPlugin
 
@@ -42,10 +45,15 @@ class MainServer (BasePlugin, HttpPlugin):
         context.respond_ok()
         # Create a token and pass to tty.js.
         token = str(int(random.random() * 1000000)) + '_' + str(int(random.random() * 1000000)) + '_' + str(int(random.random() * 1000000)) + '_' + str(int(random.random() * 1000000))
-        f = open('/tmp/tty' + token, 'w')
+        filename = '/tmp/tty' + token
+        f = open(filename, 'w')
         f.write('Token passed by Ajenti to tty.js')
         f.close()
-        # tty.js url is http://host:3000?token=...
+        # Change the permission so that tty.js can delete it.
+        uid = pwd.getpwnam("pi").pw_uid
+        gid = grp.getgrnam("pi").gr_gid
+        os.chown(filename, uid, gid)
+        # Redirect to tty.js url: http://host:3000?token=...
         host = context.env['HTTP_HOST']
         url = 'http://' + host + ':3000?token=' + token
         result = '<meta http-equiv="refresh" content="0; url=' + url + '">'
