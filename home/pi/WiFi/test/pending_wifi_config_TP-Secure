@@ -1,0 +1,12 @@
+
+network={
+    ssid="TP-Secure"
+    scan_ssid=1
+    key_mgmt=WPA-EAP
+    pairwise=CCMP TKIP
+    group=CCMP TKIP
+    eap=PEAP
+    identity="abc"
+    password=hash:68171E55D24504226EA78B58733C24C7
+    phase2="MSCHAPV2"
+}
