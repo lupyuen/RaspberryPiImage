@@ -1,6 +1,0 @@
-
-network={
-    ssid="abc"
-    psk="def"
-    key_mgmt=WPA-PSK
-}
