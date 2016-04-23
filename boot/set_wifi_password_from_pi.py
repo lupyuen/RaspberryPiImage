@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-
 from string import Template
 import os
 import getpass
@@ -58,6 +56,7 @@ def main():
         configuretp()
     elif choice == '2':
         configurehome()
+    input("Press Enter to exit...")
 
 def configuretp():
     print(tp_message)
@@ -70,7 +69,7 @@ def configuretp():
         out.write(Template(tp_template).substitute(userid=userid, password=hashed_password))
     print("\nYour password has been encrypted and stored temporarily\n"
     "in the microSD Card. Please boot your Raspberry Pi now with this\n"
-    "microSD Card to set the WiFi password.\n")
+    "microSD Card to set the WiFi password.\n\n")
 
 def configurehome():
     ssid, password = getpassword('Enter your home WiFi SSID:',
@@ -80,7 +79,7 @@ def configurehome():
     with open(program_path + '/' + filename, 'w') as out:
         out.write(Template(wpa_template).substitute(ssid=ssid, password=password))
     print("\nYour password has been stored temporarily in the microSD Card.\n"
-    "Please boot your Raspberry Pi now with this microSD Card to set the WiFi password.\n")
+    "Please boot your Raspberry Pi now with this microSD Card to set the WiFi password.\n\n")
 
 def nthash(s):
     return passlib.hash.nthash.encrypt(s).upper()
