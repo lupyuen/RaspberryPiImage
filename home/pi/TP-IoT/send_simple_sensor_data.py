@@ -11,7 +11,7 @@ import dht22
 import pigpio
 
 # TODO: Change this to the name of our Raspberry Pi, also known as our "Thing Name"
-deviceName = "g88_pi"
+deviceName = "g88pi"
 
 # Public certificate of our Raspberry Pi, as provided by AWS IoT.
 deviceCertificate = "tp-iot-certificate.pem.crt"
