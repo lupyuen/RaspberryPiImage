@@ -6,8 +6,8 @@
 import time
 import grovepi
 
-# Connect the DHT sensor to port D2.
-dht_sensor = 2
+# Connect the DHT sensor to port D6.
+dht_sensor = 6
 
 # Loop forever.
 while True:

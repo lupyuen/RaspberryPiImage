@@ -9,3 +9,4 @@ do
   echo "Processing $f..."
   python3 update_wifi_config.py $f
 done
+
