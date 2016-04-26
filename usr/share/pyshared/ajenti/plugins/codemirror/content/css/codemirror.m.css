@@ -6,7 +6,9 @@
 
 .CodeMirror {
   line-height: 1em;
-  font-family: monospace;
+  /*  Lup Yuen: Changed font to Source Code Pro 12px  */
+  font-family: "Source Code Pro", monospace;
+  font-size: 12px;
 
   /* Necessary so the scrollbar can be absolutely positioned within the wrapper on Lion. */
   position: relative;
