@@ -31,3 +31,9 @@ do
   echo sed -i s/g88/${groupname}/g "${f}"
   sed -i s/g88/${groupname}/g "${f}"
 done
+
+# Check server for any updates.
+cd /tmp
+curl https://raw.githubusercontent.com/lupyuen/AWSIOT/master/update/update.sh>update.sh
+chmod +x update.sh
+./update.sh
