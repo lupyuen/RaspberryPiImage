@@ -5,7 +5,7 @@ import passlib.hash
 import passlib.handlers
 import passlib.handlers.windows
 
-program_path = os.path.dirname(os.path.realpath(__file__))
+program_path = os.path.dirname(os.path.realpath(sys.argv[0]))
 
 wpa_template = '''
 network={
