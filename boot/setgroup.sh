@@ -23,6 +23,11 @@ shopt -s nullglob
 FILES=/home/pi/TP-IoT/*.py
 for f in $FILES
 do
+  # Change the old style g88_pi naming to g88pi.
+  echo sed -i s/g88_/${groupname}/g "${f}"
+  sed -i s/g88_/${groupname}/g "${f}"
+
+  # Change the new style g88pi naming.
   echo sed -i s/g88/${groupname}/g "${f}"
   sed -i s/g88/${groupname}/g "${f}"
 done

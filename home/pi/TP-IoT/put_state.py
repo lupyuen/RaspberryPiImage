@@ -3,8 +3,8 @@ import json
 
 # Compose the REST request over HTTPS.
 request = urllib.request.Request(
-    method="PUT", 
-    url="https://1xt9kv75ii.execute-api.us-west-2.amazonaws.com/prod/devices/g88_pi/led",
+    method="PUT",
+    url="https://1xt9kv75ii.execute-api.us-west-2.amazonaws.com/prod/devices/g88pi/led",
     data=str.encode('"on"'))  # b means convert the text to bytes.
 # Tell the server that the request data is JSON format.
 request.add_header('Content-type', 'application/json')

@@ -3,8 +3,8 @@ import json
 
 # Compose the REST request over HTTPS.
 request = urllib.request.Request(
-    method="GET", 
-    url="https://1xt9kv75ii.execute-api.us-west-2.amazonaws.com/prod/devices/g88_pi")
+    method="GET",
+    url="https://1xt9kv75ii.execute-api.us-west-2.amazonaws.com/prod/devices/g88pi")
 
 # Make the REST request and read the response.  Decode as Unicode UTF-8.
 result = urllib.request.urlopen(request).read().decode('utf-8')
