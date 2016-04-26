@@ -3,6 +3,7 @@
 # Read sensor data from DHT22 sensor and display the data.  Remember to start pigpiod:
 # sudo pigpiod
 
+import time
 import dht22
 import pigpio
 
@@ -24,4 +25,5 @@ while True:
     dht22_sensor.trigger()
     # Display the sensor values.
     print(("{:3.1f} {:3.1f}".format(dht22_sensor.temperature(), dht22_sensor.humidity())))
-
+    # Wait 5 seconds before reading sensor values again.
+    time.sleep(5)
