@@ -2,6 +2,7 @@
 
 # This script looks for SSID config files written by set_wifi_password and updates the wifi config.
 
+cd /home/pi/WiFi
 shopt -s nullglob
 FILES=/boot/pending_wifi_config_*
 for f in $FILES
