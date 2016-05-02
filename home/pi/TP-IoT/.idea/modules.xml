@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file:$PROJECT_DIR$/../../..//$PROJECT_DIR$/.idea/TP-IoT.iml" filepath="$PROJECT_DIR$/.idea/TP-IoT.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/TP-IoT.iml" filepath="$PROJECT_DIR$/.idea/TP-IoT.iml" />
+      <module fileurl="file://file:/Users/Luppy/Temasek Poly/IoT/RaspberryPiImage///Users/Luppy/Temasek Poly/IoT/RaspberryPiImage/home/pi/TP-IoT/.idea/TP-IoT.iml" filepath="file:$PROJECT_DIR$/../../..///Users/Luppy/Temasek Poly/IoT/RaspberryPiImage/home/pi/TP-IoT/.idea/TP-IoT.iml" />
     </modules>
   </component>
 </project>
