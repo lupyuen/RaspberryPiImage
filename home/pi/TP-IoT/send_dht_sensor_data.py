@@ -95,6 +95,13 @@ while True:
         time.sleep(10)
 
     except KeyboardInterrupt:
+        # Stop the program when we press Ctrl-C.
         break
     except IOError:
-        print("Error")
+        # Some I/O problem happened.
+        print("I/O Error")
+        continue
+    except:
+        # For all other errors, we wait a while and resume.
+        time.sleep(10)
+        continue
