@@ -74,6 +74,9 @@ def main():
                 time.sleep(1)
                 continue
 
+            # Read DHT22 sensor values.  TODO: Skip if we detect an error.
+            dht22_sensor.trigger()
+
             # Prepare our sample data in JSON format.
             payload = {
                 "state": {

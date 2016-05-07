@@ -2,10 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3612b7e8-a101-455f-b04e-607877237081" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/send_sample_data.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/send_simple_sample_data.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/send_simple_sample_data.py" afterPath="$PROJECT_DIR$/send_simple_sample_data.py" />
     </list>
     <ignored path="TP-IoT.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -89,8 +86,8 @@
       <file leaf-file-name="send_simple_sensor_data.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/send_simple_sensor_data.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1280">
-              <caret line="118" column="0" selection-start-line="118" selection-start-column="0" selection-end-line="118" selection-end-column="0" />
+            <state relative-caret-position="660">
+              <caret line="87" column="0" selection-start-line="76" selection-start-column="0" selection-end-line="87" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -99,8 +96,8 @@
       <file leaf-file-name="send_simple_sample_data.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/send_simple_sample_data.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="40">
-              <caret line="2" column="0" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
+            <state relative-caret-position="320">
+              <caret line="76" column="47" selection-start-line="76" selection-start-column="47" selection-end-line="76" selection-end-column="47" />
               <folding />
             </state>
           </provider>
@@ -166,10 +163,10 @@
     <detection-done>true</detection-done>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-528" />
-    <option name="y" value="-1314" />
+    <option name="x" value="79" />
+    <option name="y" value="23" />
     <option name="width" value="1562" />
-    <option name="height" value="1000" />
+    <option name="height" value="967" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -296,7 +293,7 @@
     <option name="totallyTimeSpent" value="16000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-528" y="-1314" width="1562" height="1000" extended-state="0" />
+    <frame x="79" y="23" width="1562" height="967" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18758002" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -577,14 +574,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/send_simple_sensor_data.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1280">
-          <caret line="118" column="0" selection-start-line="118" selection-start-column="0" selection-end-line="118" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/grove_dht.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -601,10 +590,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/send_simple_sensor_data.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="660">
+          <caret line="87" column="0" selection-start-line="76" selection-start-column="0" selection-end-line="87" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/send_simple_sample_data.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="40">
-          <caret line="2" column="0" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
+        <state relative-caret-position="320">
+          <caret line="76" column="47" selection-start-line="76" selection-start-column="47" selection-end-line="76" selection-end-column="47" />
           <folding />
         </state>
       </provider>
