@@ -124,7 +124,8 @@ def on_message(client, userdata, msg):
     print("Received message, topic: " + msg.topic + ", payload:\n" +
           json.dumps(payload2, indent=4, separators=(',', ': ')))
 
-    # If there is a desired state in this message, then we actuate, e.g. if we see "led=on", we switch on the LED.
+    # If there is a desired state in this message, then we actuate,
+    # e.g. if we see "led=on", we switch on the LED.
     if payload2.get("state") is not None and payload2["state"].get("desired") is not None:
         # Get the desired state and loop through all attributes inside.
         desired_state = payload2["state"]["desired"]
@@ -134,7 +135,8 @@ def on_message(client, userdata, msg):
             actuate(client, attribute, value)
 
 
-# Control my actuators based on the specified attribute and value, e.g. "led=on" will switch on my LED.
+# Control my actuators based on the specified attribute and value,
+# e.g. "led=on" will switch on my LED.
 def actuate(client, attribute, value):
     if attribute == "timestamp":
         # Ignore the timestamp attribute, it's only for info.
