@@ -4,7 +4,7 @@ import json
 # Compose the REST request over HTTPS.
 request = urllib.request.Request(
     method="GET",
-    url="https://api.tp-iot.com/prod/devices/g88pi")
+    url="https://api.tp-iot.com/devices/g88pi")
 
 # Make the REST request and read the response.  Decode as Unicode UTF-8.
 result = urllib.request.urlopen(request).read().decode('utf-8')
