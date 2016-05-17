@@ -11,6 +11,7 @@ request = urllib.request.Request(
     method="PUT",
     url="https://api.tp-iot.com/devices/g88pi/led",
     data=str.encode('"on"'))
+
 # Tell the server that the request data is JSON format.
 request.add_header('Content-type', 'application/json')
 
