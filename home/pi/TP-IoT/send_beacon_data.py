@@ -69,11 +69,13 @@ def main():
                     "address": beacon_address
                 }
                 # Beacon ID is B_(uuid)_(major)_(minor). This format allows us
-                # to match beacon IDs within IoT rules.
-                # TODO: Prepad uuid, major and minor with 0s to max length,
-                # so that we can slice beacons by fixed length in IoT rules.
-                beacon_id = "B_" + beacon["uuid"] + "_" + str(beacon["major"]) + \
-                            "_" + str(beacon["minor"])
+                # to match beacon IDs within IoT rules. Prepad major and minor
+                # with 0s to max length, so that we can slice beacons by fixed
+                # length in IoT rules. Sample beacon ID:
+                # "B_b9407f30f5f8466eaff925556b57fe6d_00602_29434"
+                beacon_id = "B_" + beacon["uuid"] + "_" + \
+                            str(beacon["major"]).rjust(5, '0') + "_" + \
+                            str(beacon["minor"]).rjust(5, '0')
                 beacon["id"] = beacon_id
                 beacons[beacon_id] = beacon
 
