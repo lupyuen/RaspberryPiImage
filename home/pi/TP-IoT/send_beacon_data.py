@@ -69,7 +69,8 @@ def main():
                     "address": beacon_address
                 }
                 # Beacon ID is uuid|major|minor.
-                beacon_id = beacon["uuid"] + "|" + beacon["major"] + "|" + beacon["minor"]
+                beacon_id = beacon["uuid"] + "|" + str(beacon["major"]) + \
+                            "|" + str(beacon["minor"])
                 beacons[beacon_id] = beacon
 
             # Prepare our sensor data in JSON format.
