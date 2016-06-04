@@ -61,16 +61,17 @@ def main():
             for beacon_address, beacon_info in list(beacons_detected.items()):
                 # For each beacon found, add to the payload.
                 beacon = {
-                    "uuid": beacon_info[0],
+                    "uuid": beacon_info[0].replace('_', ''),
                     "major": beacon_info[1],
                     "minor": beacon_info[2],
                     "power": beacon_info[3],
                     "rssi": beacon_info[4],
                     "address": beacon_address
                 }
-                # Beacon ID is uuid|major|minor.
-                beacon_id = beacon["uuid"] + "|" + str(beacon["major"]) + \
-                            "|" + str(beacon["minor"])
+                # Beacon ID is b(uuid)_(major)_(minor). This format allows us
+                # to match beacon IDs within IoT rules.
+                beacon_id = "b" + beacon["uuid"] + "_" + str(beacon["major"]) + \
+                            "_" + str(beacon["minor"])
                 beacons[beacon_id] = beacon
 
             # Prepare our sensor data in JSON format.
