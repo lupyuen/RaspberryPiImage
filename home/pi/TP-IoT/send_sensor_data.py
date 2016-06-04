@@ -93,12 +93,9 @@ def main():
         except KeyboardInterrupt:
             # Stop the program when we press Ctrl-C.
             break
-        except IOError:
-            # Some I/O problem happened.
-            print("I/O Error")
-            continue
-        except:
+        except Exception as e:
             # For all other errors, we wait a while and resume.
+            print("Exception: " + str(e))
             time.sleep(10)
             continue
 

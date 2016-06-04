@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 # Send beacons detected periodically to AWS IoT.  Based on bluez library.
+# Must be run with "sudo python3"
 
 import time
 import datetime
@@ -58,6 +59,7 @@ def main():
             beacons = {}
             beacons_detected = beacon_service.scan(2)
             for beacon_address, beacon_info in list(beacons_detected.items()):
+                # For each beacon found, add to the payload.
                 beacon = {
                     "uuid": beacon_info[0],
                     "major": beacon_info[1],
@@ -66,9 +68,11 @@ def main():
                     "rssi": beacon_info[4],
                     "address": beacon_address
                 }
-                beacons[beacon_address] = beacon
+                # Beacon ID is uuid|major|minor.
+                beacon_id = beacon["uuid"] + "|" + beacon["major"] + "|" + beacon["minor"]
+                beacons[beacon_id] = beacon
 
-            # Prepare our sample data in JSON format.
+            # Prepare our sensor data in JSON format.
             payload = {
                 "state": {
                     "reported": {
@@ -91,13 +95,9 @@ def main():
         except KeyboardInterrupt:
             # Stop the program when we press Ctrl-C.
             break
-        except IOError:
-            # Some I/O problem happened.
-            print("I/O Error")
-            continue
         except Exception as e:
             # For all other errors, we wait a while and resume.
-            print('Exception: ' + str(e))
+            print("Exception: " + str(e))
             time.sleep(10)
             continue
 
