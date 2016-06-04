@@ -7,7 +7,7 @@ import datetime
 import ssl
 import json
 import paho.mqtt.client as mqtt
-import bluetooth.ble.BeaconService
+import bluetooth.ble as ble
 
 # TODO: Change this to the name of our Raspberry Pi, also known as our "Thing Name"
 deviceName = "g88pi"
@@ -43,7 +43,8 @@ def main():
     # Start a background thread to process the MQTT network commands concurrently, including auto-reconnection.
     client.loop_start()
 
-    beacon_service = BeaconService()
+    # Create the beacon service for scanning beacons.
+    beacon_service = ble.BeaconService()
 
     # Loop forever.
     while True:
@@ -94,8 +95,9 @@ def main():
             # Some I/O problem happened.
             print("I/O Error")
             continue
-        except:
+        except Exception as e:
             # For all other errors, we wait a while and resume.
+            print('Exception: ' + str(e))
             time.sleep(10)
             continue
 
