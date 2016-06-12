@@ -38,11 +38,9 @@ def main():
     # Set the certificates and private key for connecting to AWS IoT.  TLS 1.2 is mandatory for AWS IoT and is supported
     # only in Python 3.4 and later, compiled with OpenSSL 1.0.1 and later.
     client.tls_set(awsCert, deviceCertificate, devicePrivateKey, ssl.CERT_REQUIRED, ssl.PROTOCOL_TLSv1_2)
-
     # Connect to AWS IoT server.  Use AWS command line "aws iot describe-endpoint" to get the address.
     print("Connecting to AWS IoT...")
     client.connect("A1P01IYM2DOZA0.iot.us-west-2.amazonaws.com", 8883, 60)
-
     # Start a background thread to process the MQTT network commands concurrently, including auto-reconnection.
     client.loop_start()
 
@@ -112,6 +110,9 @@ def main():
 # We subscribe for notifications of desired state updates.
 def on_connect(client, userdata, flags, rc):
     global isConnected
+    if isConnected == True:
+        # Subscribe to updates only once.
+        return
     isConnected = True
     print("Connected to AWS IoT")
     # Subscribe to MQTT topics for the gateway and all devices so that we will receive notifications of updates.
@@ -119,7 +120,7 @@ def on_connect(client, userdata, flags, rc):
     topic = gateway_topic + "/shadow/update/accepted"
     print("Subscribing to MQTT topic " + topic)
     client.subscribe(topic)
-    for device_address in range(min_device_address, max_device_address):
+    for device_address in range(min_device_address, max_device_address + 1 ):
         device_topic = convert_lora_address_to_mqtt_topic(device_address)
         topic = device_topic + "/shadow/update/accepted"
         print("Subscribing to MQTT topic " + topic)
