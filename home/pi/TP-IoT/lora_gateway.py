@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-
 # Forward messages from LoRa devices to AWS IoT, and forward AWS IoT messages to LoRa devices.
 
 import time
@@ -12,7 +11,9 @@ import lora_interface
 # AWS IoT Device l001 to l255 <--> LoRa address 1 to 255
 # AWS IoT Device l000 <--> LoRa broadcast (address 0)
 # Address 1 is the LoRa Gateway
-deviceName = "l001"
+gateway_address = 1
+min_device_address = 2
+max_device_address = 255
 
 # Public certificate of our Raspberry Pi, as provided by AWS IoT.
 deviceCertificate = "tp-iot-certificate.pem.crt"
@@ -56,27 +57,30 @@ def main():
             if not isConnected:
                 time.sleep(1)
                 continue
-
             # Read a LoRa message, which contains the device state.  TODO: Check status.
             msg = lora_interface.readLoRaMessage()
             status = lora_interface.getLoRaStatus()
+
+            # TODO: Comment this section.
+            if len(msg) == 0:
+                msg = '''{
+                    "temperature": 27.3,
+                    "humidity": 88
+                }'''
 
             # If no message available, wait 1 second and try again.
             if len(msg) == 0:
                 time.sleep(1)
                 continue
-
             # Assume msg contains a JSON string with sensor names and values like
             # {
             #    "temperature": 27.3,
             #    "humidity": 88
             # }
-            # TODO: Comment this section.
-            msg = '''{
-                "temperature": 27.3,
-                "humidity": 88
-            }'''
             device_state = json.loads(msg)
+            # Set the timestamp if not present.
+            if device_state.get("timestamp") is None:
+                device_state["timestamp"] = datetime.datetime.now().isoformat()
 
             # Send the reported device state to AWS IoT.
             payload = {
@@ -86,12 +90,13 @@ def main():
             }
             print("Sending sensor data to AWS IoT...\n" +
                   json.dumps(payload, indent=4, separators=(',', ': ')))
-
-            # Publish our sensor data to AWS IoT via the MQTT topic, also known as updating our "Thing Shadow".
-            # TODO: Derive AWS IoT device from LoRa address.
-            client.publish("$aws/things/" + deviceName + "/shadow/update", json.dumps(payload))
+            # Publish our sensor data to AWS IoT via the gateway topic and the LoRa topic.
+            device_address = 2  # TODO
+            device_topic = convert_lora_address_to_mqtt_topic(device_address)
+            gateway_topic = convert_lora_address_to_mqtt_topic(gateway_address)
+            client.publish(device_topic + "/shadow/update", json.dumps(payload))
+            client.publish(gateway_topic + "/shadow/update", json.dumps(payload))
             print("Sent to AWS IoT")
-
             # Wait 30 seconds before sending the next message.
             time.sleep(30)
 
@@ -104,18 +109,22 @@ def main():
             time.sleep(10)
             continue
 
-
 # This is called when we are connected to AWS IoT via MQTT.
 # We subscribe for notifications of desired state updates.
 def on_connect(client, userdata, flags, rc):
     global isConnected
     isConnected = True
     print("Connected to AWS IoT")
-    # Subscribe to our MQTT topic so that we will receive notifications of updates.
-    topic = "$aws/things/" + deviceName + "/shadow/update/accepted"
+    # Subscribe to MQTT topics for the gateway and all devices so that we will receive notifications of updates.
+    gateway_topic = convert_lora_address_to_mqtt_topic(gateway_address)
+    topic = gateway_topic + "/shadow/update/accepted"
     print("Subscribing to MQTT topic " + topic)
     client.subscribe(topic)
-
+    for device_address in range(min_device_address, max_device_address):
+        device_topic = convert_lora_address_to_mqtt_topic(device_address)
+        topic = device_topic + "/shadow/update/accepted"
+        print("Subscribing to MQTT topic " + topic)
+        client.subscribe(topic)
 
 # This is called when we receive a subscription notification from AWS IoT.
 # If this is an actuation command, we execute it.
@@ -125,67 +134,28 @@ def on_message(client, userdata, msg):
     payload2 = json.loads(msg.payload.decode("utf-8"))
     print("Received message, topic: " + msg.topic + ", payload:\n" +
           json.dumps(payload2, indent=4, separators=(',', ': ')))
-
-    # If there is a desired state in this message, then we actuate, e.g. if we see "led=on", we switch on the LED.
+    # If there is a desired state in this message, then we send to the LoRa device.
     if payload2.get("state") is not None and payload2["state"].get("desired") is not None:
-        # Get the desired state and loop through all attributes inside.
+        # Get the desired state and convert to JSON.
         desired_state = payload2["state"]["desired"]
-        for attribute in desired_state:
-            # We handle the attribute and desired value by actuating.
-            value = desired_state.get(attribute)
-            actuate(client, attribute, value)
+        msg = json.dumps(desired_state)
+        # Send to LoRa device.
+        lora_address = convert_mqtt_topic_to_lora_address(msg.topic)
+        status = lora_interface.sendLoRaMessage(lora_address, msg)  # TODO: Check status.
 
+def convert_lora_address_to_mqtt_topic(address):
+    # Address contains a number like 888.  Return topic $aws/things/l888.
+    address = 2
+    topic = "$aws/things/l{:0>3}".format(address)
+    return topic
 
-# Control my actuators based on the specified attribute and value, e.g. "led=on" will switch on my LED.
-def actuate(client, attribute, value):
-    if attribute == "timestamp":
-        # Ignore the timestamp attribute, it's only for info.
-        return
-    print("Setting " + attribute + " to " + value + "...")
-    if attribute == "led":
-        # We actuate the LED for "on", "off" or "flash1".
-        if value == "on":
-            # Switch on LED.
-            grovepi.digitalWrite(led, 1)
-            send_reported_state(client, "led", "on")
-            return
-        elif value == "off":
-            # Switch off LED.
-            grovepi.digitalWrite(led, 0)
-            send_reported_state(client, "led", "off")
-            return
-        elif value == "flash1":
-            # Switch on LED, wait 1 second, switch it off.
-            grovepi.digitalWrite(led, 1)
-            send_reported_state(client, "led", "on")
-            time.sleep(1)
-
-            grovepi.digitalWrite(led, 0)
-            send_reported_state(client, "led", "off")
-            time.sleep(1)
-            return
-    # Show an error if attribute or value are incorrect.
-    print("Error: Don't know how to set " + attribute + " to " + value)
-
-
-# Send the reported state of our actuator tp AWS IoT after it has been triggered, e.g. "led": "on".
-def send_reported_state(client, attribute, value):
-    # Prepare our sensor data in JSON format.
-    payload = {
-        "state": {
-            "reported": {
-                attribute: value,
-                "timestamp": datetime.datetime.now().isoformat()
-            }
-        }
-    }
-    print("Sending sensor data to AWS IoT...\n" +
-          json.dumps(payload, indent=4, separators=(',', ': ')))
-
-    # Publish our sensor data to AWS IoT via the MQTT topic, also known as updating our "Thing Shadow".
-    client.publish("$aws/things/" + deviceName + "/shadow/update", json.dumps(payload))
-    print("Sent to AWS IoT")
-
+def convert_mqtt_topic_to_lora_address(topic):
+    # Topic is of the format $aws/things/l888/... Return 888.
+    topic_split = topic.split("/")
+    address2 = topic_split[2]  # "l888"
+    address3 = address2[1:]  # "888"
+    address4 = int(address3)  # 888
+    return address4
 
 # Print out log messages for tracing.
 def on_log(client, userdata, level, buf):
