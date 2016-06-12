@@ -59,11 +59,11 @@ def main():
             beacons = {}
             beacons_detected = beacon_service.scan(2)
             for beacon_address, beacon_info in list(beacons_detected.items()):
-                # For each beacon found, add to the payload.
+                # For each beacon found, add to the payload. Need to flip the bytes.
                 beacon = {
                     "uuid": beacon_info[0].replace('-', ''),
-                    "major": beacon_info[1],
-                    "minor": beacon_info[2],
+                    "major": (beacon_info[1] % 256) * 256 + beacon_info[1] // 256,
+                    "minor": (beacon_info[2] % 256) * 256 + beacon_info[2] // 256,
                     "power": beacon_info[3],
                     "rssi": beacon_info[4],
                     "address": beacon_address
