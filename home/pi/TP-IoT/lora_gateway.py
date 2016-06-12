@@ -58,7 +58,7 @@ def main():
                 time.sleep(1)
                 continue
             # Read a LoRa message, which contains the device state.  TODO: Check status.
-            msg = lora_interface.readLoRaMessage()
+            msg = lora_interface.receiveLoRaMessage()
             status = lora_interface.getLoRaStatus()
 
             # TODO: Comment this section.
@@ -81,7 +81,6 @@ def main():
             # Set the timestamp if not present.
             if device_state.get("timestamp") is None:
                 device_state["timestamp"] = datetime.datetime.now().isoformat()
-
             # Send the reported device state to AWS IoT.
             payload = {
                 "state": {
@@ -145,7 +144,6 @@ def on_message(client, userdata, msg):
 
 def convert_lora_address_to_mqtt_topic(address):
     # Address contains a number like 888.  Return topic $aws/things/l888.
-    address = 2
     topic = "$aws/things/l{:0>3}".format(address)
     return topic
 
