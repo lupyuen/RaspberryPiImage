@@ -9,6 +9,25 @@ import json
 import paho.mqtt.client as mqtt
 import lora_interface
 
+mode = 1 # Max range, slow data rate.
+#mode = 4 # Mid range, mid data rate.
+channel = lora_interface.cvar.LORA_CH_10_868
+power = "H"
+receive_timeout = 10000
+
+# TODO: Manage list of fields.
+fields = [
+    "address",
+    "gateway",
+    "status",
+    "setup_done",
+    "send_count",
+    "receive_count",
+    "node_snr",
+    "node_rssi",
+    "node_rssi_packet"
+]
+
 # AWS IoT Device l001 to l255 <--> LoRa address 1 to 255
 # AWS IoT Device l000 <--> LoRa broadcast (address 0)
 # Address 1 is the LoRa Gateway
@@ -46,7 +65,9 @@ def main():
     client.loop_start()
 
     # Setup the LoRa connection.  TODO: Check status
-    status = lora_interface.setupLoRa()
+    print("Calling setupLoRa...")
+    status = lora_interface.setupLoRa(gateway_address, mode, channel, power)
+    print("Status: " + str(status))
     time.sleep(1)
 
     # Loop forever.
@@ -57,26 +78,48 @@ def main():
                 time.sleep(1)
                 continue
             # Read a LoRa message, which contains the device state.  TODO: Check status.
-            msg = lora_interface.receiveLoRaMessage()
+            print("Calling receiveLoRaMessage to receive message...")
+            msg = lora_interface.receiveLoRaMessage(receive_timeout)
             status = lora_interface.getLoRaStatus()
+            gateway_snr = lora_interface.getLoRaSNR()
+            gateway_rssi = lora_interface.getLoRaRSSI()
+            gateway_rssi_packet = lora_interface.getLoRaRSSIpacket()
+            device_address = 2  # TODO
+            print("Msg: " + msg + ", Status: " + str(status))
 
             # TODO: Comment this section.
-            if len(msg) == 0:
-                msg = '''{
-                    "temperature": 27.3,
-                    "humidity": 88
-                }'''
+            #if len(msg) == 0:
+                #msg = '''{
+                    #"temperature": 27.3,
+                    #"humidity": 88
+                #}'''
 
-            # If no message available, wait 1 second and try again.
+            # If no message available, try again.
             if len(msg) == 0:
-                time.sleep(1)
                 continue
+
+            # Msg contains an array of sensor data. Convert to dictionary.
+            msg_split = msg.split("|")
+            device_state = {
+                "gateway_snr": gateway_snr,
+                "gateway_rssi": gateway_rssi,
+                "gateway_rssi_packet": gateway_rssi_packet
+            }
+            col = 0
+            for value in msg_split:
+                key = fields[col]
+                col = col + 1
+                if key != "timestamp":
+                    value = int(value)
+                device_state[key] = value
+
             # Assume msg contains a JSON string with sensor names and values like
             # {
             #    "temperature": 27.3,
             #    "humidity": 88
             # }
-            device_state = json.loads(msg)
+            #device_state = json.loads(msg)
+
             # Set the timestamp if not present.
             if device_state.get("timestamp") is None:
                 device_state["timestamp"] = datetime.datetime.now().isoformat()
@@ -89,14 +132,11 @@ def main():
             print("Sending sensor data to AWS IoT...\n" +
                   json.dumps(payload, indent=4, separators=(',', ': ')))
             # Publish our sensor data to AWS IoT via the gateway topic and the LoRa topic.
-            device_address = 2  # TODO
             device_topic = convert_lora_address_to_mqtt_topic(device_address)
             gateway_topic = convert_lora_address_to_mqtt_topic(gateway_address)
             client.publish(device_topic + "/shadow/update", json.dumps(payload))
             client.publish(gateway_topic + "/shadow/update", json.dumps(payload))
             print("Sent to AWS IoT")
-            # Wait 30 seconds before sending the next message.
-            time.sleep(30)
 
         except KeyboardInterrupt:
             # Stop the program when we press Ctrl-C.

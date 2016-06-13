@@ -46,7 +46,6 @@ while True:
         snr = lora_interface.getLoRaSNR()
         rssi = lora_interface.getLoRaRSSI()
         rssi_packet = lora_interface.getLoRaRSSIpacket()
-        timestamp = datetime.datetime.now().isoformat()
 
         # If this is the sensor node, send the device state to the LoRa gateway.
         '''
@@ -59,13 +58,13 @@ while True:
             "receive_count": receive_count,
             "snr": snr,
             "rssi": rssi,
-            "rssi_packet": rssi_packet,
-            "timestamp": datetime.datetime.now().isoformat()
+            "rssi_packet": rssi_packet
         }
         print("Calling sendLoRaMessage to send device state to LoRa gateway " + str(gateway) + "...\n" +
               json.dumps(state, indent=4, separators=(',', ': ')))
         msg = json.dumps(state)
         '''
+        # Don't send timestamp because Raspberry Pi clock is unreliable without internet access.
         msg = str(address) + "|" + \
               str(gateway) + "|" + \
               str(status) + "|" + \
@@ -74,8 +73,8 @@ while True:
               str(receive_count) + "|" + \
               str(snr) + "|" + \
               str(rssi) + "|" + \
-              str(rssi_packet) + "|" + \
-              str(timestamp)
+              str(rssi_packet)
+
         print("Calling sendLoRaMessage to send device state to LoRa gateway " + str(gateway) + "...\n" + msg)
         status = lora_interface.sendLoRaMessage(gateway, msg)
         print("Status: " + str(status))
