@@ -3,7 +3,9 @@
 
 #include <msgpack.h>
 #include <stdio.h>
-#include "arduPiLoRa.h"  //  Include the SX1272 and SPI library. 
+#include "arduPiLoRa.h"  //  Include the SX1272 and SPI library.
+#include "lora_interface.h"
+char *decodeChannel(uint32_t code);
 
 int e;
 char my_packet[100];
@@ -39,7 +41,7 @@ int getLoRaReceiveCount()
   return receiveCount;
 }
 
-int setupLoRa(int address, int mode, unsigned int channel, string power)
+int setupLoRa(int address, int mode, uint32_t channel, char *power)
 {
   //  Init the node with the specified LoRa address (1 to 255).
   if (setupDone > 0)
@@ -94,14 +96,14 @@ int setupLoRa(int address, int mode, unsigned int channel, string power)
   
   // Select frequency channel
   e = sx1272.setChannel(channel);
-  printf("setupLoRa: Setting Channel %x: state %d\n", channel, e);
+  printf("setupLoRa: Setting Channel %s: state %d\n", decodeChannel(channel), e);
   
   // Set CRC
   e = sx1272.setCRC_ON();
   printf("setupLoRa: Setting CRC ON: state %d\n", e);
   
   // Select output power (Max, High or Low)
-  e = sx1272.setPower(power);
+  e = sx1272.setPower(*power);
   printf("setupLoRa: Setting Power %s: state %d\n", power, e);
   
   // Set the node address
@@ -110,7 +112,6 @@ int setupLoRa(int address, int mode, unsigned int channel, string power)
   
   // Print a success message
   printf("setupLoRa: SX1272 successfully configured\n\n");
-  delay(1000);
 
   ////
   setupDone++;
@@ -169,28 +170,85 @@ char *receiveLoRaMessage(int timeout)
 }
 
 int main() {
-	int setupStatus = setupLoRa();
-  printf("Setup status %d\n",setupStatus);
-	while(1){
-    // Send message1 and print the result
-    e = sendLoRaMessage(8, message1);
-    printf("Packet sent, state %d\n",e);
-    
-    delay(4000);
- 
-    // Send message2 broadcast and print the result
-    e = sendLoRaMessage(0, message2);
-    printf("Packet sent, state %d\n",e);
+    const int address = 2;
+    const int mode = 4;
+    unsigned int channel = LORA_CH_10_868;
+    char *power = (char *) "H";
+    int setupStatus = setupLoRa(address, mode, channel, power);
+    printf("Setup status %d\n",setupStatus);
+    delay(1000);
+	while(1) {
+        // Send message1 to address 8 and print the result
+        e = sendLoRaMessage(8, message1);
+        printf("Packet sent, state %d\n",e);
+        delay(4000);
 
-    //  Receive a message.
-		char *msg = receiveLoRaMessage();
-    printf("Received message: %s\n", msg);
+        // Send message2 broadcast and print the result
+        e = sendLoRaMessage(0, message2);
+        printf("Packet sent, state %d\n",e);
 
-    //  Show the receive status.
-    int status = getLoRaStatus();
-    printf("Receive status: %d\n", status);    
+        //  Receive a message.
+        const int timeout = 10000;
+        char *msg = receiveLoRaMessage(timeout);
+        printf("Received message: %s\n", msg);
+
+        //  Show the receive status.
+        int status = getLoRaStatus();
+        int setup_done = getLoRaSetupDone();
+        int send_count = getLoRaSendCount();
+        int receive_count = getLoRaReceiveCount();
+        printf("Receive status: %d, %d, %d, %d\n", status, setup_done, send_count, receive_count);
 	}
 	return (0);
 }
 
-        
+char *decodeChannel(uint32_t code) {
+    //  Given the channel code, return the name of the channel.
+    switch(code) {
+        case CH_10_868: return (char *) "LORA_CH_10_868";
+        case CH_11_868: return (char *) "LORA_CH_11_868";
+        case CH_12_868: return (char *) "LORA_CH_12_868";
+        case CH_13_868: return (char *) "LORA_CH_13_868";
+        case CH_14_868: return (char *) "LORA_CH_14_868";
+        case CH_15_868: return (char *) "LORA_CH_15_868";
+        case CH_16_868: return (char *) "LORA_CH_16_868";
+        case CH_17_868: return (char *) "LORA_CH_17_868";
+        case CH_00_900: return (char *) "LORA_CH_00_900";
+        case CH_01_900: return (char *) "LORA_CH_01_900";
+        case CH_02_900: return (char *) "LORA_CH_02_900";
+        case CH_03_900: return (char *) "LORA_CH_03_900";
+        case CH_04_900: return (char *) "LORA_CH_04_900";
+        case CH_05_900: return (char *) "LORA_CH_05_900";
+        case CH_06_900: return (char *) "LORA_CH_06_900";
+        case CH_07_900: return (char *) "LORA_CH_07_900";
+        case CH_08_900: return (char *) "LORA_CH_08_900";
+        case CH_09_900: return (char *) "LORA_CH_09_900";
+        case CH_10_900: return (char *) "LORA_CH_10_900";
+        case CH_11_900: return (char *) "LORA_CH_11_900";
+        case CH_12_900: return (char *) "LORA_CH_12_900";
+    }
+    return (char *) "Unknown";
+}
+
+//FREQUENCY CHANNELS:
+uint32_t LORA_CH_10_868 = CH_10_868; //  0xD84CCC; // channel 10, central freq = 865.20MHz
+uint32_t LORA_CH_11_868 = CH_11_868; //  0xD86000; // channel 11, central freq = 865.50MHz
+uint32_t LORA_CH_12_868 = CH_12_868; //  0xD87333; // channel 12, central freq = 865.80MHz
+uint32_t LORA_CH_13_868 = CH_13_868; //  0xD88666; // channel 13, central freq = 866.10MHz
+uint32_t LORA_CH_14_868 = CH_14_868; //  0xD89999; // channel 14, central freq = 866.40MHz
+uint32_t LORA_CH_15_868 = CH_15_868; //  0xD8ACCC; // channel 15, central freq = 866.70MHz
+uint32_t LORA_CH_16_868 = CH_16_868; //  0xD8C000; // channel 16, central freq = 867.00MHz
+uint32_t LORA_CH_17_868 = CH_17_868; //  0xD90000; // channel 16, central freq = 868.00MHz
+uint32_t LORA_CH_00_900 = CH_00_900; //  0xE1C51E; // channel 00, central freq = 903.08MHz
+uint32_t LORA_CH_01_900 = CH_01_900; //  0xE24F5C; // channel 01, central freq = 905.24MHz
+uint32_t LORA_CH_02_900 = CH_02_900; //  0xE2D999; // channel 02, central freq = 907.40MHz
+uint32_t LORA_CH_03_900 = CH_03_900; //  0xE363D7; // channel 03, central freq = 909.56MHz
+uint32_t LORA_CH_04_900 = CH_04_900; //  0xE3EE14; // channel 04, central freq = 911.72MHz
+uint32_t LORA_CH_05_900 = CH_05_900; //  0xE47851; // channel 05, central freq = 913.88MHz
+uint32_t LORA_CH_06_900 = CH_06_900; //  0xE5028F; // channel 06, central freq = 916.04MHz
+uint32_t LORA_CH_07_900 = CH_07_900; //  0xE58CCC; // channel 07, central freq = 918.20MHz
+uint32_t LORA_CH_08_900 = CH_08_900; //  0xE6170A; // channel 08, central freq = 920.36MHz
+uint32_t LORA_CH_09_900 = CH_09_900; //  0xE6A147; // channel 09, central freq = 922.52MHz
+uint32_t LORA_CH_10_900 = CH_10_900; //  0xE72B85; // channel 10, central freq = 924.68MHz
+uint32_t LORA_CH_11_900 = CH_11_900; //  0xE7B5C2; // channel 11, central freq = 926.84MHz
+uint32_t LORA_CH_12_900 = CH_12_900; //  0xE4C000; // default channel 915MHz, the module is configured with it

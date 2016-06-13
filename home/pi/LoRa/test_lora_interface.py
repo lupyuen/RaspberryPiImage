@@ -12,7 +12,7 @@ receive_timeout = 10000
 print("Calling setupLoRa...")
 address = 2
 mode = 4
-channel = CH_10_868
+channel = lora_interface.cvar.LORA_CH_10_868
 power = "H"
 status = lora_interface.setupLoRa(address, mode, channel, power)
 print("Status: " + str(status))
