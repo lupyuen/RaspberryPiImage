@@ -24,14 +24,30 @@ int getLoRaStatus()
   return e;
 }
 
-int setupLoRa()
+int getLoRaSetupDone()
 {
+  return setupDone;
+}
+
+int getLoRaSendCount()
+{
+  return sendCount;
+}
+
+int getLoRaReceiveCount()
+{
+  return receiveCount;
+}
+
+int setupLoRa(int address, int mode, unsigned int channel, string power)
+{
+  //  Init the node with the specified LoRa address (1 to 255).
   if (setupDone > 0)
   {
     printf("setupLoRa ERROR: setupLoRa already called");
     return -1;
   }
-  //  Create MessagePack buffer and serializer instance.
+  //  Test MessagePack. Create MessagePack buffer and serializer instance.
   buffer = msgpack_sbuffer_new();
   pk = msgpack_packer_new(buffer, msgpack_sbuffer_write);
   for (int j = 0; j < 5; j++) 
@@ -69,28 +85,28 @@ int setupLoRa()
   printf("setupLoRa: Setting power ON: state %d\n", e);
   
   // Set transmission mode
-  e = sx1272.setMode(4);
-  printf("setupLoRa: Setting Mode: state %d\n", e);
+  e = sx1272.setMode(mode);
+  printf("setupLoRa: Setting Mode %d: state %d\n", mode, e);
   
   // Set header
   e = sx1272.setHeaderON();
   printf("setupLoRa: Setting Header ON: state %d\n", e);
   
   // Select frequency channel
-  e = sx1272.setChannel(CH_10_868);
-  printf("setupLoRa: Setting Channel: state %d\n", e);
+  e = sx1272.setChannel(channel);
+  printf("setupLoRa: Setting Channel %x: state %d\n", channel, e);
   
   // Set CRC
   e = sx1272.setCRC_ON();
   printf("setupLoRa: Setting CRC ON: state %d\n", e);
   
   // Select output power (Max, High or Low)
-  e = sx1272.setPower('H');
-  printf("setupLoRa: Setting Power: state %d\n", e);
+  e = sx1272.setPower(power);
+  printf("setupLoRa: Setting Power %s: state %d\n", power, e);
   
   // Set the node address
-  e = sx1272.setNodeAddress(3);
-  printf("setupLoRa: Setting Node address: state %d\n", e);
+  e = sx1272.setNodeAddress(address);
+  printf("setupLoRa: Setting Node address %d: state %d\n", address, e);
   
   // Print a success message
   printf("setupLoRa: SX1272 successfully configured\n\n");
@@ -121,16 +137,16 @@ int sendLoRaMessage(int address, char *msg)
     return e;
 }
 
-char *receiveLoRaMessage(void)
+char *receiveLoRaMessage(int timeout)
 {
-  // Receive message
+  // Receive message. Wait till timeout, in milliseconds.
   printf("receiveLoRaMessage: start\n");
   if (setupDone == 0)
   {
     printf("sendLoRaMessage ERROR: setupLoRa not called");
     return (char *) "ERROR";
   }
-  e = sx1272.receivePacketTimeout(10000);
+  e = sx1272.receivePacketTimeout(timeout);
   if ( e == 0 )
   {
     printf("receiveLoRaMessage: state=%d\n",e);
