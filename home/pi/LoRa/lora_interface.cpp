@@ -8,7 +8,7 @@
 char *decodeChannel(uint32_t code);
 
 int e;
-char my_packet[100];
+char my_packet[1024];
 char message1 [] = "Packet 1, wanting to see if received packet is the same as sent packet";
 char message2 [] = "Packet 2, broadcast test";
 
@@ -119,6 +119,24 @@ int setupLoRa(int address, int mode, uint32_t channel, char *power)
   return e;
 }
 
+int getLoRaSNR(void)
+{
+    //  Gets the SNR value in LoRa mode.
+    return sx1272.getSNR();
+}
+
+int getLoRaRSSI(void)
+{
+    //  Gets the current value of RSSI from the channel.
+    return sx1272.getRSSI();
+}
+
+int getLoRaRSSIpacket(void)
+{
+    //  Gets the RSSI of the last packet received in LoRa mode.
+    return sx1272.getRSSIpacket();
+}
+
 int sendLoRaMessage(int address, char *msg)
 {
 	  // Send message and print the result
@@ -150,12 +168,15 @@ char *receiveLoRaMessage(int timeout)
   e = sx1272.receivePacketTimeout(timeout);
   if ( e == 0 )
   {
-    printf("receiveLoRaMessage: state=%d\n",e);
-
-    for (unsigned int i = 0; i < sx1272.packet_received.length; i++)
+    printf("receiveLoRaMessage: state=%d, length=%d\n", e, sx1272.packet_received.length);
+    unsigned int length = sx1272.packet_received.length;
+    if (length > sizeof(my_packet) - 1) length = sizeof(my_packet) - 1;
+    unsigned int i;
+    for (i = 0; i < sx1272.packet_received.length; i++)
     {
       my_packet[i] = (char)sx1272.packet_received.data[i];
     }
+    my_packet[i] = 0;  //  Terminate the string.
     printf("receiveLoRaMessage: message=%s\n", my_packet);
   }
   else {
@@ -198,6 +219,12 @@ int main() {
         int send_count = getLoRaSendCount();
         int receive_count = getLoRaReceiveCount();
         printf("Receive status: %d, %d, %d, %d\n", status, setup_done, send_count, receive_count);
+
+        //  Show the SNR and RSSI.
+        int snr = getLoRaSNR();
+        int rssi = getLoRaRSSI();
+        int rssi_packet = getLoRaRSSIpacket();
+        printf("SNR, RSSI, RSSI packet: %d, %d, %d\n", snr, rssi, rssi_packet);
 	}
 	return (0);
 }
