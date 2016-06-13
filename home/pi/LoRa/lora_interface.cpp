@@ -165,6 +165,7 @@ char *receiveLoRaMessage(int timeout)
     printf("sendLoRaMessage ERROR: setupLoRa not called");
     return (char *) "ERROR";
   }
+  my_packet[0] = 0;  //  Empty the string.
   e = sx1272.receivePacketTimeout(timeout);
   if ( e == 0 )
   {
