@@ -11,7 +11,7 @@ import lora_interface
 
 mode = 1 # Max range, slow data rate.
 #mode = 4 # Mid range, mid data rate.
-channel = lora_interface.cvar.LORA_CH_10_868
+channel = lora_interface.cvar.LORA_CH_10_868  # 0xD84CCC; channel 10, central freq = 865.20MHz
 power = "H"
 receive_timeout = 10000
 
