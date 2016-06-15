@@ -11,7 +11,7 @@ import lora_interface
 
 mode = 1 # Max range, slow data rate.
 #mode = 4 # Mid range, mid data rate.
-channel = lora_interface.cvar.LORA_CH_10_868  # 0xD84CCC; channel 10, central freq = 865.20MHz
+channel = lora_interface.cvar.LORA_CH_10_868
 power = "H"
 receive_timeout = 10000
 
@@ -68,6 +68,8 @@ def main():
     print("Calling setupLoRa...")
     status = lora_interface.setupLoRa(gateway_address, mode, channel, power)
     print("Status: " + str(status))
+    preamble_length = lora_interface.getLoRaPreambleLength()
+    print("Preamble Length: " + str(preamble_length))
     time.sleep(1)
 
     # Loop forever.

@@ -122,19 +122,33 @@ int setupLoRa(int address, int mode, uint32_t channel, char *power)
 int getLoRaSNR(void)
 {
     //  Gets the SNR value in LoRa mode.
-    return sx1272.getSNR();
+    int8_t result = sx1272.getSNR();
+    printf("getLoRaSNR: %d\n", result);
+    return result;
 }
 
 int getLoRaRSSI(void)
 {
     //  Gets the current value of RSSI from the channel.
-    return sx1272.getRSSI();
+    uint8_t result = sx1272.getRSSI();
+    printf("getLoRaRSSI: %d\n", result);
+    return result;
 }
 
 int getLoRaRSSIpacket(void)
 {
     //  Gets the RSSI of the last packet received in LoRa mode.
-    return sx1272.getRSSIpacket();
+    int16_t result = sx1272.getRSSIpacket();
+    printf("getLoRaRSSIpacket: %d\n", result);
+    return result;
+}
+
+int getLoRaPreambleLength(void)
+{
+    //  Gets the preamble length.
+    uint8_t result = sx1272.getPreambleLength();
+    printf("getLoRaPreambleLength: %d\n", result);
+    return result;
 }
 
 int sendLoRaMessage(int address, char *msg)

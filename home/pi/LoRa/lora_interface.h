@@ -6,6 +6,7 @@ extern int getLoRaSNR(void);
 extern int getLoRaRSSI(void);
 extern int getLoRaRSSIpacket(void);
 extern int getLoRaReceiveCount(void);
+extern int getLoRaPreambleLength(void);
 extern int sendLoRaMessage(int address, char *msg);
 extern char *receiveLoRaMessage(int timeout);
 
