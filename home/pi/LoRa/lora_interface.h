@@ -2,13 +2,19 @@ extern int setupLoRa(int address, int mode, uint32_t channel, char *power);
 extern int getLoRaStatus(void);
 extern int getLoRaSetupDone(void);
 extern int getLoRaSendCount(void);
-extern int getLoRaSNR(void);
-extern int getLoRaRSSI(void);
-extern int getLoRaRSSIpacket(void);
 extern int getLoRaReceiveCount(void);
+extern int getLoRaSNR(void);
+extern int getLoRaSNRValue(void);
+extern int getLoRaRSSI(void);
+extern int getLoRaRSSIValue(void);
+extern int getLoRaRSSIpacket(void);
+extern int getLoRaRSSIpacketValue(void);
 extern int getLoRaPreambleLength(void);
+extern int getLoRaPreambleLengthValue(void);
 extern int sendLoRaMessage(int address, char *msg);
 extern char *receiveLoRaMessage(int timeout);
+extern int getLoRaSender(void);
+extern int getLoRaRecipient(void);
 
 //FREQUENCY CHANNELS:
 extern uint32_t LORA_CH_10_868; // = 0xD84CCC; // channel 10, central freq = 865.20MHz

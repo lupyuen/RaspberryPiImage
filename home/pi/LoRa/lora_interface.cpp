@@ -121,33 +121,65 @@ int setupLoRa(int address, int mode, uint32_t channel, char *power)
 
 int getLoRaSNR(void)
 {
-    //  Gets the SNR value in LoRa mode.
+    //  Gets the SNR value in LoRa mode and stores into _SNR.
     int8_t result = sx1272.getSNR();
     printf("getLoRaSNR: %d\n", result);
     return result;
 }
 
+int getLoRaSNRValue(void)
+{
+    //  Gets the SNR value from _SNR.
+    int result = sx1272._SNR;
+    printf("getLoRaSNRValue: %d\n", result);
+    return result;
+}
+
 int getLoRaRSSI(void)
 {
-    //  Gets the current value of RSSI from the channel.
+    //  Gets the current value of RSSI from the channel and stores into _RSSI.
     uint8_t result = sx1272.getRSSI();
     printf("getLoRaRSSI: %d\n", result);
     return result;
 }
 
+int getLoRaRSSIValue(void)
+{
+    //  Gets the current value of RSSI from _RSSI.
+    int result = sx1272._RSSI;
+    printf("getLoRaRSSIValue: %d\n", result);
+    return result;
+}
+
 int getLoRaRSSIpacket(void)
 {
-    //  Gets the RSSI of the last packet received in LoRa mode.
+    //  Gets the RSSI of the last packet received in LoRa mode and stores into _RSSIpacket.
     int16_t result = sx1272.getRSSIpacket();
     printf("getLoRaRSSIpacket: %d\n", result);
     return result;
 }
 
+int getLoRaRSSIpacketValue(void)
+{
+    //  Gets the RSSI of the last packet from _RSSIpacket.
+    int result = sx1272._RSSIpacket;
+    printf("getLoRaRSSIpacketValue: %d\n", result);
+    return result;
+}
+
 int getLoRaPreambleLength(void)
 {
-    //  Gets the preamble length.
+    //  Gets the preamble length and stores into _preamblelength.
     uint8_t result = sx1272.getPreambleLength();
     printf("getLoRaPreambleLength: %d\n", result);
+    return result;
+}
+
+int getLoRaPreambleLengthValue(void)
+{
+    //  Gets the preamble length from _preamblelength.
+    int result = sx1272._preamblelength;
+    printf("getLoRaPreambleLengthValue: %d\n", result);
     return result;
 }
 
@@ -203,6 +235,22 @@ char *receiveLoRaMessage(int timeout)
   receiveCount++;
   printf("receiveLoRaMessage: done %d, %d, %d\n", setupDone, sendCount, receiveCount);
   return my_packet;
+}
+
+int getLoRaSender()
+{
+  //  Return the sender address of the last packet.
+  int result = sx1272.packet_received.src;
+  printf("getLoRaSender: %d\n", result);
+  return result;
+}
+
+int getLoRaRecipient()
+{
+  //  Return the recipient address of the last packet.
+  int result = sx1272.packet_received.dst;
+  printf("getLoRaRecipient: %d\n", result);
+  return result;
 }
 
 int main() {
