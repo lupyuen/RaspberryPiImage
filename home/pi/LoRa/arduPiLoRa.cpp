@@ -3532,6 +3532,7 @@ int8_t SX1272::getPacket(uint16_t wait)
 		packet_received.src = readRegister(REG_FIFO);		// Reading second byte of the received packet
 		packet_received.packnum = readRegister(REG_FIFO);	// Reading third byte of the received packet
 		packet_received.length = readRegister(REG_FIFO);	// Reading fourth byte of the received packet
+		printf("***packet_received.length=%d\n", packet_received.length);  /////  TP-IoT
 		if( _modem == LORA )
 		{
 			_payloadlength = packet_received.length - OFFSET_PAYLOADLENGTH;

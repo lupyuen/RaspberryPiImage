@@ -215,16 +215,20 @@ char *receiveLoRaMessage(int timeout)
   e = sx1272.receivePacketTimeout(timeout);
   if ( e == 0 )
   {
-    printf("receiveLoRaMessage: state=%d, length=%d\n", e, sx1272.packet_received.length);
+    printf("receiveLoRaMessage: state=%d, dst=0x%02x, src=0x%02x, packnum=0x%02x, length=0x%02x\n",
+        e, sx1272.packet_received.dst, sx1272.packet_received.src, sx1272.packet_received.packnum,
+        sx1272.packet_received.length);
     unsigned int length = sx1272.packet_received.length;
-    if (length > sizeof(my_packet) - 1) length = sizeof(my_packet) - 1;
+    if (sizeof(my_packet) > 0 && length > sizeof(my_packet) - 1) length = sizeof(my_packet) - 1;
     unsigned int i;
-    for (i = 0; i < sx1272.packet_received.length; i++)
-    {
+    for (i = 0; i < sizeof(my_packet); i++)
+      my_packet[i] = 0;
+    for (i = 0; i < sx1272.packet_received.length; i++) {
       my_packet[i] = (char)sx1272.packet_received.data[i];
+      printf("%02x ", my_packet[i]);
     }
     my_packet[i] = 0;  //  Terminate the string.
-    printf("receiveLoRaMessage: message=%s\n", my_packet);
+    printf("\nreceiveLoRaMessage: message=%s\n", my_packet);
 
     for (int j = 0; j < i; j++) {
       //  TODO: Remove non-ASCII characters.

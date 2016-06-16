@@ -1,5 +1,6 @@
 #/bin/bash
 
+cp -f arduPiLoRa.* ../cooking/libraries/arduPiLoRa
 cd /home/pi/cooking/examples/LoRa/
 rm -f /home/pi/cooking/libraries/arduPiLoRa/arduPiLoRa.o
 ./cook.sh
