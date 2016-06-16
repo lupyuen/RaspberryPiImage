@@ -68,7 +68,10 @@ def main():
     print("Calling setupLoRa...")
     status = lora_interface.setupLoRa(gateway_address, mode, channel, power)
     print("Status: " + str(status))
-    preamble_length = lora_interface.getLoRaPreambleLength()
+    if lora_interface.getLoRaPreambleLength() == 0:
+        preamble_length = lora_interface.getLoRaPreambleLengthValue()
+    else:
+        preamble_length = -1
     print("Preamble Length: " + str(preamble_length))
     time.sleep(1)
 
@@ -83,10 +86,18 @@ def main():
             print("Calling receiveLoRaMessage to receive message...")
             msg = lora_interface.receiveLoRaMessage(receive_timeout)
             status = lora_interface.getLoRaStatus()
-            gateway_snr = lora_interface.getLoRaSNR()
-            gateway_rssi = lora_interface.getLoRaRSSI()
-            gateway_rssi_packet = lora_interface.getLoRaRSSIpacket()
-            device_address = 2  # TODO
+            if lora_interface.getLoRaSNR() == 0:
+                gateway_snr = lora_interface.getLoRaSNRValue()
+            else:
+                gateway_snr = -1
+            if lora_interface.getLoRaRSSI() == 0:
+                gateway_rssi = lora_interface.getLoRaRSSIValue()
+            else:
+                gateway_rssi = -1
+            if lora_interface.getLoRaRSSIpacket() == 0:
+                gateway_rssi_packet = lora_interface.getLoRaRSSIpacketValue()
+            else:
+                gateway_rssi_packet = -1
             print("Msg: " + msg + ", Status: " + str(status))
 
             # TODO: Comment this section.
@@ -99,6 +110,8 @@ def main():
             # If no message available, try again.
             if len(msg) == 0:
                 continue
+            device_address = lora_interface.getLoRaSender()
+            recipient_address = lora_interface.getLoRaRecipient()
 
             # Msg contains an array of sensor data. Convert to dictionary.
             msg_split = msg.split("|")
