@@ -24,8 +24,8 @@ fields = [
     "send_count",
     "receive_count",
     "node_snr",
-    "node_rssi",
-    "node_rssi_packet"
+    "node_rssi"
+    # "node_rssi_packet"
 ]
 
 # AWS IoT Device l001 to l255 <--> LoRa address 1 to 255
@@ -112,28 +112,24 @@ def main():
                 continue
             device_address = lora_interface.getLoRaSender()
             recipient_address = lora_interface.getLoRaRecipient()
-
-            # Msg contains an array of sensor data. Convert to dictionary.
-            msg_split = msg.split("|")
             device_state = {
                 "gateway_snr": gateway_snr,
                 "gateway_rssi": gateway_rssi,
                 "gateway_rssi_packet": gateway_rssi_packet
             }
-            col = 0
-            for value in msg_split:
-                key = fields[col]
-                col = col + 1
-                if key != "timestamp":
-                    value = int(value)
-                device_state[key] = value
-
-            # Assume msg contains a JSON string with sensor names and values like
-            # {
-            #    "temperature": 27.3,
-            #    "humidity": 88
-            # }
-            #device_state = json.loads(msg)
+            if device_address == 3:
+                # TODO: Temp logging for Arduino: Log the RSSI only
+                print('Ignoring Arduino packet')
+            else:
+                # Msg contains an array of sensor data. Convert to dictionary.
+                msg_split = msg.split("|")
+                col = 0
+                for value in msg_split:
+                    key = fields[col]
+                    col = col + 1
+                    if key != "timestamp":
+                        value = int(value)
+                    device_state[key] = value
 
             # Set the timestamp if not present.
             if device_state.get("timestamp") is None:

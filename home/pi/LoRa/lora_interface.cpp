@@ -225,6 +225,13 @@ char *receiveLoRaMessage(int timeout)
     }
     my_packet[i] = 0;  //  Terminate the string.
     printf("receiveLoRaMessage: message=%s\n", my_packet);
+
+    for (int j = 0; j < i; j++) {
+      //  TODO: Remove non-ASCII characters.
+      if (my_packet[j] == 0) break;
+      if (my_packet[j] < 0x20 || my_packet[j] > 0x7f)
+        my_packet[j] = '?';
+    }
   }
   else {
     printf("receiveLoRaMessage: state=%d\n",e);
