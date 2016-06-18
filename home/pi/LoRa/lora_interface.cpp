@@ -92,10 +92,10 @@ int setupLoRa(int address, int mode, uint32_t channel, char *power)
   printf("setupLoRa: Setting Mode %d: state %d\n", mode, e);
   
   // Set header
-  ////e = sx1272.setHeaderON();
-  ////printf("setupLoRa: Setting Header ON: state %d\n", e);
-  e = sx1272.setHeaderOFF();  ////  TODO
-  printf("****setupLoRa: Setting Header OFF: state %d\n", e);
+  e = sx1272.setHeaderON();
+  printf("setupLoRa: Setting Header ON: state %d\n", e);
+  //e = sx1272.setHeaderOFF();  ////  TODO
+  //printf("****setupLoRa: Setting Header OFF: state %d\n", e);
 
   // Select frequency channel
   e = sx1272.setChannel(channel);
@@ -219,9 +219,7 @@ char *receiveLoRaMessage(int timeout)
   printf("receiveLoRaMessage REG_HOP_CHANNEL = 0x%02x\n", sx1272.readRegister(REG_HOP_CHANNEL));
   printf("receiveLoRaMessage REG_MODEM_CONFIG1 = 0x%02x\n", sx1272.readRegister(REG_MODEM_CONFIG1));
   printf("receiveLoRaMessage REG_MODEM_CONFIG2 = 0x%02x\n", sx1272.readRegister(REG_MODEM_CONFIG2));
-
-  //  TODO: Ignore CRC for Arduino.
-  printf("receiveLoRaMessage Ignore CRC: REG_MODEM_CONFIG1 = 0x%02x\n", sx1272.readRegister(REG_MODEM_CONFIG1));
+  //for (int r = 0; r <= 0x3f; r++) printf("Reg[0x%X] = 0x%X\n", r, sx1272.readRegister(r));
 
   my_packet[0] = 0;  //  Empty the string.
   e = sx1272.receivePacketTimeout(timeout);
