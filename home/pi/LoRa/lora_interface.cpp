@@ -1,5 +1,6 @@
 //  Interface to send and receive LoRa messages, exposing a Python wrapper via Swig.
 //  We compress JSON messages with MessagePack to reduce transmitted message size.
+//  Semtech SX1272 Datasheet: http://www.semtech.com/images/datasheet/sx1272.pdf
 
 #include <msgpack.h>
 #include <stdio.h>
@@ -91,17 +92,21 @@ int setupLoRa(int address, int mode, uint32_t channel, char *power)
   printf("setupLoRa: Setting Mode %d: state %d\n", mode, e);
   
   // Set header
-  e = sx1272.setHeaderON();
-  printf("setupLoRa: Setting Header ON: state %d\n", e);
-  
+  ////e = sx1272.setHeaderON();
+  ////printf("setupLoRa: Setting Header ON: state %d\n", e);
+  e = sx1272.setHeaderOFF();  ////  TODO
+  printf("****setupLoRa: Setting Header OFF: state %d\n", e);
+
   // Select frequency channel
   e = sx1272.setChannel(channel);
   printf("setupLoRa: Setting Channel %s: state %d\n", decodeChannel(channel), e);
   
   // Set CRC
-  e = sx1272.setCRC_ON();
-  printf("setupLoRa: Setting CRC ON: state %d\n", e);
-  
+  ////e = sx1272.setCRC_ON();
+  ////printf("setupLoRa: Setting CRC ON: state %d\n", e);
+  e = sx1272.setCRC_OFF();  ////  TODO
+  printf("setupLoRa: Setting CRC OFF: state %d\n", e);
+
   // Select output power (Max, High or Low)
   e = sx1272.setPower(*power);
   printf("setupLoRa: Setting Power %s: state %d\n", power, e);
@@ -208,9 +213,16 @@ char *receiveLoRaMessage(int timeout)
   printf("receiveLoRaMessage: start\n");
   if (setupDone == 0)
   {
-    printf("sendLoRaMessage ERROR: setupLoRa not called");
+    printf("receiveLoRaMessage ERROR: setupLoRa not called");
     return (char *) "ERROR";
   }
+  printf("receiveLoRaMessage REG_HOP_CHANNEL = 0x%02x\n", sx1272.readRegister(REG_HOP_CHANNEL));
+  printf("receiveLoRaMessage REG_MODEM_CONFIG1 = 0x%02x\n", sx1272.readRegister(REG_MODEM_CONFIG1));
+  printf("receiveLoRaMessage REG_MODEM_CONFIG2 = 0x%02x\n", sx1272.readRegister(REG_MODEM_CONFIG2));
+
+  //  TODO: Ignore CRC for Arduino.
+  printf("receiveLoRaMessage Ignore CRC: REG_MODEM_CONFIG1 = 0x%02x\n", sx1272.readRegister(REG_MODEM_CONFIG1));
+
   my_packet[0] = 0;  //  Empty the string.
   e = sx1272.receivePacketTimeout(timeout);
   if ( e == 0 )

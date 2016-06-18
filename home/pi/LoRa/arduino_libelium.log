@@ -1,0 +1,887 @@
+["Hello", "MessagePack", 0]
+["Hello", "MessagePack", 1]
+["Hello", "MessagePack", 2]
+["Hello", "MessagePack", 3]
+["Hello", "MessagePack", 4]
+setupLoRa: SX1272 module and Raspberry Pi: send packets without ACK
+
+Starting 'ON'
+
+Starting 'setMaxCurrent'
+## Writing:  ##	Register 1:  1
+## Writing:  ##	Register B:  3B
+## Writing:  ##	Register 1:  1
+## Setting ON with maximum current supply ##
+
+
+Starting 'setLORA'
+## Writing:  ##	Register 1:  0
+## Writing:  ##	Register 1:  80
+## Writing:  ##	Register 1:  81
+## Writing:  ##	Register 23:  FF
+## LoRa set with success ##
+
+## Writing:  ##	Register 0:  0
+## Writing:  ##	Register 1:  81
+## Writing:  ##	Register 2:  1A
+## Writing:  ##	Register 3:  B
+## Writing:  ##	Register 4:  0
+## Writing:  ##	Register 5:  52
+## Writing:  ##	Register 6:  D8
+## Writing:  ##	Register 7:  99
+## Writing:  ##	Register 8:  99
+## Writing:  ##	Register 9:  0
+## Writing:  ##	Register A:  9
+## Writing:  ##	Register B:  3B
+## Writing:  ##	Register C:  23
+## Writing:  ##	Register D:  1
+## Writing:  ##	Register E:  80
+## Writing:  ##	Register F:  0
+## Writing:  ##	Register 10:  0
+## Writing:  ##	Register 11:  0
+## Writing:  ##	Register 12:  0
+## Writing:  ##	Register 13:  0
+## Writing:  ##	Register 14:  0
+## Writing:  ##	Register 15:  0
+## Writing:  ##	Register 16:  0
+## Writing:  ##	Register 17:  0
+## Writing:  ##	Register 18:  10
+## Writing:  ##	Register 19:  0
+## Writing:  ##	Register 1A:  0
+## Writing:  ##	Register 1B:  0
+## Writing:  ##	Register 1C:  0
+## Writing:  ##	Register 1D:  4A
+## Writing:  ##	Register 1E:  97
+## Writing:  ##	Register 1F:  FF
+## Writing:  ##	Register 20:  0
+## Writing:  ##	Register 21:  8
+## Writing:  ##	Register 22:  FF
+## Writing:  ##	Register 23:  FF
+## Writing:  ##	Register 24:  0
+## Writing:  ##	Register 25:  0
+## Writing:  ##	Register 26:  0
+## Writing:  ##	Register 27:  0
+## Writing:  ##	Register 28:  0
+## Writing:  ##	Register 29:  0
+## Writing:  ##	Register 2A:  0
+## Writing:  ##	Register 2B:  0
+## Writing:  ##	Register 2C:  0
+## Writing:  ##	Register 2D:  50
+## Writing:  ##	Register 2E:  14
+## Writing:  ##	Register 2F:  40
+## Writing:  ##	Register 30:  0
+## Writing:  ##	Register 31:  3
+## Writing:  ##	Register 32:  5
+## Writing:  ##	Register 33:  27
+## Writing:  ##	Register 34:  1C
+## Writing:  ##	Register 35:  A
+## Writing:  ##	Register 36:  0
+## Writing:  ##	Register 37:  A
+## Writing:  ##	Register 38:  42
+## Writing:  ##	Register 39:  12
+## Writing:  ##	Register 3A:  65
+## Writing:  ##	Register 3B:  1D
+## Writing:  ##	Register 3C:  1
+## Writing:  ##	Register 3D:  A1
+## Writing:  ##	Register 3E:  0
+## Writing:  ##	Register 3F:  0
+## Writing:  ##	Register 40:  0
+## Writing:  ##	Register 41:  0
+## Writing:  ##	Register 42:  22
+setupLoRa: Setting power ON: state 0
+
+Starting 'setMode'
+## Writing:  ##	Register 1:  81
+
+Starting 'setCR'
+## Writing:  ##	Register 1:  81
+## Writing:  ##	Register 1D:  4A
+
+Starting 'isCR'
+## Coding Rate 1 has been successfully set ##
+
+## Writing:  ##	Register 1:  81
+
+Starting 'setSF'
+## Writing:  ##	Register 1:  81
+## Writing:  ##	Register 31:  3
+## Writing:  ##	Register 37:  A
+## Writing:  ##	Register 1D:  4B
+## Writing:  ##	Register 1E:  C7
+## Writing:  ##	Register 1:  81
+
+Starting 'isSF'
+## Spreading factor 12 has been successfully set ##
+
+
+Starting 'setBW'
+## Writing:  ##	Register 1:  81
+
+Starting 'getSF'
+
+Starting 'isSF'
+## Spreading factor is C ##
+
+## Writing:  ##	Register 1D:  B
+
+Starting 'isBW'
+## Bandwidth 0 has been successfully set ##
+
+## Writing:  ##	Register 1:  81
+## Mode 1 configured with success ##
+
+## Writing:  ##	Register 1:  81
+setupLoRa: Setting Mode 1: state 0
+
+Starting 'setHeaderON'
+## Writing:  ##	Register 1D:  B
+## Header has been activated ##
+
+setupLoRa: Setting Header ON: state 0
+
+Starting 'setChannel'
+## Writing:  ##	Register 1:  81
+## Writing:  ##	Register 6:  D8
+## Writing:  ##	Register 7:  4C
+## Writing:  ##	Register 8:  CC
+## Frequency channel D84CCC has been successfully set ##
+
+
+Starting 'isChannel'
+## Writing:  ##	Register 1:  81
+setupLoRa: Setting Channel LORA_CH_10_868: state 0
+
+Starting 'setCRC_ON'
+## Writing:  ##	ReConnecting to AWS IoT...
+Calling setupLoRa...
+Status: 0
+Preamble Length: 8
+Log: Received CONNACK (0, 0)
+Connected to AWS IoT
+Subscribing to MQTT topic $aws/things/l001/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l002/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l003/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l004/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l005/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l006/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l007/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l008/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l009/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l010/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l011/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l012/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l013/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l014/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l015/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l016/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l017/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l018/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l019/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l020/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l021/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l022/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l023/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l024/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l025/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l026/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l027/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l028/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l029/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l030/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l031/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l032/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l033/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l034/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l035/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l036/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l037/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l038/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l039/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l040/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l041/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l042/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l043/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l044/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l045/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l046/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l047/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l048/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l049/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l050/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l051/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l052/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l053/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l054/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l055/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l056/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l057/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l058/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l059/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l060/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l061/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l062/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l063/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l064/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l065/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l066/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l067/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l068/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l069/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l070/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l071/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l072/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l073/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l074/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l075/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l076/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l077/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l078/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l079/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l080/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l081/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l082/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l083/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l084/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l085/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l086/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l087/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l088/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l089/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l090/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l091/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l092/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l093/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l094/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l095/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l096/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l097/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l098/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l099/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l100/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l101/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l102/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l103/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l104/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l105/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l106/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l107/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l108/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l109/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l110/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l111/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l112/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l113/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l114/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l115/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l116/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l117/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l118/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l119/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l120/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l121/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l122/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l123/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l124/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l125/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l126/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l127/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l128/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l129/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l130/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l131/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l132/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l133/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l134/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l135/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l136/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l137/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l138/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l139/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l140/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l141/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l142/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l143/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l144/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l145/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l146/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l147/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l148/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l149/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l150/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l151/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l152/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l153/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l154/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l155/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l156/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l157/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l158/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l159/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l160/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l161/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l162/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l163/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l164/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l165/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l166/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l167/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l168/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l169/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l170/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l171/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l172/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l173/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l174/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l175/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l176/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l177/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l178/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l179/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l180/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l181/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l182/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l183/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l184/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l185/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l186/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l187/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l188/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l189/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l190/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l191/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l192/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l193/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l194/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l195/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l196/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l197/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l198/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l199/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l200/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l201/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l202/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l203/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l204/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l205/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l206/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l207/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l208/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l209/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l210/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l211/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l212/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l213/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l214/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l215/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l216/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l217/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l218/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l219/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l220/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l221/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l222/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l223/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l224/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l225/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l226/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l227/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l228/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l229/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l230/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l231/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l232/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l233/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l234/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l235/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l236/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l237/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l238/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l239/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l240/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l241/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l242/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l243/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l244/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l245/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l246/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l247/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l248/shadow/update/acceptedgister 1D:  B
+## CRC has been activated ##
+
+setupLoRa: Setting CRC ON: state 0
+
+Starting 'setPower'
+## Writing:  ##	Register 1:  81
+## Writing:  ##	Register 9:  7
+## Output power has been successfully set ##
+
+## Writing:  ##	Register 1:  81
+setupLoRa: Setting Power H: state 0
+
+Starting 'setNodeAddress'
+## Writing:  ##	Register 1:  C1
+## Writing:  ##	Register 33:  1
+## Writing:  ##	Register 34:  0
+## Writing:  ##	Register 1:  81
+## Node address 1 has been successfully set ##
+
+setupLoRa: Setting Node address 1: state 0
+setupLoRa: SX1272 successfully configured
+
+setupLoRa: done 1, 0, 0
+
+Starting 'getPreambleLength'
+## Preamble length configured is 8 ##
+getLoRaPreambleLength: 0
+getLoRaPreambleLengthValue: 8
+receiveLoRaMessage: start
+
+Starting 'receivePacketTimeout'
+
+Starting 'receive'
+## Writing:  ##	Register 31:  43
+## Writing:  ##	Register A:  9
+## Writing:  ##	Register C:  23
+## Writing:  ##	Register D:  0
+## Writing:  ##	Register 1F:  FF
+## Writing:  ##	Register 25:  0
+
+Starting 'setPacketLength'
+## Writing:  ##	Register 1:  81
+## Writing:  ##	Register 22:  FF
+## Packet length 255 has been successfully set ##
+
+## Writing:  ##	Register 1:  81
+## Writing:  ##	Register 1:  85
+## Receiving LoRa mode activated with success ##
+
+
+Starting 'availableData'
+## Valid Header received in LoRa mode ##
+## Header[0] = 0
+## Header[1] = c
+## Checking destination ##
+## Packet received is for me ##
+
+Starting 'getPacket'
+## Packet[0] = 0x50
+## Packet correctly received in LoRa mode ##
+## Writing:  ##	Register D:  0
+***packet_received.packnum=0x16
+***packet_received.length=0x0c
+## Packet received:
+Destination: 0x01
+Source: 0x04
+Packet number: 0x16
+Packet length: 0x0c
+Data: 4|1|2|3
+Retry number: 0x00
+ ##
+
+## Writing:  ##	Register D:  0
+## Writing:  ##	Register 1:  81
+## Writing:  ##	Register 12:  FF
+## Writing:  ##	Register 1:  85
+## LoRa flags cleared ##
+receiveLoRaMessage: state=0, dst=0x01, src=0x04, packnum=0x16, length=0x0c
+***truncated to 10 bytes
+34 7c 31 7c 32 7c 33 00 00 00 
+receiveLoRaMessage: message=4|1|2|3
+receiveLoRaMessage: done 1, 0, 1
+
+Starting 'getSNR'
+## SNR value is 8 ##
+
+getLoRaSNR: 0
+getLoRaSNRValue: 8
+
+Starting 'getRSSI'
+## RSSI value is -103 ##
+
+getLoRaRSSI: 0
+getLoRaRSSIValue: -103
+
+Starting 'getRSSIpacket'
+
+Starting 'getSNR'
+## SNR value is 8 ##
+
+## RSSI packet value is -63 ##
+
+getLoRaRSSIpacket: 0
+getLoRaRSSIpacketValue: -63
+getLoRaSender: 4
+getLoRaRecipient: 1
+receiveLoRaMessage: start
+
+Starting 'receivePacketTimeout'
+
+Starting 'receive'
+## Writing:  ##	Register 31:  43
+## Writing:  ##	Register A:  9
+## Writing:  ##	Register C:  23
+## Writing:  ##	Register D:  0
+## Writing:  ##	Register 1F:  FF
+## Writing:  ##	Register 25:  0
+
+Starting 'setPacketLength'
+## Writing:  ##	Register 1:  81
+## Writing:  ##	Register 22:  FF
+## Packet length 255 has been successfully set ##
+
+## Writing:  ##	Register 1:  85
+## Writing:  ##	Register 1:  85
+## Receiving LoRa mode activated with success ##
+
+
+Starting 'availableData'
+## Valid Header received in LoRa mode ##
+## Header[0] = 1
+## Checking destination ##
+## Packet received is for me ##
+
+Starting 'getPacket'
+## Packet[0] = 0x50
+## Packet correctly received in LoRa mode ##
+## Writing:  ##	Register D:  0
+***packet_received.packnum=0x17
+***packet_received.length=0x0c
+## Packet received:
+Destination: 0x01
+Source: 0x04
+Packet number: 0x17
+Packet length: 0x0c
+Data: 4|1|2|3
+Retry number: 0x00
+ ##
+
+## Writing:  ##	Register D:  0
+## Writing:  ##	Register 1:  81
+## Writing:  ##	Register 12:  FF
+## Writing:  ##	Register 1:  85
+## LoRa flags cleared ##
+receiveLoRaMessage: state=0, dst=0x01, src=0x04, packnum=0x17, length=0x0c
+***truncated to 10 bytes
+34 7c 31 7c 32 7c 33 00 00 00 
+receiveLoRaMessage: message=4|1|2|3
+receiveLoRaMessage: done 1, 0, 2
+
+Starting 'getSNR'
+## SNR value is 6 ##
+
+getLoRaSNR: 0
+getLoRaSNRValue: 6
+
+Starting 'getRSSI'
+## RSSI value is -101 ##
+
+getLoRaRSSI: 0
+getLoRaRSSIValue: -101
+
+Starting 'getRSSIpacket'
+
+Starting 'getSNR'
+## SNR value is 6 ##
+
+## RSSI packet value is -67 ##
+
+getLoRaRSSIpacket: 0
+getLoRaRSSIpacketValue: -67
+getLoRaSender: 4
+getLoRaRecipient: 1
+receiveLoRaMessage: start
+
+Starting 'receivePacketTimeout'
+
+Starting 'receive'
+## Writing:  ##	Register 31:  43
+## Writing:  ##	Register A:  9
+## Writing:  ##	Register C:  23
+## Writing:  ##	Register D:  0
+## Writing:  ##	Register 1F:  FF
+## Writing:  ##	Register 25:  0
+
+Starting 'setPacketLength'
+## Writing:  ##	Register 1:  81
+## Writing:  ##	Register 22:  FF
+## Packet length 255 has been successfully set ##
+
+## Writing:  ##	Register 1:  85
+## Writing:  ##	Register 1:  85
+## Receiving LoRa mode activated with success ##
+
+
+Starting 'availableData'
+** The timeout has expired **
+
+receiveLoRaMessage: state=1
+receiveLoRaMessage: done 1, 0, 3
+
+Starting 'getSNR'
+## SNR value is 6 ##
+
+getLoRaSNR: 0
+getLoRaSNRValue: 6
+
+Starting 'getRSSI'
+## RSSI value is -54 ##
+
+getLoRaRSSI: 0
+getLoRaRSSIValue: -54
+
+Starting 'getRSSIpacket'
+
+Starting 'getSNR'
+## SNR value is 6 ##
+
+## RSSI packet value is -67 ##
+
+getLoRaRSSIpacket: 0
+getLoRaRSSIpacketValue: -67
+receiveLoRaMessage: start
+
+Starting 'receivePacketTimeout'
+
+Starting 'receive'
+## Writing:  ##	Register 31:  43
+## Writing:  ##	Register A:  9
+## Writing:  ##	Register C:  23
+## Writing:  ##	Register D:  0
+## Writing:  ##	Register 1F:  FF
+## Writing:  ##	Register 25:  0
+
+Starting 'setPacketLength'
+## Writing:  ##	Register 1:  81
+## Writing:  ##	Register 22:  FF
+## Packet length 255 has been successfully set ##
+
+## Writing:  ##	Register 1:  85
+## Writing:  ##	Register 1:  85
+## Receiving LoRa mode activated with success ##
+
+
+Starting 'availableData'
+** The timeout has expired **
+
+receiveLoRaMessage: state=1
+receiveLoRaMessage: done 1, 0, 4
+
+Starting 'getSNR'
+## SNR value is 6 ##
+
+getLoRaSNR: 0
+getLoRaSNRValue: 6
+
+Starting 'getRSSI'
+## RSSI value is -102 ##
+
+getLoRaRSSI: 0
+getLoRaRSSIValue: -102
+
+Starting 'getRSSIpacket'
+
+Starting 'getSNR'
+## SNR value is 6 ##
+
+## RSSI packet value is -67 ##
+
+getLoRaRSSIpacket: 0
+getLoRaRSSIpacketValue: -67
+receiveLoRaMessage: start
+
+Starting 'receivePacketTimeout'
+
+Starting 'receive'
+## Writing:  ##	Register 31:  43
+## Writing:  ##	Register A:  9
+## Writing:  ##	Register C:  23
+## Writing:  ##	Register D:  0
+## Writing:  ##	Register 1F:  FF
+## Writing:  ##	Register 25:  0
+
+Starting 'setPacketLength'
+## Writing:  ##	Register 1:  81
+## Writing:  ##	Register 22:  FF
+## Packet length 255 has been successfully set ##
+
+## Writing:  ##	Register 1:  85
+## Writing:  ##	Register 1:  85
+## Receiving LoRa mode activated with success ##
+
+
+Starting 'availableData'
+## Valid Header received in LoRa mode ##
+## Header[0] = 0
+## Header[1] = c
+## Checking destination ##
+## Packet received is for me ##
+
+Starting 'getPacket'
+## Packet[0] = 0x50
+## Packet correctly received in LoRa mode ##
+## Writing:  ##	Register D:  0
+***packet_received.packnum=0x19
+***packet_received.length=0x0c
+## Packet received:
+Destination: 0x01
+Source: 0x04
+Packet number: 0x19
+Packet length: 0x0c
+Data: 4|1|2|3
+Retry number: 0x00
+ ##
+
+## Writing:  ##	Register D:  0
+## Writing:  ##	Register 1:  81
+## Writing:  ##	Register 12:  FF
+## Writing:  ##	Register 1:  85
+## LoRa flags cleared ##
+receiveLoRaMessage: state=0, dst=0x01, src=0x04, packnum=0x19, length=0x0c
+***truncated to 10 bytes
+34 7c 31 7c 32 7c 33 00 00 00 
+receiveLoRaMessage: message=4|1|2|3
+receiveLoRaMessage: done 1, 0, 5
+
+Starting 'getSNR'
+## SNR value is 6 ##
+
+getLoRaSNR: 0
+getLoRaSNRValue: 6
+
+Starting 'getRSSI'
+## RSSI value is -101 ##
+
+getLoRaRSSI: 0
+getLoRaRSSIValue: -101
+
+Starting 'getRSSIpacket'
+
+Starting 'getSNR'
+## SNR value is 6 ##
+
+## RSSI packet value is -65 ##
+
+getLoRaRSSIpacket: 0
+getLoRaRSSIpacketValue: -65
+getLoRaSender: 4
+getLoRaRecipient: 1
+receiveLoRaMessage: start
+
+Starting 'receivePacketTimeout'
+
+Starting 'receive'
+## Writing:  ##	Register 31:  43
+## Writing:  ##	Register A:  9
+## Writing:  ##	Register C:  23
+## Writing:  ##	Register D:  0
+## Writing:  ##	Register 1F:  FF
+## Writing:  ##	Register 25:  0
+
+Starting 'setPacketLength'
+## Writing:  ##	Register 1:  81
+## Writing:  ##	Register 22:  FF
+## Packet length 255 has been successfully set ##
+
+## Writing:  ##	Register 1:  85
+## Writing:  ##	Register 1:  85
+## Receiving LoRa mode activ
+Subscribing to MQTT topic $aws/things/l249/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l250/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l251/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l252/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l253/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l254/shadow/update/accepted
+Subscribing to MQTT topic $aws/things/l255/shadow/update/accepted
+Calling receiveLoRaMessage to receive message...
+Msg: 4|1|2|3, Status: 0
+Sending sensor data to AWS IoT...
+{
+    "state": {
+        "reported": {
+            "gateway_snr": 8,
+            "status": 2,
+            "setup_done": 3,
+            "gateway": 1,
+            "address": 4,
+            "gateway_rssi_packet": -63,
+            "timestamp": "2016-06-18T17:39:17.123106",
+            "gateway_rssi": -103
+        }
+    }
+}
+Sent to AWS IoT
+Calling receiveLoRaMessage to receive message...
+Msg: 4|1|2|3, Status: 0
+Sending sensor data to AWS IoT...
+{
+    "state": {
+        "reported": {
+            "gateway_snr": 6,
+            "status": 2,
+            "setup_done": 3,
+            "gateway": 1,
+            "address": 4,
+            "gateway_rssi_packet": -67,
+            "timestamp": "2016-06-18T17:39:27.644282",
+            "gateway_rssi": -101
+        }
+    }
+}
+Sent to AWS IoT
+Calling receiveLoRaMessage to receive message...
+Msg: , Status: 1
+Calling receiveLoRaMessage to receive message...
+Msg: , Status: 1
+Calling receiveLoRaMessage to receive message...
+Msg: 4|1|2|3, Status: 0
+Sending sensor data to AWS IoT...
+{
+    "state": {
+        "reported": {
+            "gateway_snr": 6,
+            "status": 2,
+            "setup_done": 3,
+            "gateway": 1,
+            "address": 4,
+            "gateway_rssi_packet": -65,
+            "timestamp": "2016-06-18T17:39:51.689907",
+            "gateway_rssi": -101
+        }
+    }
+}
+Sent to AWS IoT
+Calling receiveLoRaMessage to receive message...
+ated with success ##
+
+
+Starting 'availableData'
+## Valid Header received in LoRa mode ##
+## Header[0] = 0
+## Checking destination ##
+## Packet received is for me ##
+
+Starting 'getPacket'
+## Packet[0] = 0x50
+## Packet correctly received in LoRa mode ##
+## Writing:  ##	Register D:  0
+***packet_received.packnum=0x1a
+***packet_received.length=0x0c
+## Packet received:
+Destination: 0x01
+Source: 0x04
+Packet number: 0x1a
+Packet length: 0x0c
+Data: 4|1|2|3
+Retry number: 0x00
+ ##
+
+## Writing:  ##	Register D:  0
+## Writing:  ##	Register 1:  81
+## Writing:  ##	Register 12:  FF
+## Writing:  ##	Register 1:  85
+## LoRa flags cleared ##
+receiveLoRaMessage: state=0, dst=0x01, src=0x04, packnum=0x1a, length=0x0c
+***truncated to 10 bytes
+34 7c 31 7c 32 7c 33 00 00 00 
+receiveLoRaMessage: message=4|1|2|3
+receiveLoRaMessage: done 1, 0, 6

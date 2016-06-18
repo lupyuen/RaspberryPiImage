@@ -3343,6 +3343,7 @@ boolean	SX1272::availableData(uint16_t wait)
 		#if (SX1272_debug_mode > 0)
 			printf("## Checking destination ##\n");
 		#endif
+		_destination = BROADCAST_0;  ////  TP-IoT: TODO
 		if( (_destination == _nodeAddress) || (_destination == BROADCAST_0) )
 		{ // LoRa or FSK mode
 			forme = true;
