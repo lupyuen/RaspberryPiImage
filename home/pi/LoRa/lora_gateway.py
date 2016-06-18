@@ -9,10 +9,9 @@ import json
 import paho.mqtt.client as mqtt
 import lora_interface
 
-mode = 1 # Max range, slow data rate.
-#mode = 4 # Mid range, mid data rate.
-channel = lora_interface.cvar.LORA_CH_10_868
-power = "H"
+transmission_mode = 1 # Max range, slow data rate.
+transmission_channel = lora_interface.cvar.LORA_CH_10_868
+transmission_power = "H"
 receive_timeout = 10000
 
 # TODO: Manage list of fields.
@@ -66,7 +65,7 @@ def main():
 
     # Setup the LoRa connection.  TODO: Check status
     print("Calling setupLoRa...")
-    status = lora_interface.setupLoRa(gateway_address, mode, channel, power)
+    status = lora_interface.setupLoRa(gateway_address, transmission_mode, transmission_channel, transmission_power)
     print("Status: " + str(status))
     if lora_interface.getLoRaPreambleLength() == 0:
         preamble_length = lora_interface.getLoRaPreambleLengthValue()
