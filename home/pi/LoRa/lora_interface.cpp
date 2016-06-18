@@ -207,10 +207,56 @@ int sendLoRaMessage(int address, char *msg)
     return e;
 }
 
+void readPacket() {
+        printf("readPacket:\n");
+        sx1272.writeRegister(REG_FIFO_ADDR_PTR, 0x00);  		// Setting address pointer in FIFO data buffer
+        for(unsigned int i = 0; i < 20; i++)
+            printf("[0x%02x] = 0x%02x\n", i, sx1272.readRegister(REG_FIFO));
+        sx1272.writeRegister(REG_FIFO_ADDR_PTR, 0x00);  		// Setting address pointer in FIFO data buffer
+        for(unsigned int i = 0; i < 20; i++)
+            sx1272.writeRegister(REG_FIFO, 0);
+
+        /*
+        int dst = readRegister(REG_FIFO);	// Storing first byte of the received packet
+		int src = readRegister(REG_FIFO);		// Reading second byte of the received packet
+		int packnum = readRegister(REG_FIFO);	// Reading third byte of the received packet
+		int length = readRegister(REG_FIFO);	// Reading fourth byte of the received packet
+		int payloadlength = length - OFFSET_PAYLOADLENGTH;
+		{
+			packet_received.retry = readRegister(REG_FIFO);
+			// Print the packet if debug_mode
+			#if (SX1272_debug_mode > 0)
+				printf("## Packet received:\n");
+				printf("Destination: ");
+				printf("0x%02x\n", packet_received.dst);			 	// Printing destination
+				printf("Source: ");
+				printf("0x%02x\n", packet_received.src);			 	// Printing source
+				printf("Packet number: ");
+				printf("0x%02x\n", packet_received.packnum);			// Printing packet number
+				printf("Packet length: ");
+				printf("0x%02x\n", packet_received.length);			// Printing packet length
+				printf("Data: ");
+				for(unsigned int i = 0; i < _payloadlength; i++)
+				{
+					printf("%c", packet_received.data[i]);		// Printing payload
+				}
+				printf("\n");
+				printf("Retry number: ");
+				printf("0x%02x\n", packet_received.retry);			// Printing number retry
+				printf(" ##\n");
+				printf("\n");
+			#endif
+			state = 0;
+		}
+		*/
+}
+
 char *receiveLoRaMessage(int timeout)
 {
   // Receive message. Wait till timeout, in milliseconds.
   printf("receiveLoRaMessage: start\n");
+  readPacket(); ////
+
   if (setupDone == 0)
   {
     printf("receiveLoRaMessage ERROR: setupLoRa not called");
@@ -219,6 +265,8 @@ char *receiveLoRaMessage(int timeout)
   printf("receiveLoRaMessage REG_HOP_CHANNEL = 0x%02x\n", sx1272.readRegister(REG_HOP_CHANNEL));
   printf("receiveLoRaMessage REG_MODEM_CONFIG1 = 0x%02x\n", sx1272.readRegister(REG_MODEM_CONFIG1));
   printf("receiveLoRaMessage REG_MODEM_CONFIG2 = 0x%02x\n", sx1272.readRegister(REG_MODEM_CONFIG2));
+  sx1272.setCRC_OFF();
+  printf("receiveLoRaMessage REG_MODEM_CONFIG1 = 0x%02x\n", sx1272.readRegister(REG_MODEM_CONFIG1));
   //for (int r = 0; r <= 0x3f; r++) printf("Reg[0x%X] = 0x%X\n", r, sx1272.readRegister(r));
 
   my_packet[0] = 0;  //  Empty the string.

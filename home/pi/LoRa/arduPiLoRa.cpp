@@ -3426,17 +3426,17 @@ int8_t SX1272::getPacket(uint16_t wait)
 	{ // LoRa mode
 		value = readRegister(REG_IRQ_FLAGS);
 		int packet_count = 0;  ////  TP-IoT
-		if (packet_count < 10) printf("## Packet[%d] = 0x%02x\n", packet_count++, value);  ////  TP-IoT
+		if (packet_count < 10) printf("## Packet[0x%02x] = 0x%02x\n", packet_count++, value);  ////  TP-IoT
 		// Wait until the packet is received (RxDone flag) or the timeout expires
 		while( (bitRead(value, 6) == 0) && (millis() - previous < (unsigned long)wait) )
 		{
 			value = readRegister(REG_IRQ_FLAGS);
-			if (packet_count < 10) printf("## Packet[%d] = 0x%02x\n", packet_count++, value);  ////  TP-IoT
 			// Condition to avoid an overflow (DO NOT REMOVE)
 			if( millis() < previous )
 			{
 				previous = millis();
 			}
+			if (packet_count < 10) printf("## Packet[0x%02x] = 0x%02x\n", packet_count++, value);  ////  TP-IoT
 		} // end while (millis)
 
 		if( (bitRead(value, 6) == 1) && (bitRead(value, 5) == 0) )
