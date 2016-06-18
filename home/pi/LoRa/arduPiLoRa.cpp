@@ -3425,12 +3425,12 @@ int8_t SX1272::getPacket(uint16_t wait)
 	{ // LoRa mode
 		value = readRegister(REG_IRQ_FLAGS);
 		int packet_count = 0;  ////  TP-IoT
-		printf("## Packet[%d] = %x\n", packet_count++, value);  ////  TP-IoT   
+		if (packet_count < 10) printf("## Packet[%d] = 0x%02x\n", packet_count++, value);  ////  TP-IoT
 		// Wait until the packet is received (RxDone flag) or the timeout expires
 		while( (bitRead(value, 6) == 0) && (millis() - previous < (unsigned long)wait) )
 		{
 			value = readRegister(REG_IRQ_FLAGS);
-			printf("## Packet[%d] = %x\n", packet_count++, value);  ////  TP-IoT   
+			if (packet_count < 10) printf("## Packet[%d] = 0x%02x\n", packet_count++, value);  ////  TP-IoT
 			// Condition to avoid an overflow (DO NOT REMOVE)
 			if( millis() < previous )
 			{
@@ -3531,8 +3531,9 @@ int8_t SX1272::getPacket(uint16_t wait)
 		}
 		packet_received.src = readRegister(REG_FIFO);		// Reading second byte of the received packet
 		packet_received.packnum = readRegister(REG_FIFO);	// Reading third byte of the received packet
+		printf("***packet_received.packnum=0x%02x\n", packet_received.packnum);  /////  TP-IoT
 		packet_received.length = readRegister(REG_FIFO);	// Reading fourth byte of the received packet
-		printf("***packet_received.length=%d\n", packet_received.length);  /////  TP-IoT
+		printf("***packet_received.length=0x%02x\n", packet_received.length);  /////  TP-IoT
 		if( _modem == LORA )
 		{
 			_payloadlength = packet_received.length - OFFSET_PAYLOADLENGTH;
@@ -3554,13 +3555,13 @@ int8_t SX1272::getPacket(uint16_t wait)
 			#if (SX1272_debug_mode > 0)
 				printf("## Packet received:\n");
 				printf("Destination: ");
-				printf("%d\n", packet_received.dst);			 	// Printing destination
+				printf("0x%02x\n", packet_received.dst);			 	// Printing destination
 				printf("Source: ");
-				printf("%d\n", packet_received.src);			 	// Printing source
+				printf("0x%02x\n", packet_received.src);			 	// Printing source
 				printf("Packet number: ");
-				printf("%d\n", packet_received.packnum);			// Printing packet number
+				printf("0x%02x\n", packet_received.packnum);			// Printing packet number
 				printf("Packet length: ");
-				printf("%d\n", packet_received.length);			// Printing packet length
+				printf("0x%02x\n", packet_received.length);			// Printing packet length
 				printf("Data: ");
 				for(unsigned int i = 0; i < _payloadlength; i++)
 				{
@@ -3568,7 +3569,7 @@ int8_t SX1272::getPacket(uint16_t wait)
 				}
 				printf("\n");
 				printf("Retry number: ");
-				printf("%d\n", packet_received.retry);			// Printing number retry
+				printf("0x%02x\n", packet_received.retry);			// Printing number retry
 				printf(" ##\n");
 				printf("\n");
 			#endif

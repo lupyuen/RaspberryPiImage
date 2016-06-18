@@ -219,11 +219,17 @@ char *receiveLoRaMessage(int timeout)
         e, sx1272.packet_received.dst, sx1272.packet_received.src, sx1272.packet_received.packnum,
         sx1272.packet_received.length);
     unsigned int length = sx1272.packet_received.length;
-    if (sizeof(my_packet) > 0 && length > sizeof(my_packet) - 1) length = sizeof(my_packet) - 1;
+    if (sizeof(my_packet) > 0 && length > sizeof(my_packet) - 1)
+        length = sizeof(my_packet) - 1;
+    if (length > 10) {
+        printf("***truncated to 10 bytes\n");
+        length = 10;
+    }
+
     unsigned int i;
     for (i = 0; i < sizeof(my_packet); i++)
       my_packet[i] = 0;
-    for (i = 0; i < sx1272.packet_received.length; i++) {
+    for (i = 0; i < length; i++) {
       my_packet[i] = (char)sx1272.packet_received.data[i];
       printf("%02x ", my_packet[i]);
     }
