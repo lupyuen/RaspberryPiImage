@@ -9,7 +9,8 @@ import json
 import paho.mqtt.client as mqtt
 import lora_interface
 
-transmission_mode = 1 # Max range, slow data rate.
+#transmission_mode = 1 # Max range, slow data rate.
+transmission_mode = 5 # Better reach, medium time on air. Test this mode because it doesn't mandate Low Data Rate Optimisation, which is not supported on Hope RF95.
 transmission_channel = lora_interface.cvar.LORA_CH_10_868
 transmission_power = "H"
 receive_timeout = 10000
@@ -117,7 +118,8 @@ def main():
                 "gateway_rssi": gateway_rssi,
                 "gateway_rssi_packet": gateway_rssi_packet
             }
-            if device_address == 3:
+            if device_address < 0:
+            # if device_address == 3:
                 # TODO: Temp logging for Arduino: Log the RSSI only
                 print('Ignoring Arduino packet')
             else:

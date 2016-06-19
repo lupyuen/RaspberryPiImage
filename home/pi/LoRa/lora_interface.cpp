@@ -109,7 +109,6 @@ int setupLoRa(int address, int mode, uint32_t channel, char *power)
   printf("setupLoRa: Setting Channel %s: state %d\n", decodeChannel(channel), e);
   
   // Set CRC
-#define CRC_OFF
 #ifdef CRC_OFF
   //  Disable CRC for debugging.
   e = sx1272.setCRC_OFF();
@@ -297,9 +296,11 @@ char *receiveLoRaMessage(int timeout)
   printf("receiveLoRaMessage REG_HOP_CHANNEL = 0x%02x\n", sx1272.readRegister(REG_HOP_CHANNEL));
   printf("receiveLoRaMessage REG_MODEM_CONFIG1 = 0x%02x\n", sx1272.readRegister(REG_MODEM_CONFIG1));
   printf("receiveLoRaMessage REG_MODEM_CONFIG2 = 0x%02x\n", sx1272.readRegister(REG_MODEM_CONFIG2));
+#ifdef CRC_OFF
   sx1272.setCRC_OFF();
   printf("receiveLoRaMessage REG_MODEM_CONFIG1 = 0x%02x\n", sx1272.readRegister(REG_MODEM_CONFIG1));
   //dumpRegisters();
+#endif  //  CRC_OFF
 
   my_packet[0] = 0;  //  Empty the string.
   e = sx1272.receivePacketTimeout(timeout);
@@ -311,11 +312,12 @@ char *receiveLoRaMessage(int timeout)
     unsigned int length = sx1272.packet_received.length;
     if (sizeof(my_packet) > 0 && length > sizeof(my_packet) - 1)
         length = sizeof(my_packet) - 1;
+#ifdef TRUNCATE_MESSAGES
     if (length > 10) {
-        printf("*** receiveLoRaMessage: truncated to 10 bytes\n");
+        printf("**** receiveLoRaMessage: truncated to 10 bytes\n");
         length = 10;
     }
-
+#endif  //  TRUNCATE_MESSAGES
     unsigned int i;
     for (i = 0; i < sizeof(my_packet); i++)
       my_packet[i] = 0;

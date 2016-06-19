@@ -3343,7 +3343,9 @@ boolean	SX1272::availableData(uint16_t wait)
 		#if (SX1272_debug_mode > 0)
 			printf("## Checking destination ##\n");
 		#endif
+#ifdef IGNORE_DESTINATION
 		_destination = BROADCAST_0;  ////  TP-IoT: TODO
+#endif  //  IGNORE_DESTINATION
 		if( (_destination == _nodeAddress) || (_destination == BROADCAST_0) )
 		{ // LoRa or FSK mode
 			forme = true;
@@ -3532,9 +3534,9 @@ int8_t SX1272::getPacket(uint16_t wait)
 		}
 		packet_received.src = readRegister(REG_FIFO);		// Reading second byte of the received packet
 		packet_received.packnum = readRegister(REG_FIFO);	// Reading third byte of the received packet
-		printf("***packet_received.packnum=0x%02x\n", packet_received.packnum);  /////  TP-IoT
+		printf("packet_received.packnum=0x%02x\n", packet_received.packnum);  /////  TP-IoT
 		packet_received.length = readRegister(REG_FIFO);	// Reading fourth byte of the received packet
-		printf("***packet_received.length=0x%02x\n", packet_received.length);  /////  TP-IoT
+		printf("packet_received.length=0x%02x\n", packet_received.length);  /////  TP-IoT
 		if( _modem == LORA )
 		{
 			_payloadlength = packet_received.length - OFFSET_PAYLOADLENGTH;
