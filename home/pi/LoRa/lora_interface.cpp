@@ -2,7 +2,9 @@
 //  We compress JSON messages with MessagePack to reduce transmitted message size.
 //  Semtech SX1272 Datasheet: http://www.semtech.com/images/datasheet/sx1272.pdf
 
+#ifdef MESSAGE_PACK
 #include <msgpack.h>
+#endif  //  MESSAGE_PACK
 #include <stdio.h>
 #include "arduPiLoRa.h"  //  Include the SX1272 and SPI library.
 #include "lora_interface.h"
@@ -13,14 +15,9 @@ char my_packet[1024];
 char message1 [] = "Packet 1, wanting to see if received packet is the same as sent packet";
 char message2 [] = "Packet 2, broadcast test";
 
-////
 static int setupDone = 0;
 static int sendCount = 0;
 static int receiveCount = 0;
-
-//  MessagePack buffer and serializer instance.
-msgpack_sbuffer* buffer = NULL;
-msgpack_packer* pk = NULL;
 
 int getLoRaStatus()
 {
@@ -52,6 +49,10 @@ int setupLoRa(int address, int mode, uint32_t channel, char *power)
   }
 #ifdef MESSAGE_PACK
   //  Test MessagePack. Create MessagePack buffer and serializer instance.
+  //  MessagePack buffer and serializer instance.
+  msgpack_sbuffer* buffer = NULL;
+  msgpack_packer* pk = NULL;
+
   buffer = msgpack_sbuffer_new();
   pk = msgpack_packer_new(buffer, msgpack_sbuffer_write);
   for (int j = 0; j < 5; j++) 
@@ -94,20 +95,29 @@ int setupLoRa(int address, int mode, uint32_t channel, char *power)
   printf("setupLoRa: Setting Mode %d: state %d\n", mode, e);
   
   // Set header
+#ifdef HEADER_OFF
+  //  Disable standard header for debugging.
+  e = sx1272.setHeaderOFF();
+  printf("**** setupLoRa: Setting Header OFF: state %d\n", e);
+#else
   e = sx1272.setHeaderON();
   printf("setupLoRa: Setting Header ON: state %d\n", e);
-  //e = sx1272.setHeaderOFF();  ////  TODO
-  //printf("****setupLoRa: Setting Header OFF: state %d\n", e);
+#endif  //  HEADER_OFF
 
   // Select frequency channel
   e = sx1272.setChannel(channel);
   printf("setupLoRa: Setting Channel %s: state %d\n", decodeChannel(channel), e);
   
   // Set CRC
-  ////e = sx1272.setCRC_ON();
-  ////printf("setupLoRa: Setting CRC ON: state %d\n", e);
-  e = sx1272.setCRC_OFF();  ////  TODO
-  printf("setupLoRa: Setting CRC OFF: state %d\n", e);
+#define CRC_OFF
+#ifdef CRC_OFF
+  //  Disable CRC for debugging.
+  e = sx1272.setCRC_OFF();
+  printf("**** setupLoRa: Setting CRC OFF: state %d\n", e);
+#else
+  e = sx1272.setCRC_ON();
+  printf("setupLoRa: Setting CRC ON: state %d\n", e);
+#endif  //  CRC_OFF
 
   // Select output power (Max, High or Low)
   e = sx1272.setPower(*power);
@@ -117,19 +127,18 @@ int setupLoRa(int address, int mode, uint32_t channel, char *power)
   e = sx1272.setNodeAddress(address);
   printf("setupLoRa: Setting Node address %d: state %d\n", address, e);
 
+#ifdef INVERT_IQ
   // TODO: To allow Hope RF95 (SX1276) to talk to Libelium SX1272, use inverted I/Q signal (prevent mote-to-mote communication)
   // Refer to http://openlora.com/forum/viewtopic.php?t=887
   // Also see example of SX1272-SX1276 interop: http://cpham.perso.univ-pau.fr/LORA/RPIgateway.html
   printf("setupLoRa: Before inverting I/Q REG_NODE_ADRS = 0x%02x\n", sx1272.readRegister(REG_NODE_ADRS));
   sx1272.writeRegister(REG_NODE_ADRS, sx1272.readRegister(REG_NODE_ADRS)|(1<<6));
   printf("setupLoRa: After inverting I/Q REG_NODE_ADRS = 0x%02x\n", sx1272.readRegister(REG_NODE_ADRS));
+#endif  //  INVERT_IQ
 
   // Print a success message
-  printf("setupLoRa: SX1272 successfully configured\n\n");
-
-  ////
   setupDone++;
-  printf("setupLoRa: done %d, %d, %d\n", setupDone, sendCount, receiveCount);
+  printf("setupLoRa: SX1272 successfully configured %d, %d, %d\n", setupDone, sendCount, receiveCount);
   return e;
 }
 
@@ -209,63 +218,77 @@ int sendLoRaMessage(int address, char *msg)
     //  TODO: If message starts with "{", assume it's in JSON format and compress with MessagePack.
     e = sx1272.sendPacketTimeout(address, msg);
     printf("sendLoRaMessage: state=%d\n",e);
-
-    ////
     sendCount++;
     printf("sendLoRaMessage: done %d, %d, %d\n", setupDone, sendCount, receiveCount);
     return e;
 }
 
-void readPacket() {
-        printf("readPacket:\n");
-        sx1272.writeRegister(REG_FIFO_ADDR_PTR, 0x00);  		// Setting address pointer in FIFO data buffer
-        for(unsigned int i = 0; i < 20; i++)
-            printf("[0x%02x] = 0x%02x\n", i, sx1272.readRegister(REG_FIFO));
-        sx1272.writeRegister(REG_FIFO_ADDR_PTR, 0x00);  		// Setting address pointer in FIFO data buffer
-        for(unsigned int i = 0; i < 20; i++)
-            sx1272.writeRegister(REG_FIFO, 0);
+void dumpPacket()
+{
+    //  Dump the last received packet.
+    printf("dumpPacket:\n");
+    printf("REG_FIFO_RX_BASE_ADDR = 0x%02x\n", sx1272.readRegister(REG_FIFO_RX_BASE_ADDR));
+    printf("REG_FIFO_RX_CURRENT_ADDR = 0x%02x\n", sx1272.readRegister(REG_FIFO_RX_CURRENT_ADDR));
+    printf("REG_RX_NB_BYTES = 0x%02x\n", sx1272.readRegister(REG_RX_NB_BYTES));
+    printf("REG_RX_HEADER_CNT_VALUE_LSB = 0x%02x\n", sx1272.readRegister(REG_RX_HEADER_CNT_VALUE_LSB));
+    printf("REG_RX_HEADER_CNT_VALUE_MSB = 0x%02x\n", sx1272.readRegister(REG_RX_HEADER_CNT_VALUE_MSB));
+    printf("REG_RX_PACKET_CNT_VALUE_LSB = 0x%02x\n", sx1272.readRegister(REG_RX_PACKET_CNT_VALUE_LSB));
+    printf("REG_RX_PACKET_CNT_VALUE_MSB = 0x%02x\n", sx1272.readRegister(REG_RX_PACKET_CNT_VALUE_MSB));
 
-        /*
-        int dst = readRegister(REG_FIFO);	// Storing first byte of the received packet
-		int src = readRegister(REG_FIFO);		// Reading second byte of the received packet
-		int packnum = readRegister(REG_FIFO);	// Reading third byte of the received packet
-		int length = readRegister(REG_FIFO);	// Reading fourth byte of the received packet
-		int payloadlength = length - OFFSET_PAYLOADLENGTH;
-		{
-			packet_received.retry = readRegister(REG_FIFO);
-			// Print the packet if debug_mode
-			#if (SX1272_debug_mode > 0)
-				printf("## Packet received:\n");
-				printf("Destination: ");
-				printf("0x%02x\n", packet_received.dst);			 	// Printing destination
-				printf("Source: ");
-				printf("0x%02x\n", packet_received.src);			 	// Printing source
-				printf("Packet number: ");
-				printf("0x%02x\n", packet_received.packnum);			// Printing packet number
-				printf("Packet length: ");
-				printf("0x%02x\n", packet_received.length);			// Printing packet length
-				printf("Data: ");
-				for(unsigned int i = 0; i < _payloadlength; i++)
-				{
-					printf("%c", packet_received.data[i]);		// Printing payload
-				}
-				printf("\n");
-				printf("Retry number: ");
-				printf("0x%02x\n", packet_received.retry);			// Printing number retry
-				printf(" ##\n");
-				printf("\n");
-			#endif
-			state = 0;
-		}
-		*/
+    sx1272.writeRegister(REG_FIFO_ADDR_PTR, 0x00);  // Setting address pointer in FIFO data buffer
+    for(unsigned int i = 0; i < sx1272.readRegister(REG_RX_NB_BYTES); i++)
+        printf("[0x%02x] = 0x%02x\n", i, sx1272.readRegister(REG_FIFO));
+
+    /*
+    sx1272.writeRegister(REG_FIFO_ADDR_PTR, 0x00);  		// Setting address pointer in FIFO data buffer
+    for(unsigned int i = 0; i < 20; i++)
+        sx1272.writeRegister(REG_FIFO, 0);
+
+    int dst = readRegister(REG_FIFO);	// Storing first byte of the received packet
+    int src = readRegister(REG_FIFO);		// Reading second byte of the received packet
+    int packnum = readRegister(REG_FIFO);	// Reading third byte of the received packet
+    int length = readRegister(REG_FIFO);	// Reading fourth byte of the received packet
+    int payloadlength = length - OFFSET_PAYLOADLENGTH;
+    {
+        packet_received.retry = readRegister(REG_FIFO);
+        // Print the packet if debug_mode
+        #if (SX1272_debug_mode > 0)
+            printf("## Packet received:\n");
+            printf("Destination: ");
+            printf("0x%02x\n", packet_received.dst);			 	// Printing destination
+            printf("Source: ");
+            printf("0x%02x\n", packet_received.src);			 	// Printing source
+            printf("Packet number: ");
+            printf("0x%02x\n", packet_received.packnum);			// Printing packet number
+            printf("Packet length: ");
+            printf("0x%02x\n", packet_received.length);			// Printing packet length
+            printf("Data: ");
+            for(unsigned int i = 0; i < _payloadlength; i++)
+            {
+                printf("%c", packet_received.data[i]);		// Printing payload
+            }
+            printf("\n");
+            printf("Retry number: ");
+            printf("0x%02x\n", packet_received.retry);			// Printing number retry
+            printf(" ##\n");
+            printf("\n");
+        #endif
+        state = 0;
+    }
+    */
+}
+
+void dumpRegisters()
+{
+  //  Dump out all registers.
+  for (int r = 0; r <= 0x3f; r++)
+    printf("Reg[0x%X] = 0x%X\n", r, sx1272.readRegister(r));
 }
 
 char *receiveLoRaMessage(int timeout)
 {
-  // Receive message. Wait till timeout, in milliseconds.
+  //  Receive message. Wait till timeout, in milliseconds.
   printf("receiveLoRaMessage: start\n");
-  readPacket(); ////
-
   if (setupDone == 0)
   {
     printf("receiveLoRaMessage ERROR: setupLoRa not called");
@@ -276,7 +299,7 @@ char *receiveLoRaMessage(int timeout)
   printf("receiveLoRaMessage REG_MODEM_CONFIG2 = 0x%02x\n", sx1272.readRegister(REG_MODEM_CONFIG2));
   sx1272.setCRC_OFF();
   printf("receiveLoRaMessage REG_MODEM_CONFIG1 = 0x%02x\n", sx1272.readRegister(REG_MODEM_CONFIG1));
-  //for (int r = 0; r <= 0x3f; r++) printf("Reg[0x%X] = 0x%X\n", r, sx1272.readRegister(r));
+  //dumpRegisters();
 
   my_packet[0] = 0;  //  Empty the string.
   e = sx1272.receivePacketTimeout(timeout);
@@ -289,7 +312,7 @@ char *receiveLoRaMessage(int timeout)
     if (sizeof(my_packet) > 0 && length > sizeof(my_packet) - 1)
         length = sizeof(my_packet) - 1;
     if (length > 10) {
-        printf("***truncated to 10 bytes\n");
+        printf("*** receiveLoRaMessage: truncated to 10 bytes\n");
         length = 10;
     }
 
@@ -314,11 +337,11 @@ char *receiveLoRaMessage(int timeout)
     printf("receiveLoRaMessage: state=%d\n",e);
   }
 
-  ////
   //  TODO: If message does not start with "{", assume it's in MessagePack format and uncompress to JSON format.
   receiveCount++;
   printf("receiveLoRaMessage: done %d, %d, %d\n", setupDone, sendCount, receiveCount);
-  return my_packet;
+  dumpPacket(); ////
+  return (char *) my_packet;
 }
 
 int getLoRaSender()

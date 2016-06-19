@@ -83,7 +83,9 @@ def main():
                 continue
             # Read a LoRa message, which contains the device state.  TODO: Check status.
             print("Calling receiveLoRaMessage to receive message...")
-            msg = lora_interface.receiveLoRaMessage(receive_timeout)
+            msg0 = lora_interface.receiveLoRaMessage(receive_timeout)
+            msg = msg0 # Copy the message safely.
+            print("Msg: " + msg + ", Status: " + str(status))
             status = lora_interface.getLoRaStatus()
             if lora_interface.getLoRaSNR() == 0:
                 gateway_snr = lora_interface.getLoRaSNRValue()
@@ -97,7 +99,6 @@ def main():
                 gateway_rssi_packet = lora_interface.getLoRaRSSIpacketValue()
             else:
                 gateway_rssi_packet = -1
-            print("Msg: " + msg + ", Status: " + str(status))
 
             # TODO: Comment this section.
             #if len(msg) == 0:

@@ -3563,12 +3563,14 @@ int8_t SX1272::getPacket(uint16_t wait)
 				printf("0x%02x\n", packet_received.packnum);			// Printing packet number
 				printf("Packet length: ");
 				printf("0x%02x\n", packet_received.length);			// Printing packet length
+				/*
 				printf("Data: ");
 				for(unsigned int i = 0; i < _payloadlength; i++)
 				{
 					printf("%c", packet_received.data[i]);		// Printing payload
 				}
 				printf("\n");
+				*/
 				printf("Retry number: ");
 				printf("0x%02x\n", packet_received.retry);			// Printing number retry
 				printf(" ##\n");
