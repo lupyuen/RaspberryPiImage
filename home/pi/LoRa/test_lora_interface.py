@@ -48,6 +48,7 @@ while True:
         rssi_packet = lora_interface.getLoRaRSSIpacket()
         timestamp = datetime.datetime.now().isoformat()
 
+        '''
         # If this is the sensor node, send the device state to the LoRa gateway.
         state = {
             "address": address,
@@ -76,7 +77,6 @@ while True:
               str(rssi_packet) + "|" + \
               str(timestamp)
         print("Calling sendLoRaMessage to send device state to LoRa gateway " + str(gateway) + "...\n" + msg)
-        '''
         status = lora_interface.sendLoRaMessage(gateway, msg)
         print("Status: " + str(status))
 
