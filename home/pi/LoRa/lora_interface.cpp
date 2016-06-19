@@ -50,6 +50,7 @@ int setupLoRa(int address, int mode, uint32_t channel, char *power)
     printf("setupLoRa ERROR: setupLoRa already called");
     return -1;
   }
+#ifdef MESSAGE_PACK
   //  Test MessagePack. Create MessagePack buffer and serializer instance.
   buffer = msgpack_sbuffer_new();
   pk = msgpack_packer_new(buffer, msgpack_sbuffer_write);
@@ -79,6 +80,7 @@ int setupLoRa(int address, int mode, uint32_t channel, char *power)
   //  Cleaning.
   //msgpack_sbuffer_free(buffer);
   //msgpack_packer_free(pk);
+#endif  //  MESSAGE_PACK
 
   // Print a start message
   printf("setupLoRa: SX1272 module and Raspberry Pi: send packets without ACK\n");
@@ -114,7 +116,11 @@ int setupLoRa(int address, int mode, uint32_t channel, char *power)
   // Set the node address
   e = sx1272.setNodeAddress(address);
   printf("setupLoRa: Setting Node address %d: state %d\n", address, e);
-  
+
+  // TODO: To allow Hope RF95 (SX1276) to talk to Libelium SX1272, use inverted I/Q signal (prevent mote-to-mote communication)
+  // http://openlora.com/forum/viewtopic.php?t=887
+  sx1272.writeRegister(REG_NODE_ADRS, sx1272.readRegister(REG_NODE_ADRS)|(1<<6));
+
   // Print a success message
   printf("setupLoRa: SX1272 successfully configured\n\n");
 
