@@ -23,7 +23,7 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="lora_interface.cpp" pinned="false" current-in-tab="true">
+      <file leaf-file-name="lora_interface.cpp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/LoRa/lora_interface.cpp">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="396">
@@ -33,11 +33,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="RH_RF95.cpp" pinned="false" current-in-tab="false">
+      <file leaf-file-name="RH_RF95.cpp" pinned="false" current-in-tab="true">
         <entry file="file://$USER_HOME$/Documents/LoRaArduino/libraries/RadioHead/RH_RF95.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="576">
-              <caret line="329" column="6" selection-start-line="329" selection-start-column="6" selection-end-line="329" selection-end-column="6" />
+            <state relative-caret-position="385">
+              <caret line="143" column="18" selection-start-line="143" selection-start-column="18" selection-end-line="143" selection-end-column="18" />
               <folding />
             </state>
           </provider>
@@ -132,10 +132,10 @@
         <option value="$USER_HOME$/Documents/LoRaArduino/libraries/arduinoLoRa/arduinoLoRa.cpp" />
         <option value="$USER_HOME$/Documents/LoRaArduino/SX_01a_TX_LoRa/SX_01a_TX_LoRa.ino" />
         <option value="$USER_HOME$/Documents/LoRaArduino/libraries/RadioHead/RH_RF95.h" />
-        <option value="$USER_HOME$/Documents/LoRaArduino/libraries/RadioHead/RH_RF95.cpp" />
         <option value="$PROJECT_DIR$/LoRa/arduPiLoRa.cpp" />
         <option value="$PROJECT_DIR$/LoRa/lora_gateway.py" />
         <option value="$PROJECT_DIR$/LoRa/lora_interface.cpp" />
+        <option value="$USER_HOME$/Documents/LoRaArduino/libraries/RadioHead/RH_RF95.cpp" />
       </list>
     </option>
   </component>
@@ -810,14 +810,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/Documents/LoRaArduino/libraries/RadioHead/RH_RF95.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="576">
-          <caret line="329" column="6" selection-start-line="329" selection-start-column="6" selection-end-line="329" selection-end-column="6" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/LoRa/lora_gateway.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
@@ -840,6 +832,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="396">
           <caret line="303" column="0" selection-start-line="303" selection-start-column="0" selection-end-line="303" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Documents/LoRaArduino/libraries/RadioHead/RH_RF95.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="385">
+          <caret line="143" column="18" selection-start-line="143" selection-start-column="18" selection-end-line="143" selection-end-column="18" />
           <folding />
         </state>
       </provider>
