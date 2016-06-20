@@ -9,8 +9,8 @@ import json
 import paho.mqtt.client as mqtt
 import lora_interface
 
-#transmission_mode = 1 # Max range, slow data rate.
-transmission_mode = 5 # Better reach, medium time on air. Test this mode because it doesn't mandate Low Data Rate Optimisation, which is not supported on Hope RF95.
+transmission_mode = 1 # Max range, slow data rate.
+#transmission_mode = 5 # Better reach, medium time on air. Test this mode because it doesn't mandate Low Data Rate Optimisation, which is not supported on Hope RF95.
 transmission_channel = lora_interface.cvar.LORA_CH_10_868
 transmission_power = "H"
 receive_timeout = 10000
@@ -101,13 +101,6 @@ def main():
             else:
                 gateway_rssi_packet = -1
 
-            # TODO: Comment this section.
-            #if len(msg) == 0:
-                #msg = '''{
-                    #"temperature": 27.3,
-                    #"humidity": 88
-                #}'''
-
             # If no message available, try again.
             if len(msg) == 0:
                 continue
@@ -118,11 +111,7 @@ def main():
                 "gateway_rssi": gateway_rssi,
                 "gateway_rssi_packet": gateway_rssi_packet
             }
-            if device_address < 0:
-            # if device_address == 3:
-                # TODO: Temp logging for Arduino: Log the RSSI only
-                print('Ignoring Arduino packet')
-            else:
+            try:
                 # Msg contains an array of sensor data. Convert to dictionary.
                 msg_split = msg.split("|")
                 col = 0
@@ -131,7 +120,10 @@ def main():
                     col = col + 1
                     if key != "timestamp":
                         value = int(value)
-                    device_state[key] = value
+                        device_state[key] = value
+            except Exception as e:
+                # In case of parse errors e.g. due to Low Data Rate Optimization, record the error and continue.
+                device_state["error"] = str(e)
 
             # Set the timestamp if not present.
             if device_state.get("timestamp") is None:

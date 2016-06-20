@@ -12,8 +12,6 @@ char *decodeChannel(uint32_t code);
 
 int e;
 char my_packet[1024];
-char message1 [] = "Packet 1, wanting to see if received packet is the same as sent packet";
-char message2 [] = "Packet 2, broadcast test";
 
 static int setupDone = 0;
 static int sendCount = 0;
@@ -109,6 +107,7 @@ int setupLoRa(int address, int mode, uint32_t channel, char *power)
   printf("setupLoRa: Setting Channel %s: state %d\n", decodeChannel(channel), e);
   
   // Set CRC
+#define CRC_OFF ////  Needed for SX1272 to send to RH96 in Mode 1
 #ifdef CRC_OFF
   //  Disable CRC for debugging.
   e = sx1272.setCRC_OFF();
@@ -362,24 +361,43 @@ int getLoRaRecipient()
   return result;
 }
 
+/*
+char message1 [] = { 0x1 , 0x2, 0x3, 0x4, 0x5, 0x6, 0x7, 0x8, 0x9, 0xa, 0xb, 0xc, 0xd, 0xe, 0xf,
+0x1 , 0x2, 0x3, 0x4, 0x5, 0x6, 0x7, 0x8, 0x9, 0xa, 0xb, 0xc, 0xd, 0xe, 0xf,
+0x00
+ };
+char message1 [] = { 0x1, 0x1, 0x1, 0x1, 0x1, 0x1, 0x1, 0x1, 0x1, 0x1, 0x1, 0x1, 0x1, 0x1, 0x1, 0x1,
+0x00
+ };
+char message1 [] = { 0x1, 0x1, 0x1, 0x1, 0x1, 0x1, 0x1, 0x1, 0x1, 0x1, 0x1, 0x1, 0x1, 0x1, 0x1, 0x1, 0x1,
+0x00
+ };
+ */
+char message1 [] = { 0x2, 0x2, 0x2, 0x2, 0x2, 0x2, 0x2, 0x2, 0x2, 0x2, 0x2, 0x2, 0x2, 0x2, 0x2, 0x2, 0x2,
+0x00
+ };
+
+//char message2 [] = "Packet 2, broadcast test";
+
 int main() {
     const int address = 2;
-    const int mode = 4;
+    const int mode = 1;
     unsigned int channel = LORA_CH_10_868;
     char *power = (char *) "H";
     int setupStatus = setupLoRa(address, mode, channel, power);
     printf("Setup status %d\n",setupStatus);
     delay(1000);
 	while(1) {
-        // Send message1 to address 8 and print the result
-        e = sendLoRaMessage(8, message1);
+        //  Send message1 broadcast and print the result
+        e = sendLoRaMessage(0, message1);
         printf("Packet sent, state %d\n",e);
         delay(4000);
 
         // Send message2 broadcast and print the result
-        e = sendLoRaMessage(0, message2);
-        printf("Packet sent, state %d\n",e);
+        //e = sendLoRaMessage(0, message2);
+        //printf("Packet sent, state %d\n",e);
 
+        /*
         //  Receive a message.
         const int timeout = 10000;
         char *msg = receiveLoRaMessage(timeout);
@@ -397,6 +415,7 @@ int main() {
         int rssi = getLoRaRSSI();
         int rssi_packet = getLoRaRSSIpacket();
         printf("SNR, RSSI, RSSI packet: %d, %d, %d\n", snr, rssi, rssi_packet);
+        */
 	}
 	return (0);
 }
