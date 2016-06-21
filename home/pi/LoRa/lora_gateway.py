@@ -9,8 +9,8 @@ import json
 import paho.mqtt.client as mqtt
 import lora_interface
 
-transmission_mode = 1 # Max range, slow data rate.
-#transmission_mode = 5 # Better reach, medium time on air. Test this mode because it doesn't mandate Low Data Rate Optimisation, which is not supported on Hope RF95.
+#transmission_mode = 1 # Max range, slow data rate.
+transmission_mode = 5 # Better reach, medium time on air. Test this mode because it doesn't mandate Low Data Rate Optimisation, which is not supported on Hope RF95.
 transmission_channel = lora_interface.cvar.LORA_CH_10_868
 transmission_power = "H"
 receive_timeout = 10000
@@ -34,6 +34,7 @@ fields = [
 gateway_address = 1
 min_device_address = 2
 max_device_address = 255
+last_heartbeat = datetime.datetime.min  # Last time we sent a heartbeat message to AWS.
 
 # Public certificate of our Raspberry Pi, as provided by AWS IoT.
 deviceCertificate = "tp-iot-certificate.pem.crt"
@@ -42,8 +43,8 @@ devicePrivateKey = "tp-iot-private.pem.key"
 # Root certificate to authenticate AWS IoT when we connect to their server.
 awsCert = "aws-iot-rootCA.crt"
 
+# Set to true when we are connected to AWS MQTT.
 isConnected = False
-
 
 # This is the main logic of the program.  We connect to AWS IoT via MQTT, send sensor data periodically to AWS IoT,
 # and handle any actuation commands received from AWS IoT.
@@ -82,48 +83,11 @@ def main():
             if not isConnected:
                 time.sleep(1)
                 continue
-            # Read a LoRa message, which contains the device state.  TODO: Check status.
-            print("Calling receiveLoRaMessage to receive message...")
-            msg0 = lora_interface.receiveLoRaMessage(receive_timeout)
-            msg = msg0 # Copy the message safely.
-            print("Msg: " + msg + ", Status: " + str(status))
-            status = lora_interface.getLoRaStatus()
-            if lora_interface.getLoRaSNR() == 0:
-                gateway_snr = lora_interface.getLoRaSNRValue()
-            else:
-                gateway_snr = -1
-            if lora_interface.getLoRaRSSI() == 0:
-                gateway_rssi = lora_interface.getLoRaRSSIValue()
-            else:
-                gateway_rssi = -1
-            if lora_interface.getLoRaRSSIpacket() == 0:
-                gateway_rssi_packet = lora_interface.getLoRaRSSIpacketValue()
-            else:
-                gateway_rssi_packet = -1
-
+            # Attempt to read 1 message from LoRa.
+            device_state = read_lora_message()
             # If no message available, try again.
-            if len(msg) == 0:
+            if device_state is None:
                 continue
-            device_address = lora_interface.getLoRaSender()
-            recipient_address = lora_interface.getLoRaRecipient()
-            device_state = {
-                "gateway_snr": gateway_snr,
-                "gateway_rssi": gateway_rssi,
-                "gateway_rssi_packet": gateway_rssi_packet
-            }
-            try:
-                # Msg contains an array of sensor data. Convert to dictionary.
-                msg_split = msg.split("|")
-                col = 0
-                for value in msg_split:
-                    key = fields[col]
-                    col = col + 1
-                    if key != "timestamp":
-                        value = int(value)
-                        device_state[key] = value
-            except Exception as e:
-                # In case of parse errors e.g. due to Low Data Rate Optimization, record the error and continue.
-                device_state["error"] = str(e)
 
             # Set the timestamp if not present.
             if device_state.get("timestamp") is None:
@@ -137,7 +101,7 @@ def main():
             print("Sending sensor data to AWS IoT...\n" +
                   json.dumps(payload, indent=4, separators=(',', ': ')))
             # Publish our sensor data to AWS IoT via the gateway topic and the LoRa topic.
-            device_topic = convert_lora_address_to_mqtt_topic(device_address)
+            device_topic = convert_lora_address_to_mqtt_topic(device_state["address"])
             gateway_topic = convert_lora_address_to_mqtt_topic(gateway_address)
             client.publish(device_topic + "/shadow/update", json.dumps(payload))
             client.publish(gateway_topic + "/shadow/update", json.dumps(payload))
@@ -151,6 +115,74 @@ def main():
             print("Exception: " + str(e))
             time.sleep(10)
             continue
+
+# Read a LoRa message, parse into device state and return the device state.  TODO: Check status.
+def read_lora_message():
+    global last_heartbeat
+    print("Calling receiveLoRaMessage to receive message...")
+    msg0 = lora_interface.receiveLoRaMessage(receive_timeout)
+    msg = msg0  # Copy the message safely.
+    status = lora_interface.getLoRaStatus()
+    print("Msg: " + msg + ", Status: " + str(status))
+    write_packet()
+    if lora_interface.getLoRaSNR() == 0:
+        gateway_snr = lora_interface.getLoRaSNRValue()
+    else:
+        gateway_snr = -1
+    if lora_interface.getLoRaRSSI() == 0:
+        gateway_rssi = lora_interface.getLoRaRSSIValue()
+    else:
+        gateway_rssi = -1
+    if lora_interface.getLoRaRSSIpacket() == 0:
+        gateway_rssi_packet = lora_interface.getLoRaRSSIpacketValue()
+    else:
+        gateway_rssi_packet = -1
+
+    # If no message available, try again.
+    if len(msg) == 0:
+        # Send a heartbeat message if it was last sent 10 mins ago.
+        if (datetime.datetime.now() - last_heartbeat).total_seconds() < 10 * 60:
+            return None
+        last_heartbeat = datetime.datetime.now()
+        device_state = {
+            "message": "heartbeat",
+            "address": gateway_address,
+            "gateway": gateway_address,
+            "gateway_snr": gateway_snr,
+            "gateway_rssi": gateway_rssi,
+            "gateway_rssi_packet": gateway_rssi_packet
+        }
+        return device_state
+
+    device_address = lora_interface.getLoRaSender()
+    recipient_address = lora_interface.getLoRaRecipient()
+    device_state = {
+        "address": device_address,
+        "gateway": recipient_address,
+        "gateway_snr": gateway_snr,
+        "gateway_rssi": gateway_rssi,
+        "gateway_rssi_packet": gateway_rssi_packet
+    }
+    try:
+        # Msg contains an array of sensor data. Convert to dictionary.
+        msg_split = msg.split("|")
+        col = 0
+        for value in msg_split:
+            key = fields[col]
+            col = col + 1
+            if key != "timestamp":
+                value = int(value)
+                device_state[key] = value
+    except Exception as e:
+        # In case of parse errors e.g. due to Low Data Rate Optimization, record the error and continue.
+        device_state["error"] = str(e)
+    return device_state
+
+# Write the received packet to a local file.
+def write_packet():
+    with open('lora_gateway.log', 'a') as out:
+        packet = lora_interface.getLoRaPacket()
+        out.write(datetime.datetime.now().isoformat() + '|' + packet + '\n')
 
 # This is called when we are connected to AWS IoT via MQTT.
 # We subscribe for notifications of desired state updates.

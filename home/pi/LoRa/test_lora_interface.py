@@ -7,23 +7,18 @@ import json
 import platform
 import lora_interface
 
-gateway = 1
-address = 2
-mode = 1 # Max range, slow data rate.
-#mode = 4 # Mid range, mid data rate.
-channel = lora_interface.cvar.LORA_CH_10_868
-power = "H"
+#transmission_mode = 1 # Max range, slow data rate.
+transmission_mode = 5 # Better reach, medium time on air. Test this mode because it doesn't mandate Low Data Rate Optimisation, which is not supported on Hope RF95.
+transmission_channel = lora_interface.cvar.LORA_CH_10_868
+transmission_power = "H"
 receive_timeout = 10000
 loop_delay = 10
 
-is_gateway = False  # Run as sensor node.
-if platform.node() == "g87pi":
-    is_gateway = True  # Run as gateway.
-    address = gateway
-    print(platform.node() + " RUNNING AS GATEWAY")
+device_address = 2  # My own address.
+gateway_address = 1  # Address of gateway.
 
 print("Calling setupLoRa...")
-status = lora_interface.setupLoRa(address, mode, channel, power)
+status = lora_interface.setupLoRa(device_address, transmission_mode, transmission_channel, transmission_power)
 print("Status: " + str(status))
 
 # Loop forever.
@@ -35,9 +30,6 @@ while True:
         status = lora_interface.getLoRaStatus()
         print("Msg: " + msg + ", Status: " + str(status))
 
-        # Don't send data if this is gateway.
-        if is_gateway: continue
-
         # Read the LoRa counters.
         status = lora_interface.getLoRaStatus()
         setup_done = lora_interface.getLoRaSetupDone()
@@ -48,26 +40,8 @@ while True:
         rssi_packet = lora_interface.getLoRaRSSIpacket()
         timestamp = datetime.datetime.now().isoformat()
 
-        '''
-        # If this is the sensor node, send the device state to the LoRa gateway.
-        state = {
-            "address": address,
-            "gateway": gateway,
-            "status": status,
-            "setup_done": setup_done,
-            "send_count": send_count,
-            "receive_count": receive_count,
-            "snr": snr,
-            "rssi": rssi,
-            "rssi_packet": rssi_packet,
-            "timestamp": datetime.datetime.now().isoformat()
-        }
-        print("Calling sendLoRaMessage to send device state to LoRa gateway " + str(gateway) + "...\n" +
-              json.dumps(state, indent=4, separators=(',', ': ')))
-        msg = json.dumps(state)
-        '''
-        msg = str(address) + "|" + \
-              str(gateway) + "|" + \
+        msg = str(device_address) + "|" + \
+              str(gateway_address) + "|" + \
               str(status) + "|" + \
               str(setup_done) + "|" + \
               str(send_count) + "|" + \
@@ -76,8 +50,8 @@ while True:
               str(rssi) + "|" + \
               str(rssi_packet) + "|" + \
               str(timestamp)
-        print("Calling sendLoRaMessage to send device state to LoRa gateway " + str(gateway) + "...\n" + msg)
-        status = lora_interface.sendLoRaMessage(gateway, msg)
+        print("Calling sendLoRaMessage to send device state to LoRa gateway " + str(gateway_address) + "...\n" + msg)
+        status = lora_interface.sendLoRaMessage(gateway_address, msg)
         print("Status: " + str(status))
 
         # Wait 10 seconds before sending the next message.

@@ -15,6 +15,7 @@ extern int sendLoRaMessage(int address, char *msg);
 extern char *receiveLoRaMessage(int timeout);
 extern int getLoRaSender(void);
 extern int getLoRaRecipient(void);
+extern char *getLoRaPacket(void);
 
 //FREQUENCY CHANNELS:
 extern uint32_t LORA_CH_10_868; // = 0xD84CCC; // channel 10, central freq = 865.20MHz

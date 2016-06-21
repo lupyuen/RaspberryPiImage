@@ -221,6 +221,27 @@ int sendLoRaMessage(int address, char *msg)
     return e;
 }
 
+char packet_buffer[4096];
+char *hex_digits = (char *) "0123456789abcdef";
+
+char *getLoRaPacket()
+{
+    //  Return the last packet received.
+    printf("getLoRaPacket:\n");
+    sx1272.writeRegister(REG_FIFO_ADDR_PTR, 0x00);  // Setting address pointer in FIFO data buffer
+    packet_buffer[0] = 0;
+    int len = 0;
+    for(unsigned int i = 0; i < sx1272.readRegister(REG_RX_NB_BYTES); i++) {
+        int b = sx1272.readRegister(REG_FIFO);
+        packet_buffer[len++] = hex_digits[b / 16];
+        packet_buffer[len++] = hex_digits[b % 16];
+        packet_buffer[len++] = ' ';
+    }
+    packet_buffer[len] = 0;
+    printf("getLoRaPacket: done %s\n", packet_buffer);
+    return (char *) packet_buffer;
+}
+
 void dumpPacket()
 {
     //  Dump the last received packet.
