@@ -326,6 +326,32 @@ void SetupLoRa()
     writeRegister(REG_HOP_PERIOD,0xFF);
     writeRegister(REG_FIFO_ADDR_PTR, readRegister(REG_FIFO_RX_BASE_AD));
 
+    //  TP-IoT: Fixed constants according to http://www.hoperf.com/upload/rf/RFM95_96_97_98W.pdf
+    const int FIXED_RH_RF95_BW_125KHZ                             = 0x70;
+    const int FIXED_RH_RF95_BW_250KHZ                             = 0x80;
+    const int FIXED_RH_RF95_CODING_RATE_4_5                       = 0x02;
+    const int FIXED_RH_RF95_RX_PAYLOAD_CRC_IS_ON                  = 0x04;
+    const int RH_RF95_SPREADING_FACTOR                            = 0xf0;
+    const int RH_RF95_SPREADING_FACTOR_64CPS                      = 0x60;
+    const int RH_RF95_SPREADING_FACTOR_128CPS                     = 0x70;
+    const int RH_RF95_SPREADING_FACTOR_256CPS                     = 0x80;
+    const int RH_RF95_SPREADING_FACTOR_512CPS                     = 0x90;
+    const int RH_RF95_SPREADING_FACTOR_1024CPS                    = 0xa0;
+    const int RH_RF95_SPREADING_FACTOR_2048CPS                    = 0xb0;
+    const int RH_RF95_SPREADING_FACTOR_4096CPS                    = 0xc0;
+    //  TP-IoT Mode 5: Bw250Cr45Sf1024
+    writeRegister(REG_MODEM_CONFIG, FIXED_RH_RF95_BW_250KHZ + FIXED_RH_RF95_CODING_RATE_4_5);
+    writeRegister(REG_MODEM_CONFIG2, RH_RF95_SPREADING_FACTOR_1024CPS /* + FIXED_RH_RF95_RX_PAYLOAD_CRC_IS_ON */);
+    //  TP-IoT: Preamble length 8.
+    const int RH_RF95_REG_20_PREAMBLE_MSB                         = 0x20;
+    const int RH_RF95_REG_21_PREAMBLE_LSB                         = 0x21;
+    const int preamble_length = 8;
+    writeRegister(RH_RF95_REG_20_PREAMBLE_MSB, preamble_length >> 8);
+    writeRegister(RH_RF95_REG_21_PREAMBLE_LSB, preamble_length & 0xff);
+    //  TP-IoT sync.
+    writeRegister(0x39,0x12);
+
+
     // Set Continous Receive Mode
     writeRegister(REG_LNA, LNA_MAX_GAIN);  // max lna gain
     writeRegister(REG_OPMODE, SX72_MODE_RX_CONTINUOS);
