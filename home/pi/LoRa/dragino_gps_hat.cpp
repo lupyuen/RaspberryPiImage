@@ -69,6 +69,7 @@ enum sf_t { SF7=7, SF8, SF9, SF10, SF11, SF12 };
 ////                setSF(SF_12);       // SF = 12
 ////                setBW(BW_125);      // BW = 125 KHz
 //setModemConfig(Bw125Cr45Sf4096);  ////  TP-IoT Mode 1
+int transmission_mode = 1;
 
 ////  Testing TP-IoT Gateway on mode 5 (better reach, medium time on air)
 ////  Works with Dragino shield and Hope RF96 chip.
@@ -76,6 +77,7 @@ enum sf_t { SF7=7, SF8, SF9, SF10, SF11, SF12 };
 ////                setSF(SF_10);       // SF = 10
 ////                setBW(BW_250);      // BW = 250 KHz -> 0x80
 //setModemConfig(Bw250Cr45Sf1024);  ////  TP-IoT Mode 5
+//int transmission_mode = 5;
 
 // SX1272 - Raspberry connections
 int ssPin = 6;
@@ -84,7 +86,11 @@ int RST   = 0;
 
 // Set spreading factor (SF7 - SF12)
 ////sf_t sf = SF7;
-sf_t sf = SF10;  ////  TP-IoT Mode 5.
+sf_t sf =
+    (transmission_mode == 1) ? SF12 :  ////  TP-IoT Mode 1.
+    (transmission_mode == 5) ? SF10 :  ////  TP-IoT Mode 5.
+    SF10;
+
 
 // Set center frequency
 ////uint32_t  freq = 868100000; // in Mhz! (868.1)
@@ -339,9 +345,33 @@ void SetupLoRa()
     const int RH_RF95_SPREADING_FACTOR_1024CPS                    = 0xa0;
     const int RH_RF95_SPREADING_FACTOR_2048CPS                    = 0xb0;
     const int RH_RF95_SPREADING_FACTOR_4096CPS                    = 0xc0;
-    //  TP-IoT Mode 5: Bw250Cr45Sf1024
-    writeRegister(REG_MODEM_CONFIG, FIXED_RH_RF95_BW_250KHZ + FIXED_RH_RF95_CODING_RATE_4_5);
-    writeRegister(REG_MODEM_CONFIG2, RH_RF95_SPREADING_FACTOR_1024CPS /* + FIXED_RH_RF95_RX_PAYLOAD_CRC_IS_ON */);
+    switch (transmission_mode) {
+        case 1: {
+            ////  Mode 1 is max range but does NOT work with Dragino shield and Hope RF96 chip.
+            ////  TP-IoT Gateway runs on:
+            ////    case 1:     setCR(CR_5);        // CR = 4/5
+            ////                setSF(SF_12);       // SF = 12
+            ////                setBW(BW_125);      // BW = 125 KHz
+            //  TP-IoT Mode 1: Bw125Cr45Sf4096
+            writeRegister(REG_MODEM_CONFIG, FIXED_RH_RF95_BW_125KHZ + FIXED_RH_RF95_CODING_RATE_4_5);
+            writeRegister(REG_MODEM_CONFIG2, RH_RF95_SPREADING_FACTOR_4096CPS /* + FIXED_RH_RF95_RX_PAYLOAD_CRC_IS_ON */);
+            break;
+        }
+        case 5: {
+            ////  Testing TP-IoT Gateway on mode 5 (better reach, medium time on air)
+            ////  Works with Dragino shield and Hope RF96 chip.
+            ////    case 5:     setCR(CR_5);        // CR = 4/5
+            ////                setSF(SF_10);       // SF = 10
+            ////                setBW(BW_250);      // BW = 250 KHz -> 0x80
+            //  TP-IoT Mode 5: Bw250Cr45Sf1024
+            writeRegister(REG_MODEM_CONFIG, FIXED_RH_RF95_BW_250KHZ + FIXED_RH_RF95_CODING_RATE_4_5);
+            writeRegister(REG_MODEM_CONFIG2, RH_RF95_SPREADING_FACTOR_1024CPS /* + FIXED_RH_RF95_RX_PAYLOAD_CRC_IS_ON */);
+            break;
+        }
+        default:
+            printf("Unknown transmission_mode %d\n", transmission_mode);
+    }
+
     //  TP-IoT: Preamble length 8.
     const int RH_RF95_REG_20_PREAMBLE_MSB                         = 0x20;
     const int RH_RF95_REG_21_PREAMBLE_LSB                         = 0x21;
@@ -417,8 +447,13 @@ void sendstat() {
     printf("stat update: %s\n", (char *)(status_report+12)); /* DEBUG: display JSON stat */
 
     //send the update
-    sendudp(status_report, stat_index);
+    ////sendudp(status_report, stat_index);
 
+}
+
+void dumpMessage(char *msg, int len) {
+  for (int r = 0; r < len; r++)
+    printf("Msg[0x%X] = 0x%X\n", r, msg[r]);
 }
 
 void receivepacket() {
@@ -550,6 +585,9 @@ void receivepacket() {
             memcpy((void *)(buff_up + buff_index), (void *)",\"data\":\"", 9);
             buff_index += 9;
             ////j = bin_to_b64((uint8_t *)message, receivedbytes, (char *)(buff_up + buff_index), 341);
+            j = 0;////
+            dumpMessage((char *) message, receivedbytes); ////
+
             buff_index += j;
             buff_up[buff_index] = '"';
             ++buff_index;
@@ -567,7 +605,7 @@ void receivepacket() {
             printf("rxpk update: %s\n", (char *)(buff_up + 12)); /* DEBUG: display JSON payload */
 
             //send the messages
-            sendudp(buff_up, buff_index);
+            ////sendudp(buff_up, buff_index);
 
             fflush(stdout);
 
