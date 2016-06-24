@@ -26,7 +26,7 @@
 
 using namespace std;
 
-#include "base64.h"
+////#include "base64.h"
 
 #include <wiringPi.h>
 #include <wiringPiSPI.h>
@@ -63,16 +63,33 @@ enum sf_t { SF7=7, SF8, SF9, SF10, SF11, SF12 };
  *
  *******************************************************************************/
 
+////  TP-IoT: Mode 1 is max range but does NOT work with Dragino shield and Hope RF96 chip.
+////  TP-IoT Gateway runs on:
+////    case 1:     setCR(CR_5);        // CR = 4/5
+////                setSF(SF_12);       // SF = 12
+////                setBW(BW_125);      // BW = 125 KHz
+//setModemConfig(Bw125Cr45Sf4096);  ////  TP-IoT Mode 1
+
+////  Testing TP-IoT Gateway on mode 5 (better reach, medium time on air)
+////  Works with Dragino shield and Hope RF96 chip.
+////    case 5:     setCR(CR_5);        // CR = 4/5
+////                setSF(SF_10);       // SF = 10
+////                setBW(BW_250);      // BW = 250 KHz -> 0x80
+//setModemConfig(Bw250Cr45Sf1024);  ////  TP-IoT Mode 5
+
 // SX1272 - Raspberry connections
 int ssPin = 6;
 int dio0  = 7;
 int RST   = 0;
 
 // Set spreading factor (SF7 - SF12)
-sf_t sf = SF7;
+////sf_t sf = SF7;
+sf_t sf = SF10;  ////  TP-IoT Mode 5.
 
 // Set center frequency
-uint32_t  freq = 868100000; // in Mhz! (868.1)
+////uint32_t  freq = 868100000; // in Mhz! (868.1)
+////  TP-IoT: uint32_t LORA_CH_10_868 = CH_10_868; //  0xD84CCC; // channel 10, central freq = 865.20MHz  ////  Lup Yuen
+uint32_t  freq = 865200000; //// TP-IoT: 865.20 MHz
 
 // Set location
 float lat=0.0;
@@ -86,7 +103,8 @@ static char description[64] = "";                        /* used for free form d
 
 // define servers
 // TODO: use host names and dns
-#define SERVER1 "54.72.145.119"    // The Things Network: croft.thethings.girovito.nl
+////#define SERVER1 "54.72.145.119"    // The Things Network: croft.thethings.girovito.nl
+#define SERVER1 "127.0.0.1"    ////  TP-IoT: Bypass Things Network.
 //#define SERVER2 "192.168.1.10"      // local
 #define PORT 1700                   // The port on which to send data
 
@@ -411,7 +429,7 @@ void receivepacket() {
             printf("\n");
 
             int j;
-            j = bin_to_b64((uint8_t *)message, receivedbytes, (char *)(b64), 341);
+            ////j = bin_to_b64((uint8_t *)message, receivedbytes, (char *)(b64), 341);
             //fwrite(b64, sizeof(char), j, stdout);
 
             char buff_up[TX_BUFF_SIZE]; /* buffer to compose the upstream packet */
@@ -505,7 +523,7 @@ void receivepacket() {
             buff_index += j;
             memcpy((void *)(buff_up + buff_index), (void *)",\"data\":\"", 9);
             buff_index += 9;
-            j = bin_to_b64((uint8_t *)message, receivedbytes, (char *)(buff_up + buff_index), 341);
+            ////j = bin_to_b64((uint8_t *)message, receivedbytes, (char *)(buff_up + buff_index), 341);
             buff_index += j;
             buff_up[buff_index] = '"';
             ++buff_index;
