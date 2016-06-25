@@ -23,102 +23,88 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="lora_interface.cpp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/LoRa/lora_interface.cpp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="594">
-              <caret line="235" column="0" selection-start-line="235" selection-start-column="0" selection-end-line="235" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="lora_interface.h" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/LoRa/lora_interface.h">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="17" column="20" selection-start-line="17" selection-start-column="20" selection-end-line="17" selection-end-column="20" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="make_arduPiLoRa.sh" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/LoRa/make_arduPiLoRa.sh">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="324">
-              <caret line="18" column="0" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="RH_RF95.cpp" pinned="false" current-in-tab="false">
         <entry file="file://$USER_HOME$/Documents/LoRaArduino/libraries/RadioHead/RH_RF95.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3292">
-              <caret line="194" column="1" selection-start-line="194" selection-start-column="1" selection-end-line="194" selection-end-column="1" />
+            <state relative-caret-position="574">
+              <caret line="152" column="0" selection-start-line="150" selection-start-column="0" selection-end-line="152" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="arduPiLoRa.cpp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/LoRa/arduPiLoRa.cpp">
+      <file leaf-file-name="arduinoLoRa.cpp" pinned="false" current-in-tab="false">
+        <entry file="file://$USER_HOME$/Documents/LoRaArduino/libraries/arduinoLoRa/arduinoLoRa.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="304">
-              <caret line="4031" column="62" selection-start-line="4031" selection-start-column="62" selection-end-line="4031" selection-end-column="62" />
+            <state relative-caret-position="-4248">
+              <caret line="40" column="27" selection-start-line="40" selection-start-column="27" selection-end-line="40" selection-end-column="27" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="test_lora_interface.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/LoRa/test_lora_interface.py">
+      <file leaf-file-name="dragino_gps_hat.cpp" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/LoRa/dragino_gps_hat.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="198">
-              <caret line="11" column="57" selection-start-line="11" selection-start-column="57" selection-end-line="11" selection-end-column="57" />
-              <folding>
-                <element signature="e#121#132#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="396">
+              <caret line="359" column="99" selection-start-line="359" selection-start-column="99" selection-end-line="359" selection-end-column="99" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="arduPiLoRa.h" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/LoRa/arduPiLoRa.h">
+      <file leaf-file-name="config.h" pinned="false" current-in-tab="false">
+        <entry file="file://$USER_HOME$/Documents/LoRaArduino/libraries/arduino-lmic/src/lmic/config.h">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-182">
+              <caret line="8" column="21" selection-start-line="8" selection-start-column="21" selection-end-line="8" selection-end-column="21" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="radio.c" pinned="false" current-in-tab="false">
+        <entry file="file://$USER_HOME$/Documents/LoRaArduino/libraries/arduino-lmic/src/lmic/radio.c">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="563">
+              <caret line="529" column="85" selection-start-line="529" selection-start-column="85" selection-end-line="529" selection-end-column="85" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="RH_RF69.h" pinned="false" current-in-tab="false">
+        <entry file="file://$USER_HOME$/Documents/LoRaArduino/libraries/RadioHead/RH_RF69.h">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="324">
+              <caret line="108" column="0" selection-start-line="107" selection-start-column="0" selection-end-line="108" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="lmic.h" pinned="false" current-in-tab="false">
+        <entry file="file://$USER_HOME$/Documents/LoRaArduino/libraries/arduino-lmic/src/lmic/lmic.h">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="306">
-              <caret line="220" column="21" selection-start-line="220" selection-start-column="18" selection-end-line="220" selection-end-column="21" />
+              <caret line="31" column="60" selection-start-line="31" selection-start-column="58" selection-end-line="31" selection-end-column="60" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="lora_gateway.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/LoRa/lora_gateway.py">
+      <file leaf-file-name="lorabase.h" pinned="false" current-in-tab="false">
+        <entry file="file://$USER_HOME$/Documents/LoRaArduino/libraries/arduino-lmic/src/lmic/lorabase.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="288">
-              <caret line="16" column="0" selection-start-line="11" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
-              <folding>
-                <element signature="e#287#298#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="277">
+              <caret line="346" column="18" selection-start-line="346" selection-start-column="13" selection-end-line="346" selection-end-column="18" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
       <file leaf-file-name="run_lora_gateway.sh" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/LoRa/run_lora_gateway.sh">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="144">
-              <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="run_lora_node.sh" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/LoRa/run_lora_node.sh">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="144">
               <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
@@ -166,15 +152,18 @@
         <option value="$PROJECT_DIR$/LoRa/run_lora_gateway.sh" />
         <option value="$PROJECT_DIR$/LoRa/run_lora_node.sh" />
         <option value="$USER_HOME$/Documents/LoRaArduino/libraries/RadioHead/RH_RF95.cpp" />
-        <option value="$PROJECT_DIR$/LoRa/lora_gateway.py" />
         <option value="$PROJECT_DIR$/LoRa/test_lora_interface.py" />
+        <option value="$PROJECT_DIR$/LoRa/lora_gateway.py" />
+        <option value="$USER_HOME$/Documents/LoRaArduino/libraries/arduino-lmic/src/lmic/config.h" />
+        <option value="$USER_HOME$/Documents/LoRaArduino/libraries/arduino-lmic/src/lmic/radio.c" />
+        <option value="$PROJECT_DIR$/LoRa/dragino_gps_hat.cpp" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-45" />
-    <option name="y" value="17" />
-    <option name="width" value="1052" />
+    <option name="x" value="-2" />
+    <option name="y" value="9" />
+    <option name="width" value="993" />
     <option name="height" value="1000" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
@@ -221,8 +210,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="Scratches" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -252,6 +241,116 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="libraries" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="pi" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="LoRaArduino" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="libraries" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="arduinoLoRa" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="pi" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="LoRaArduino" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="libraries" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="arduino-lmic" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="pi" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="LoRaArduino" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="libraries" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="arduino-lmic" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="pi" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="LoRaArduino" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="libraries" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="arduino-lmic" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="lmic" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="pi" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="LoRaArduino" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="libraries" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="arduino-lmic" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="hal" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -521,12 +620,13 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-45" y="17" width="1052" height="1000" extended-state="0" />
+    <frame x="-2" y="9" width="993" height="1000" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16505791" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19140226" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -538,7 +638,6 @@
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout>
@@ -564,36 +663,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/LoRa/run_lora_node.sh">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/TP-IoT/send_receive_sensor_data.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1332">
-          <caret line="79" column="0" selection-start-line="78" selection-start-column="0" selection-end-line="79" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/TP-IoT/lora_gateway.py" />
-    <entry file="file://$PROJECT_DIR$/TP-IoT/lora_interface.py" />
-    <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python35/Lib/tokenize.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="8028">
-          <caret line="453" column="0" selection-start-line="453" selection-start-column="0" selection-end-line="453" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/_pydev_imps/_pydev_execfile.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="17" column="16" selection-start-line="17" selection-start-column="16" selection-end-line="17" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/TP-IoT/send_receive_sensor_data.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1332">
@@ -774,18 +843,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/Documents/LoRaArduino/libraries/arduinoLoRa/arduinoLoRa.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="72">
-          <caret line="4" column="28" selection-start-line="4" selection-start-column="28" selection-end-line="4" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/Documents/LoRaArduino/SX_01a_TX_LoRa/SX_01a_TX_LoRa.ino">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="414">
           <caret line="23" column="0" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -807,7 +868,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="10026">
           <caret line="557" column="19" selection-start-line="557" selection-start-column="4" selection-end-line="557" selection-end-column="19" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -829,7 +889,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/LoRa/arduPiLoRa.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
+        <state relative-caret-position="3960">
           <caret line="220" column="21" selection-start-line="220" selection-start-column="18" selection-end-line="220" selection-end-column="21" />
           <folding />
         </state>
@@ -837,7 +897,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/LoRa/arduPiLoRa.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="304">
+        <state relative-caret-position="72558">
           <caret line="4031" column="62" selection-start-line="4031" selection-start-column="62" selection-end-line="4031" selection-end-column="62" />
           <folding />
         </state>
@@ -845,7 +905,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/LoRa/lora_interface.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="594">
+        <state relative-caret-position="4230">
           <caret line="235" column="0" selection-start-line="235" selection-start-column="0" selection-end-line="235" selection-end-column="0" />
           <folding />
         </state>
@@ -867,31 +927,87 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/Documents/LoRaArduino/libraries/RadioHead/RH_RF95.cpp">
+    <entry file="file://$PROJECT_DIR$/LoRa/test_lora_interface.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3292">
-          <caret line="194" column="1" selection-start-line="194" selection-start-column="1" selection-end-line="194" selection-end-column="1" />
-          <folding />
+        <state relative-caret-position="198">
+          <caret line="11" column="57" selection-start-line="11" selection-start-column="57" selection-end-line="11" selection-end-column="57" />
+          <folding>
+            <element signature="e#121#132#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/LoRa/lora_gateway.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="288">
-          <caret line="16" column="0" selection-start-line="11" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
+          <caret line="31" column="48" selection-start-line="31" selection-start-column="48" selection-end-line="31" selection-end-column="48" />
           <folding>
-            <element signature="e#287#298#0" expanded="true" />
+            <element signature="e#287#298#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/LoRa/test_lora_interface.py">
+    <entry file="file://$USER_HOME$/Documents/LoRaArduino/libraries/arduinoLoRa/arduinoLoRa.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="11" column="57" selection-start-line="11" selection-start-column="57" selection-end-line="11" selection-end-column="57" />
-          <folding>
-            <element signature="e#121#132#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="-4248">
+          <caret line="40" column="27" selection-start-line="40" selection-start-column="27" selection-end-line="40" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Documents/LoRaArduino/libraries/arduino-lmic/src/lmic/lorabase.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="277">
+          <caret line="346" column="18" selection-start-line="346" selection-start-column="13" selection-end-line="346" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Documents/LoRaArduino/libraries/arduino-lmic/src/lmic/lmic.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="31" column="60" selection-start-line="31" selection-start-column="58" selection-end-line="31" selection-end-column="60" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Documents/LoRaArduino/libraries/arduino-lmic/src/lmic/config.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-182">
+          <caret line="8" column="21" selection-start-line="8" selection-start-column="21" selection-end-line="8" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Documents/LoRaArduino/libraries/RadioHead/RH_RF95.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="574">
+          <caret line="152" column="0" selection-start-line="150" selection-start-column="0" selection-end-line="152" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Documents/LoRaArduino/libraries/RadioHead/RH_RF69.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="324">
+          <caret line="108" column="0" selection-start-line="107" selection-start-column="0" selection-end-line="108" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Documents/LoRaArduino/libraries/arduino-lmic/src/lmic/radio.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="563">
+          <caret line="529" column="85" selection-start-line="529" selection-start-column="85" selection-end-line="529" selection-end-column="85" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/LoRa/dragino_gps_hat.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="396">
+          <caret line="359" column="99" selection-start-line="359" selection-start-column="99" selection-end-line="359" selection-end-column="99" />
+          <folding />
         </state>
       </provider>
     </entry>

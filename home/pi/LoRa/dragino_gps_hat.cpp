@@ -336,6 +336,9 @@ void SetupLoRa()
     const int FIXED_RH_RF95_BW_125KHZ                             = 0x70;
     const int FIXED_RH_RF95_BW_250KHZ                             = 0x80;
     const int FIXED_RH_RF95_CODING_RATE_4_5                       = 0x02;
+    const int FIXED_RH_RF95_CODING_RATE_4_6                       = 0x04;
+    const int FIXED_RH_RF95_CODING_RATE_4_7                       = 0x06;
+    const int FIXED_RH_RF95_CODING_RATE_4_8                       = 0x08;
     const int FIXED_RH_RF95_RX_PAYLOAD_CRC_IS_ON                  = 0x04;
     const int RH_RF95_SPREADING_FACTOR                            = 0xf0;
     const int RH_RF95_SPREADING_FACTOR_64CPS                      = 0x60;
@@ -353,7 +356,8 @@ void SetupLoRa()
             ////                setSF(SF_12);       // SF = 12
             ////                setBW(BW_125);      // BW = 125 KHz
             //  TP-IoT Mode 1: Bw125Cr45Sf4096
-            writeRegister(REG_MODEM_CONFIG, FIXED_RH_RF95_BW_125KHZ + FIXED_RH_RF95_CODING_RATE_4_5);
+            //writeRegister(REG_MODEM_CONFIG, FIXED_RH_RF95_BW_125KHZ + FIXED_RH_RF95_CODING_RATE_4_5);
+            writeRegister(REG_MODEM_CONFIG, FIXED_RH_RF95_BW_125KHZ + FIXED_RH_RF95_CODING_RATE_4_8);
             writeRegister(REG_MODEM_CONFIG2, RH_RF95_SPREADING_FACTOR_4096CPS /* + FIXED_RH_RF95_RX_PAYLOAD_CRC_IS_ON */);
             break;
         }
@@ -379,7 +383,8 @@ void SetupLoRa()
     writeRegister(RH_RF95_REG_20_PREAMBLE_MSB, preamble_length >> 8);
     writeRegister(RH_RF95_REG_21_PREAMBLE_LSB, preamble_length & 0xff);
     //  TP-IoT sync.
-    writeRegister(0x39,0x12);
+    const int RH_RF69_REG_39_NODEADRS                             = 0x39;
+    writeRegister(RH_RF69_REG_39_NODEADRS, 0x12);
 
 
     // Set Continous Receive Mode
