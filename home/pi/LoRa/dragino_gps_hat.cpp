@@ -356,8 +356,7 @@ void SetupLoRa()
             ////                setSF(SF_12);       // SF = 12
             ////                setBW(BW_125);      // BW = 125 KHz
             //  TP-IoT Mode 1: Bw125Cr45Sf4096
-            //writeRegister(REG_MODEM_CONFIG, FIXED_RH_RF95_BW_125KHZ + FIXED_RH_RF95_CODING_RATE_4_5);
-            writeRegister(REG_MODEM_CONFIG, FIXED_RH_RF95_BW_125KHZ + FIXED_RH_RF95_CODING_RATE_4_8);
+            writeRegister(REG_MODEM_CONFIG, FIXED_RH_RF95_BW_125KHZ + FIXED_RH_RF95_CODING_RATE_4_5);
             writeRegister(REG_MODEM_CONFIG2, RH_RF95_SPREADING_FACTOR_4096CPS /* + FIXED_RH_RF95_RX_PAYLOAD_CRC_IS_ON */);
             break;
         }
