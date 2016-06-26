@@ -9,23 +9,16 @@ import json
 import paho.mqtt.client as mqtt
 import lora_interface
 
-#transmission_mode = 1 # Max range, slow data rate.
-transmission_mode = 5 # Better reach, medium time on air. Test this mode because it doesn't mandate Low Data Rate Optimisation, which is not supported on Hope RF95.
+transmission_mode = 1 # Max range, slow data rate.
 transmission_channel = lora_interface.cvar.LORA_CH_10_868
 transmission_power = "H"
 receive_timeout = 10000
 
 # TODO: Manage list of fields.
 fields = [
-    "address",
-    "gateway",
-    "status",
-    "setup_done",
-    "send_count",
-    "receive_count",
-    "node_snr",
-    "node_rssi"
-    # "node_rssi_packet"
+    "temperature",
+    "humidity",
+    "message"
 ]
 
 # AWS IoT Device l001 to l255 <--> LoRa address 1 to 255
@@ -144,9 +137,11 @@ def read_lora_message():
 
     device_address = lora_interface.getLoRaSender()
     recipient_address = lora_interface.getLoRaRecipient()
+    packet_number = lora_interface.getLoRaPacketNumber()
     device_state = {
         "address": device_address,
         "gateway": recipient_address,
+        "packet_number": packet_number,
         "gateway_snr": gateway_snr,
         "gateway_rssi": gateway_rssi,
         "gateway_rssi_packet": gateway_rssi_packet
@@ -158,9 +153,11 @@ def read_lora_message():
         for value in msg_split:
             key = fields[col]
             col = col + 1
-            if key != "timestamp":
-                value = int(value)
-                device_state[key] = value
+            # If field is integer or decimal, convert accordingly.
+            if key != "timestamp" and value.isdecimal:
+                if '.' in value: value = float(value)
+                else: value = int(value)
+            device_state[key] = value
     except Exception as e:
         # In case of parse errors e.g. due to Low Data Rate Optimization, record the error and continue.
         device_state["error"] = str(e)

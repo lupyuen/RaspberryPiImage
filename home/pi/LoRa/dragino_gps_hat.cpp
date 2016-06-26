@@ -442,7 +442,7 @@ void sendstat() {
 
     printf("stat update: %s\n", (char *)(status_report+12)); /* DEBUG: display JSON stat */
 
-    //send the update
+    //  Send the update to LoRaWAN.
     ////sendudp(status_report, stat_index);
 
 }
@@ -453,7 +453,7 @@ void dumpMessage(char *msg, int len) {
 }
 
 int receiveDraginoPacket() {
-
+    //  Check for incoming packets and return 1 if a packet was received, else 0.
     extern int lora_snr;
     int rssicorr;
 

@@ -115,7 +115,7 @@ int setupLoRa(int address, int mode, uint32_t channel, char *power)
         printf("setupLoRa: Setting Channel %s: state %d\n", decodeChannel(channel), e);
 
         // Set CRC
-#define CRC_OFF ////  Needed for SX1272 to send to RH96 in Mode 1
+#define CRC_OFF ////  Needed for SX1272 to send to RHM96 in Mode 1
 #ifdef CRC_OFF
         //  Disable CRC for debugging.
         e = sx1272.setCRC_OFF();
@@ -296,6 +296,7 @@ char *receiveLoRaMessage(int timeout)
     printf("receiveLoRaMessage REG_MODEM_CONFIG2 = 0x%02x\n", readLoRaRegister(REG_MODEM_CONFIG2));
     lora_packet_length = 0;
     lora_packet[0] = 0;  //  Empty the string.
+    unsigned int dst = 0, src = 0, packnum = 0, length = 0;
     switch(shield) {
         case Dragino: {
             unsigned long start_time = millis();
@@ -306,104 +307,92 @@ char *receiveLoRaMessage(int timeout)
                 if (millis() < start_time)
                     start_time = millis();
     		}
+    		if (e != 0 || lora_packet_length < 4) break;
+    		//  Header according to Libelium convention:
+    		//  Byte[0] = Destination address
+    		//  Byte[1] = Source address
+    		//  Byte[2] = Packet number
+    		//  Byte[3] = Packet length
+            dst = lora_packet[0];
+            src = lora_packet[1];
+            packnum = lora_packet[2];
+            length = lora_packet[3];
+            //  Remove the 4-byte header.
+            lora_packet_length = lora_packet_length - 4;
+            memcpy((void *) lora_packet, (void *) (lora_packet + 4), lora_packet_length);
+            lora_packet[lora_packet_length] = 0;  //  Terminate the string.
             break;
         }
         case Libelium: {
-                #ifdef CRC_OFF
-                sx1272.setCRC_OFF();
-                printf("receiveLoRaMessage REG_MODEM_CONFIG1 = 0x%02x\n", readLoRaRegister(REG_MODEM_CONFIG1));
-                //dumpRegisters();
-            #endif  //  CRC_OFF
+#ifdef CRC_OFF
+            sx1272.setCRC_OFF();
+            printf("receiveLoRaMessage REG_MODEM_CONFIG1 = 0x%02x\n", readLoRaRegister(REG_MODEM_CONFIG1));
+            //dumpRegisters();
+#endif  //  CRC_OFF
             e = sx1272.receivePacketTimeout(timeout);
-            if (e == 0)
-            {
-                printf("receiveLoRaMessage: state=%d, dst=0x%02x, src=0x%02x, packnum=0x%02x, length=0x%02x\n",
-                    e, sx1272.packet_received.dst, sx1272.packet_received.src, sx1272.packet_received.packnum,
-                    sx1272.packet_received.length);
-                int length = sx1272.packet_received.length;
-                if (sizeof(lora_packet) > 0 && length > sizeof(lora_packet) - 1)
-                    length = sizeof(lora_packet) - 1;
-    #ifdef TRUNCATE_MESSAGES
-                if (length > 10) {
-                    printf("**** receiveLoRaMessage: truncated to 10 bytes\n");
-                    length = 10;
-                }
-    #endif  //  TRUNCATE_MESSAGES
-                unsigned int i;
-                for (i = 0; i < sizeof(lora_packet); i++)
-                    lora_packet[i] = 0;
-                for (i = 0; i < length; i++) {
-                    lora_packet[i] = (char)sx1272.packet_received.data[i];
-                    printf("%02x ", lora_packet[i]);
-                }
-                lora_packet[i] = 0;  //  Terminate the string.
-                lora_packet_length = length;
-            }
+            if (e != 0) break;
+            dst = sx1272.packet_received.dst;
+            src = sx1272.packet_received.src;
+            packnum = sx1272.packet_received.packnum;
+            length = sx1272.packet_received.length;
+            if (sizeof(lora_packet) > 0 && length > sizeof(lora_packet) - 1)
+                length = sizeof(lora_packet) - 1;
+            //  Copy the packet to our buffer.
+            unsigned int i;
+            for (i = 0; i < length; i++)
+                lora_packet[i] = (char)sx1272.packet_received.data[i];
+            lora_packet[i] = 0;  //  Terminate the string.
+            lora_packet_length = length;
             break;
         }
     }
-    printf("\nreceiveLoRaMessage: message=%s\n", lora_packet);
-    for (int j = 0; j < lora_packet_length; j++) {
-      //  TODO: Remove non-ASCII characters.
-      if (lora_packet[j] == 0) break;
-      if (lora_packet[j] < 0x20 || lora_packet[j] > 0x7f)
-        lora_packet[j] = '?';
+    if (e == 0) {
+        printf("receiveLoRaMessage: state=0x%02x, dst=0x%02x, src=0x%02x, packnum=0x%02x, length=0x%02x, \nmessage=%s\n",
+                e, dst, src, packnum, length, lora_packet);
+        for (int j = 0; j < lora_packet_length; j++) {
+          //  Remove non-ASCII characters.  Unicode is not supported.
+          if (lora_packet[j] == 0) break;
+          if (lora_packet[j] < 0x20 || lora_packet[j] > 0x7f)
+            lora_packet[j] = '?';
+        }
+        dumpLoRaPacket(); ////
     }
     receiveCount++;
     printf("receiveLoRaMessage: done %d, %d, %d\n", setupDone, sendCount, receiveCount);
-    dumpLoRaPacket(); ////
     return (char *) lora_packet;
 }
 
 int getLoRaSender()
 {
     //  Return the sender address of the last packet.
-    int result = 2;  //  Default sender to address 2.
-    switch (shield) {
-        case Dragino:
-            puts("*** getLoRaSender not implemented for Dragino");
-            break;
-        case Libelium:
-            result = sx1272.packet_received.src;
-            break;
-    }
-    printf("getLoRaSender: %d\n", result);
+    writeLoRaRegister(REG_FIFO_ADDR_PTR, 0x00);  // Setting address pointer in FIFO data buffer
+    readLoRaRegister(REG_FIFO);  //  First byte of header is recipient.
+    int result = readLoRaRegister(REG_FIFO);  //  Second byte of header is sender.
+    printf("getLoRaSender: done %d\n", result);
     return result;
 }
 
 int getLoRaRecipient()
 {
     //  Return the recipient address of the last packet.
-    int result = 1;  //  Default recipient to gateway.
-    switch (shield) {
-        case Dragino:
-            puts("*** getLoRaRecipient not implemented for Dragino");
-            break;
-        case Libelium:
-            result = sx1272.packet_received.dst;
-            break;
-    }
-    printf("getLoRaRecipient: %d\n", result);
+    writeLoRaRegister(REG_FIFO_ADDR_PTR, 0x00);  // Setting address pointer in FIFO data buffer
+    int result = readLoRaRegister(REG_FIFO);  //  First byte of header is recipient.
+    printf("getLoRaRecipient: done %d\n", result);
     return result;
 }
 
-/*
-char message1 [] = { 0x1 , 0x2, 0x3, 0x4, 0x5, 0x6, 0x7, 0x8, 0x9, 0xa, 0xb, 0xc, 0xd, 0xe, 0xf,
-0x1 , 0x2, 0x3, 0x4, 0x5, 0x6, 0x7, 0x8, 0x9, 0xa, 0xb, 0xc, 0xd, 0xe, 0xf,
-0x00
- };
-char message1 [] = { 0x1, 0x1, 0x1, 0x1, 0x1, 0x1, 0x1, 0x1, 0x1, 0x1, 0x1, 0x1, 0x1, 0x1, 0x1, 0x1,
-0x00
- };
-char message1 [] = { 0x1, 0x1, 0x1, 0x1, 0x1, 0x1, 0x1, 0x1, 0x1, 0x1, 0x1, 0x1, 0x1, 0x1, 0x1, 0x1, 0x1,
-0x00
- };
- */
-char message1 [] = { 0x2, 0x2, 0x2, 0x2, 0x2, 0x2, 0x2, 0x2, 0x2, 0x2, 0x2, 0x2, 0x2, 0x2, 0x2, 0x2, 0x2,
-0x00
- };
+int getLoRaPacketNumber()
+{
+    //  Return the packet number of the last packet.
+    writeLoRaRegister(REG_FIFO_ADDR_PTR, 0x00);  // Setting address pointer in FIFO data buffer
+    readLoRaRegister(REG_FIFO);  //  First byte of header is recipient.
+    readLoRaRegister(REG_FIFO);  //  Second byte of header is sender.
+    int result = readLoRaRegister(REG_FIFO);  //  Third byte of header is packet number.
+    printf("getLoRaPacketNumber: done %d\n", result);
+    return result;
+}
 
-//char message2 [] = "Packet 2, broadcast test";
+char message1 [] = "2|1|2|3";
 
 int main() {
     const int address = 2;

@@ -11,6 +11,7 @@ extern int sendLoRaMessage(int address, char *msg);
 extern char *receiveLoRaMessage(int timeout);
 extern int getLoRaSender(void);
 extern int getLoRaRecipient(void);
+extern int getLoRaPacketNumber(void);
 extern char *getLoRaPacket(void);
 extern uint8_t readLoRaRegister(uint8_t register);
 extern void writeLoRaRegister(uint8_t register, uint8_t value);
