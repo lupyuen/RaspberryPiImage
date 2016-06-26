@@ -38,7 +38,7 @@ static const int CHANNEL = 0;
 
 byte currentMode = 0x81;
 
-char message[256];
+extern char lora_packet[];
 char b64[256];
 
 bool sx1272 = true;
@@ -253,7 +253,7 @@ boolean receivePkt(char *payload)
     return true;
 }
 
-int SetupDraginoLoRa(int address, int mode, uint32_t channel, char *power)
+int setupDraginoLoRa(int address, int mode, uint32_t channel, char *power)
 {
     transmission_mode = mode;
     digitalWrite(RST, HIGH);
@@ -439,14 +439,14 @@ void dumpMessage(char *msg, int len) {
     printf("Msg[0x%X] = 0x%X\n", r, msg[r]);
 }
 
-void receivepacket() {
+int receiveDraginoPacket() {
 
     extern int lora_snr;
     int rssicorr;
 
     if(digitalRead(dio0) == 1)
     {
-        if(receivePkt(message)) {
+        if(receivePkt(lora_packet)) {
             byte value = readDraginoRegister(REG_PKT_SNR_VALUE);
             if( value & 0x80 ) // The SNR sign bit is 1
             {
@@ -473,7 +473,7 @@ void receivepacket() {
             printf("\n");
 
             int j;
-            ////j = bin_to_b64((uint8_t *)message, receivedbytes, (char *)(b64), 341);
+            ////j = bin_to_b64((uint8_t *)lora_packet, receivedbytes, (char *)(b64), 341);
             //fwrite(b64, sizeof(char), j, stdout);
 
             char buff_up[TX_BUFF_SIZE]; /* buffer to compose the upstream packet */
@@ -567,9 +567,11 @@ void receivepacket() {
             buff_index += j;
             memcpy((void *)(buff_up + buff_index), (void *)",\"data\":\"", 9);
             buff_index += 9;
-            ////j = bin_to_b64((uint8_t *)message, receivedbytes, (char *)(buff_up + buff_index), 341);
+            ////j = bin_to_b64((uint8_t *)lora_packet, receivedbytes, (char *)(buff_up + buff_index), 341);
             j = 0;////
-            dumpMessage((char *) message, receivedbytes); ////
+            extern int lora_packet_length;
+            lora_packet_length = receivedbytes;
+            dumpMessage((char *) lora_packet, receivedbytes); ////
 
             buff_index += j;
             buff_up[buff_index] = '"';
@@ -595,6 +597,7 @@ void receivepacket() {
         } // received a message
 
     } // dio0=1
+    return 0;
 }
 
 int main () {
@@ -639,7 +642,7 @@ int main () {
 
     while(1) {
 
-        receivepacket();
+        receiveDraginoPacket();
 
         gettimeofday(&nowtime, NULL);
         uint32_t nowseconds = (uint32_t)(nowtime.tv_sec);
