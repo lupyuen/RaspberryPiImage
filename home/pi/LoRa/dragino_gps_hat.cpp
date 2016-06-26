@@ -606,11 +606,10 @@ int receiveDraginoPacket() {
             ////sendudp(buff_up, buff_index);
 
             fflush(stdout);
-
+            return 0;
         } // received a message
-
     } // dio0=1
-    return 0;
+    return 1;
 }
 
 int draginoMain () {

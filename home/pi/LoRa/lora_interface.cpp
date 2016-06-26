@@ -297,41 +297,50 @@ char *receiveLoRaMessage(int timeout)
     lora_packet_length = 0;
     lora_packet[0] = 0;  //  Empty the string.
     switch(shield) {
-    case Dragino:
-        e = receiveDraginoPacket();
-        break;
-    case Libelium:
-        #ifdef CRC_OFF
-            sx1272.setCRC_OFF();
-            printf("receiveLoRaMessage REG_MODEM_CONFIG1 = 0x%02x\n", readLoRaRegister(REG_MODEM_CONFIG1));
-            //dumpRegisters();
-        #endif  //  CRC_OFF
-        e = sx1272.receivePacketTimeout(timeout);
-        if (e == 0)
-        {
-            printf("receiveLoRaMessage: state=%d, dst=0x%02x, src=0x%02x, packnum=0x%02x, length=0x%02x\n",
-                e, sx1272.packet_received.dst, sx1272.packet_received.src, sx1272.packet_received.packnum,
-                sx1272.packet_received.length);
-            int length = sx1272.packet_received.length;
-            if (sizeof(lora_packet) > 0 && length > sizeof(lora_packet) - 1)
-                length = sizeof(lora_packet) - 1;
-#ifdef TRUNCATE_MESSAGES
-            if (length > 10) {
-                printf("**** receiveLoRaMessage: truncated to 10 bytes\n");
-                length = 10;
-            }
-#endif  //  TRUNCATE_MESSAGES
-            unsigned int i;
-            for (i = 0; i < sizeof(lora_packet); i++)
-                lora_packet[i] = 0;
-            for (i = 0; i < length; i++) {
-                lora_packet[i] = (char)sx1272.packet_received.data[i];
-                printf("%02x ", lora_packet[i]);
-            }
-            lora_packet[i] = 0;  //  Terminate the string.
-            lora_packet_length = length;
+        case Dragino: {
+            unsigned long start_time = millis();
+            while(millis() - start_time < (unsigned long) timeout) {
+                e = receiveDraginoPacket();
+                if (e == 0) break;
+                //  Condition to avoid an overflow (DO NOT REMOVE)
+                if (millis() < start_time)
+                    start_time = millis();
+    		}
+            break;
         }
-        break;
+        case Libelium: {
+                #ifdef CRC_OFF
+                sx1272.setCRC_OFF();
+                printf("receiveLoRaMessage REG_MODEM_CONFIG1 = 0x%02x\n", readLoRaRegister(REG_MODEM_CONFIG1));
+                //dumpRegisters();
+            #endif  //  CRC_OFF
+            e = sx1272.receivePacketTimeout(timeout);
+            if (e == 0)
+            {
+                printf("receiveLoRaMessage: state=%d, dst=0x%02x, src=0x%02x, packnum=0x%02x, length=0x%02x\n",
+                    e, sx1272.packet_received.dst, sx1272.packet_received.src, sx1272.packet_received.packnum,
+                    sx1272.packet_received.length);
+                int length = sx1272.packet_received.length;
+                if (sizeof(lora_packet) > 0 && length > sizeof(lora_packet) - 1)
+                    length = sizeof(lora_packet) - 1;
+    #ifdef TRUNCATE_MESSAGES
+                if (length > 10) {
+                    printf("**** receiveLoRaMessage: truncated to 10 bytes\n");
+                    length = 10;
+                }
+    #endif  //  TRUNCATE_MESSAGES
+                unsigned int i;
+                for (i = 0; i < sizeof(lora_packet); i++)
+                    lora_packet[i] = 0;
+                for (i = 0; i < length; i++) {
+                    lora_packet[i] = (char)sx1272.packet_received.data[i];
+                    printf("%02x ", lora_packet[i]);
+                }
+                lora_packet[i] = 0;  //  Terminate the string.
+                lora_packet_length = length;
+            }
+            break;
+        }
     }
     printf("\nreceiveLoRaMessage: message=%s\n", lora_packet);
     for (int j = 0; j < lora_packet_length; j++) {
