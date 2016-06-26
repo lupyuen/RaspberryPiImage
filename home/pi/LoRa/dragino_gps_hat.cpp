@@ -82,7 +82,6 @@ sf_t sf =
     (transmission_mode == 5) ? SF10 :  ////  TP-IoT Mode 5.
     SF10;
 
-
 // Set center frequency
 ////uint32_t  freq = 868100000; // in Mhz! (868.1)
 ////  TP-IoT: uint32_t LORA_CH_10_868 = CH_10_868; //  0xD84CCC; // channel 10, central freq = 865.20MHz  ////  Lup Yuen
@@ -194,7 +193,7 @@ void unselectreceiver()
     digitalWrite(ssPin, HIGH);
 }
 
-byte readRegister(byte addr)
+byte readDraginoRegister(byte addr)
 {
     unsigned char spibuf[2];
 
@@ -207,7 +206,7 @@ byte readRegister(byte addr)
     return spibuf[1];
 }
 
-void writeRegister(byte addr, byte value)
+void writeDraginoRegister(byte addr, byte value)
 {
     unsigned char spibuf[2];
 
@@ -224,9 +223,9 @@ boolean receivePkt(char *payload)
 {
 
     // clear rxDone
-    writeRegister(REG_IRQ_FLAGS, 0x40);
+    writeDraginoRegister(REG_IRQ_FLAGS, 0x40);
 
-    int irqflags = readRegister(REG_IRQ_FLAGS);
+    int irqflags = readDraginoRegister(REG_IRQ_FLAGS);
 
     cp_nb_rx_rcv++;
 
@@ -234,35 +233,35 @@ boolean receivePkt(char *payload)
     if((irqflags & 0x20) == 0x20)
     {
         printf("CRC error\n");
-        writeRegister(REG_IRQ_FLAGS, 0x20);
+        writeDraginoRegister(REG_IRQ_FLAGS, 0x20);
         return false;
     } else {
 
         cp_nb_rx_ok++;
 
-        byte currentAddr = readRegister(REG_FIFO_RX_CURRENT_ADDR);
-        byte receivedCount = readRegister(REG_RX_NB_BYTES);
+        byte currentAddr = readDraginoRegister(REG_FIFO_RX_CURRENT_ADDR);
+        byte receivedCount = readDraginoRegister(REG_RX_NB_BYTES);
         receivedbytes = receivedCount;
 
-        writeRegister(REG_FIFO_ADDR_PTR, currentAddr);
+        writeDraginoRegister(REG_FIFO_ADDR_PTR, currentAddr);
 
         for(int i = 0; i < receivedCount; i++)
         {
-            payload[i] = (char)readRegister(REG_FIFO);
+            payload[i] = (char)readDraginoRegister(REG_FIFO);
         }
     }
     return true;
 }
 
-void SetupLoRa()
+int SetupDraginoLoRa(int address, int mode, uint32_t channel, char *power)
 {
-    
+    transmission_mode = mode;
     digitalWrite(RST, HIGH);
     delay(100);
     digitalWrite(RST, LOW);
     delay(100);
 
-    byte version = readRegister(REG_VERSION);
+    byte version = readDraginoRegister(REG_VERSION);
 
     if (version == 0x22) {
         // sx1272
@@ -274,7 +273,7 @@ void SetupLoRa()
         delay(100);
         digitalWrite(RST, HIGH);
         delay(100);
-        version = readRegister(REG_VERSION);
+        version = readDraginoRegister(REG_VERSION);
         if (version == 0x12) {
             // sx1276
             printf("SX1276 detected, starting.\n");
@@ -286,42 +285,41 @@ void SetupLoRa()
         }
     }
 
-    writeRegister(REG_OPMODE, SX72_MODE_SLEEP);
+    writeDraginoRegister(REG_OPMODE, SX72_MODE_SLEEP);
 
     // set frequency
     uint64_t frf = ((uint64_t)freq << 19) / 32000000;
-    writeRegister(REG_FRF_MSB, (uint8_t)(frf>>16) );
-    writeRegister(REG_FRF_MID, (uint8_t)(frf>> 8) );
-    writeRegister(REG_FRF_LSB, (uint8_t)(frf>> 0) );
+    writeDraginoRegister(REG_FRF_MSB, (uint8_t)(frf>>16) );
+    writeDraginoRegister(REG_FRF_MID, (uint8_t)(frf>> 8) );
+    writeDraginoRegister(REG_FRF_LSB, (uint8_t)(frf>> 0) );
 
-    writeRegister(REG_SYNC_WORD, 0x34); // LoRaWAN public sync word
-
+    //  TODO: This code may be redundant due to settings below.
     if (sx1272) {
         if (sf == SF11 || sf == SF12) {
-            writeRegister(REG_MODEM_CONFIG,0x0B);
+            writeDraginoRegister(REG_MODEM_CONFIG,0x0B);
         } else {
-            writeRegister(REG_MODEM_CONFIG,0x0A);
+            writeDraginoRegister(REG_MODEM_CONFIG,0x0A);
         }
-        writeRegister(REG_MODEM_CONFIG2,(sf<<4) | 0x04);
+        writeDraginoRegister(REG_MODEM_CONFIG2,(sf<<4) | 0x04);
     } else {
         if (sf == SF11 || sf == SF12) {
-            writeRegister(REG_MODEM_CONFIG3,0x0C);
+            writeDraginoRegister(REG_MODEM_CONFIG3,0x0C);
         } else {
-            writeRegister(REG_MODEM_CONFIG3,0x04);
+            writeDraginoRegister(REG_MODEM_CONFIG3,0x04);
         }
-        writeRegister(REG_MODEM_CONFIG,0x72);
-        writeRegister(REG_MODEM_CONFIG2,(sf<<4) | 0x04);
+        writeDraginoRegister(REG_MODEM_CONFIG,0x72);
+        writeDraginoRegister(REG_MODEM_CONFIG2,(sf<<4) | 0x04);
     }
 
     if (sf == SF10 || sf == SF11 || sf == SF12) {
-        writeRegister(REG_SYMB_TIMEOUT_LSB,0x05);
+        writeDraginoRegister(REG_SYMB_TIMEOUT_LSB,0x05);
     } else {
-        writeRegister(REG_SYMB_TIMEOUT_LSB,0x08);
+        writeDraginoRegister(REG_SYMB_TIMEOUT_LSB,0x08);
     }
-    writeRegister(REG_MAX_PAYLOAD_LENGTH,0x80);
-    writeRegister(REG_PAYLOAD_LENGTH,PAYLOAD_LENGTH);
-    writeRegister(REG_HOP_PERIOD,0xFF);
-    writeRegister(REG_FIFO_ADDR_PTR, readRegister(REG_FIFO_RX_BASE_AD));
+    writeDraginoRegister(REG_MAX_PAYLOAD_LENGTH,0x80);
+    writeDraginoRegister(REG_PAYLOAD_LENGTH,PAYLOAD_LENGTH);
+    writeDraginoRegister(REG_HOP_PERIOD,0xFF);
+    writeDraginoRegister(REG_FIFO_ADDR_PTR, readDraginoRegister(REG_FIFO_RX_BASE_AD));
 
     //  TP-IoT: Fixed constants according to http://www.hoperf.com/upload/rf/RFM95_96_97_98W.pdf
     const int FIXED_RH_RF95_BW_125KHZ                             = 0x70;
@@ -346,8 +344,8 @@ void SetupLoRa()
             ////                setSF(SF_12);       // SF = 12
             ////                setBW(BW_125);      // BW = 125 KHz
             //  TP-IoT Mode 1: Bw125Cr45Sf4096
-            writeRegister(REG_MODEM_CONFIG, FIXED_RH_RF95_BW_125KHZ + FIXED_RH_RF95_CODING_RATE_4_5);
-            writeRegister(REG_MODEM_CONFIG2, RH_RF95_SPREADING_FACTOR_4096CPS /* + FIXED_RH_RF95_RX_PAYLOAD_CRC_IS_ON */);
+            writeDraginoRegister(REG_RegModemConfig1, FIXED_RH_RF95_BW_125KHZ + FIXED_RH_RF95_CODING_RATE_4_5);
+            writeDraginoRegister(REG_RegModemConfig2, RH_RF95_SPREADING_FACTOR_4096CPS /* + FIXED_RH_RF95_RX_PAYLOAD_CRC_IS_ON */);
             break;
         }
         default:
@@ -355,25 +353,22 @@ void SetupLoRa()
     }
 
     //  TP-IoT: Preamble length 8.
-    const int RH_RF95_REG_20_PREAMBLE_MSB                         = 0x20;
-    const int RH_RF95_REG_21_PREAMBLE_LSB                         = 0x21;
     const int preamble_length = 8;
-    writeRegister(RH_RF95_REG_20_PREAMBLE_MSB, preamble_length >> 8);
-    writeRegister(RH_RF95_REG_21_PREAMBLE_LSB, preamble_length & 0xff);
+    writeDraginoRegister(REG_RegPreambleMsb, preamble_length >> 8);
+    writeDraginoRegister(REG_RegPreambleLsb, preamble_length & 0xff);
     //  TP-IoT sync.
-    const int RH_RF69_REG_39_NODEADRS                             = 0x39;
+    const int RH_RF69_REG_39_NODEADRS = 0x39;
     writeRegister(RH_RF69_REG_39_NODEADRS, 0x12);
 
     int tmp = 0x04;  //AGC ON
     if (transmission_mode == 1) //  Low Data Rate Optimisation mandated for when the symbol length exceeds 16ms
         tmp |= 0x08;  //  Data will be scrambled if you don't use this.
-    const int RegModemConfig3 = 0x26;  // This is NOT DOCUMENTED! Got this from HopeDuino_LoRa.h, only for RFM96/7/8
-    writeRegister(RegModemConfig3, tmp);
+    writeDraginoRegister(REG_RegModemConfig3, tmp);
 
     // Set Continous Receive Mode
-    writeRegister(REG_LNA, LNA_MAX_GAIN);  // max lna gain
-    writeRegister(REG_OPMODE, SX72_MODE_RX_CONTINUOS);
-
+    writeDraginoRegister(REG_LNA, LNA_MAX_GAIN);  // max lna gain
+    writeDraginoRegister(REG_OPMODE, SX72_MODE_RX_CONTINUOS);
+    return 0;
 }
 
 void sendudp(char *msg, int length) {
@@ -446,23 +441,23 @@ void dumpMessage(char *msg, int len) {
 
 void receivepacket() {
 
-    long int SNR;
+    extern int lora_snr;
     int rssicorr;
 
     if(digitalRead(dio0) == 1)
     {
         if(receivePkt(message)) {
-            byte value = readRegister(REG_PKT_SNR_VALUE);
+            byte value = readDraginoRegister(REG_PKT_SNR_VALUE);
             if( value & 0x80 ) // The SNR sign bit is 1
             {
                 // Invert and divide by 4
                 value = ( ( ~value + 1 ) & 0xFF ) >> 2;
-                SNR = -value;
+                lora_snr = -value;
             }
             else
             {
                 // Divide by 4
-                SNR = ( value & 0xFF ) >> 2;
+                lora_snr = ( value & 0xFF ) >> 2;
             }
             
             if (sx1272) {
@@ -471,9 +466,9 @@ void receivepacket() {
                 rssicorr = 157;
             }
 
-            printf("Packet RSSI: %d, ",readRegister(0x1A)-rssicorr);
-            printf("RSSI: %d, ",readRegister(0x1B)-rssicorr);
-            printf("SNR: %li, ",SNR);
+            printf("Packet RSSI: %d, ",readDraginoRegister(0x1A)-rssicorr);
+            printf("RSSI: %d, ",readDraginoRegister(0x1B)-rssicorr);
+            printf("SNR: %li, ",lora_snr);
             printf("Length: %i",(int)receivedbytes);
             printf("\n");
 
@@ -568,7 +563,7 @@ void receivepacket() {
             buff_index += 13;
             j = snprintf((char *)(buff_up + buff_index), TX_BUFF_SIZE-buff_index, ",\"lsnr\":%li", SNR);
             buff_index += j;
-            j = snprintf((char *)(buff_up + buff_index), TX_BUFF_SIZE-buff_index, ",\"rssi\":%d,\"size\":%u", readRegister(0x1A)-rssicorr, receivedbytes);
+            j = snprintf((char *)(buff_up + buff_index), TX_BUFF_SIZE-buff_index, ",\"rssi\":%d,\"size\":%u", readDraginoRegister(0x1A)-rssicorr, receivedbytes);
             buff_index += j;
             memcpy((void *)(buff_up + buff_index), (void *)",\"data\":\"", 9);
             buff_index += 9;

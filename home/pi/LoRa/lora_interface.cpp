@@ -9,6 +9,7 @@
 #include "arduPiLoRa.h"  //  Include the SX1272 and SPI library.
 #include "lora_interface.h"
 char *decodeChannel(uint32_t code);
+extern int lora_snr; int lora_snr = 0;
 
 int e;
 char my_packet[1024];
@@ -17,6 +18,7 @@ static int setupDone = 0;
 static int sendCount = 0;
 static int receiveCount = 0;
 
+//  Which LoRa shield is being used: Libelium or Dragino GPS HAT.
 enum Shields { Libelium = 0, Dragino = 1 };
 static Shields shield = Dragino;
 
@@ -38,6 +40,28 @@ int getLoRaSendCount()
 int getLoRaReceiveCount()
 {
   return receiveCount;
+}
+
+unsigned int readLoRaRegister(unsigned int register)
+{
+    //  Return the value of the register.
+    switch (shield) {
+        case Dragino:
+            return readDraginoRegister(register);
+        case Libelium:
+            return sx1272.readRegister(register);
+    }
+}
+
+void writeLoRaRegister(unsigned int register, unsigned int value)
+{
+    //  Write the value into the register.
+    switch (shield) {
+        case Dragino:
+            return writeDraginoRegister(register, value);
+        case Libelium:
+            return sx1272.writeRegister(register, value);
+    }
 }
 
 int setupLoRa(int address, int mode, uint32_t channel, char *power)
@@ -85,75 +109,91 @@ int setupLoRa(int address, int mode, uint32_t channel, char *power)
 #endif  //  MESSAGE_PACK
 
   // Print a start message
-  printf("setupLoRa: SX1272 module and Raspberry Pi: send packets without ACK\n");
-  
-  // Power ON the module
-  e = sx1272.ON();
-  printf("setupLoRa: Setting power ON: state %d\n", e);
-  
-  // Set transmission mode
-  e = sx1272.setMode(mode);
-  printf("setupLoRa: Setting Mode %d: state %d\n", mode, e);
-  
-  // Set header
+  printf("setupLoRa: LoRa module and Raspberry Pi: send packets without ACK\n");
+
+  switch (shield) {
+    case Dragino:
+        e = SetupDraginoLoRa(int address, int mode, uint32_t channel, char *power);
+        break;
+    case Libelium:
+        // Power ON the module
+        e = sx1272.ON();
+        printf("setupLoRa: Setting power ON: state %d\n", e);
+
+        // Set transmission mode
+        e = sx1272.setMode(mode);
+        printf("setupLoRa: Setting Mode %d: state %d\n", mode, e);
+
+        // Set header
 #ifdef HEADER_OFF
-  //  Disable standard header for debugging.
-  e = sx1272.setHeaderOFF();
-  printf("**** setupLoRa: Setting Header OFF: state %d\n", e);
+        //  Disable standard header for debugging.
+        e = sx1272.setHeaderOFF();
+        printf("**** setupLoRa: Setting Header OFF: state %d\n", e);
 #else
-  e = sx1272.setHeaderON();
-  printf("setupLoRa: Setting Header ON: state %d\n", e);
+        e = sx1272.setHeaderON();
+        printf("setupLoRa: Setting Header ON: state %d\n", e);
 #endif  //  HEADER_OFF
 
-  // Select frequency channel
-  e = sx1272.setChannel(channel);
-  printf("setupLoRa: Setting Channel %s: state %d\n", decodeChannel(channel), e);
-  
-  // Set CRC
+        // Select frequency channel
+        e = sx1272.setChannel(channel);
+        printf("setupLoRa: Setting Channel %s: state %d\n", decodeChannel(channel), e);
+
+        // Set CRC
 #define CRC_OFF ////  Needed for SX1272 to send to RH96 in Mode 1
 #ifdef CRC_OFF
-  //  Disable CRC for debugging.
-  e = sx1272.setCRC_OFF();
-  printf("**** setupLoRa: Setting CRC OFF: state %d\n", e);
-#else
-  e = sx1272.setCRC_ON();
-  printf("setupLoRa: Setting CRC ON: state %d\n", e);
+        //  Disable CRC for debugging.
+        e = sx1272.setCRC_OFF();
+        printf("**** setupLoRa: Setting CRC OFF: state %d\n", e);
+        #else
+        e = sx1272.setCRC_ON();
+        printf("setupLoRa: Setting CRC ON: state %d\n", e);
 #endif  //  CRC_OFF
 
-  // Select output power (Max, High or Low)
-  e = sx1272.setPower(*power);
-  printf("setupLoRa: Setting Power %s: state %d\n", power, e);
-  
-  // Set the node address
-  e = sx1272.setNodeAddress(address);
-  printf("setupLoRa: Setting Node address %d: state %d\n", address, e);
+        // Select output power (Max, High or Low)
+        e = sx1272.setPower(*power);
+        printf("setupLoRa: Setting Power %s: state %d\n", power, e);
+
+        // Set the node address
+        e = sx1272.setNodeAddress(address);
+        printf("setupLoRa: Setting Node address %d: state %d\n", address, e);
 
 #ifdef INVERT_IQ
-  // Refer to http://openlora.com/forum/viewtopic.php?t=887
-  // Also see example of SX1272-SX1276 interop: http://cpham.perso.univ-pau.fr/LORA/RPIgateway.html
-  printf("setupLoRa: Before inverting I/Q REG_NODE_ADRS = 0x%02x\n", sx1272.readRegister(REG_NODE_ADRS));
-  sx1272.writeRegister(REG_NODE_ADRS, sx1272.readRegister(REG_NODE_ADRS)|(1<<6));
-  printf("setupLoRa: After inverting I/Q REG_NODE_ADRS = 0x%02x\n", sx1272.readRegister(REG_NODE_ADRS));
+        // Refer to http://openlora.com/forum/viewtopic.php?t=887
+        // Also see example of SX1272-SX1276 interop: http://cpham.perso.univ-pau.fr/LORA/RPIgateway.html
+        printf("setupLoRa: Before inverting I/Q REG_NODE_ADRS = 0x%02x\n", readLoRaRegister(REG_NODE_ADRS));
+        writeLoRaRegister(REG_NODE_ADRS, readLoRaRegister(REG_NODE_ADRS)|(1<<6));
+        printf("setupLoRa: After inverting I/Q REG_NODE_ADRS = 0x%02x\n", readLoRaRegister(REG_NODE_ADRS));
 #endif  //  INVERT_IQ
+        break;
+  }
 
-  // Print a success message
-  setupDone++;
-  printf("setupLoRa: SX1272 successfully configured %d, %d, %d\n", setupDone, sendCount, receiveCount);
-  return e;
+    // Print a success message
+    setupDone++;
+    printf("setupLoRa: SX1272 successfully configured %d, %d, %d\n", setupDone, sendCount, receiveCount);
+    return e;
 }
 
 int getLoRaSNR(void)
 {
-    //  Gets the SNR value in LoRa mode and stores into _SNR.
-    int8_t result = sx1272.getSNR();
+    //  Gets the SNR value in LoRa mode and stores into lora_snr.
+    int8_t result;
+    switch (shield) {
+        case Dragino:
+            result = lora_snr;
+            break;
+        case Libelium:
+            result = sx1272.getSNR();
+            lora_snr = sx1272._SNR;
+            break;
+    }
     printf("getLoRaSNR: %d\n", result);
     return result;
 }
 
 int getLoRaSNRValue(void)
 {
-    //  Gets the SNR value from _SNR.
-    int result = sx1272._SNR;
+    //  Gets the SNR value from lora_snr.
+    int result = lora_snr;
     printf("getLoRaSNRValue: %d\n", result);
     return result;
 }
@@ -230,11 +270,11 @@ char *getLoRaPacket()
 {
     //  Return the last packet received.
     printf("getLoRaPacket:\n");
-    sx1272.writeRegister(REG_FIFO_ADDR_PTR, 0x00);  // Setting address pointer in FIFO data buffer
+    writeLoRaRegister(REG_FIFO_ADDR_PTR, 0x00);  // Setting address pointer in FIFO data buffer
     packet_buffer[0] = 0;
     int len = 0;
-    for(unsigned int i = 0; i < sx1272.readRegister(REG_RX_NB_BYTES); i++) {
-        int b = sx1272.readRegister(REG_FIFO);
+    for(unsigned int i = 0; i < readLoRaRegister(REG_RX_NB_BYTES); i++) {
+        int b = readLoRaRegister(REG_FIFO);
         packet_buffer[len++] = hex_digits[b / 16];
         packet_buffer[len++] = hex_digits[b % 16];
         packet_buffer[len++] = ' ';
@@ -248,62 +288,24 @@ void dumpPacket()
 {
     //  Dump the last received packet.
     printf("dumpPacket:\n");
-    printf("REG_FIFO_RX_BASE_ADDR = 0x%02x\n", sx1272.readRegister(REG_FIFO_RX_BASE_ADDR));
-    printf("REG_FIFO_RX_CURRENT_ADDR = 0x%02x\n", sx1272.readRegister(REG_FIFO_RX_CURRENT_ADDR));
-    printf("REG_RX_NB_BYTES = 0x%02x\n", sx1272.readRegister(REG_RX_NB_BYTES));
-    printf("REG_RX_HEADER_CNT_VALUE_LSB = 0x%02x\n", sx1272.readRegister(REG_RX_HEADER_CNT_VALUE_LSB));
-    printf("REG_RX_HEADER_CNT_VALUE_MSB = 0x%02x\n", sx1272.readRegister(REG_RX_HEADER_CNT_VALUE_MSB));
-    printf("REG_RX_PACKET_CNT_VALUE_LSB = 0x%02x\n", sx1272.readRegister(REG_RX_PACKET_CNT_VALUE_LSB));
-    printf("REG_RX_PACKET_CNT_VALUE_MSB = 0x%02x\n", sx1272.readRegister(REG_RX_PACKET_CNT_VALUE_MSB));
+    printf("REG_FIFO_RX_BASE_ADDR = 0x%02x\n", readLoRaRegister(REG_FIFO_RX_BASE_ADDR));
+    printf("REG_FIFO_RX_CURRENT_ADDR = 0x%02x\n", readLoRaRegister(REG_FIFO_RX_CURRENT_ADDR));
+    printf("REG_RX_NB_BYTES = 0x%02x\n", readLoRaRegister(REG_RX_NB_BYTES));
+    printf("REG_RX_HEADER_CNT_VALUE_LSB = 0x%02x\n", readLoRaRegister(REG_RX_HEADER_CNT_VALUE_LSB));
+    printf("REG_RX_HEADER_CNT_VALUE_MSB = 0x%02x\n", readLoRaRegister(REG_RX_HEADER_CNT_VALUE_MSB));
+    printf("REG_RX_PACKET_CNT_VALUE_LSB = 0x%02x\n", readLoRaRegister(REG_RX_PACKET_CNT_VALUE_LSB));
+    printf("REG_RX_PACKET_CNT_VALUE_MSB = 0x%02x\n", readLoRaRegister(REG_RX_PACKET_CNT_VALUE_MSB));
 
-    sx1272.writeRegister(REG_FIFO_ADDR_PTR, 0x00);  // Setting address pointer in FIFO data buffer
-    for(unsigned int i = 0; i < sx1272.readRegister(REG_RX_NB_BYTES); i++)
-        printf("[0x%02x] = 0x%02x\n", i, sx1272.readRegister(REG_FIFO));
-
-    /*
-    sx1272.writeRegister(REG_FIFO_ADDR_PTR, 0x00);  		// Setting address pointer in FIFO data buffer
-    for(unsigned int i = 0; i < 20; i++)
-        sx1272.writeRegister(REG_FIFO, 0);
-
-    int dst = readRegister(REG_FIFO);	// Storing first byte of the received packet
-    int src = readRegister(REG_FIFO);		// Reading second byte of the received packet
-    int packnum = readRegister(REG_FIFO);	// Reading third byte of the received packet
-    int length = readRegister(REG_FIFO);	// Reading fourth byte of the received packet
-    int payloadlength = length - OFFSET_PAYLOADLENGTH;
-    {
-        packet_received.retry = readRegister(REG_FIFO);
-        // Print the packet if debug_mode
-        #if (SX1272_debug_mode > 0)
-            printf("## Packet received:\n");
-            printf("Destination: ");
-            printf("0x%02x\n", packet_received.dst);			 	// Printing destination
-            printf("Source: ");
-            printf("0x%02x\n", packet_received.src);			 	// Printing source
-            printf("Packet number: ");
-            printf("0x%02x\n", packet_received.packnum);			// Printing packet number
-            printf("Packet length: ");
-            printf("0x%02x\n", packet_received.length);			// Printing packet length
-            printf("Data: ");
-            for(unsigned int i = 0; i < _payloadlength; i++)
-            {
-                printf("%c", packet_received.data[i]);		// Printing payload
-            }
-            printf("\n");
-            printf("Retry number: ");
-            printf("0x%02x\n", packet_received.retry);			// Printing number retry
-            printf(" ##\n");
-            printf("\n");
-        #endif
-        state = 0;
-    }
-    */
+    writeLoRaRegister(REG_FIFO_ADDR_PTR, 0x00);  // Setting address pointer in FIFO data buffer
+    for(unsigned int i = 0; i < readLoRaRegister(REG_RX_NB_BYTES); i++)
+        printf("[0x%02x] = 0x%02x\n", i, readLoRaRegister(REG_FIFO));
 }
 
 void dumpRegisters()
 {
   //  Dump out all registers.
   for (int r = 0; r <= 0x3f; r++)
-    printf("Reg[0x%X] = 0x%X\n", r, sx1272.readRegister(r));
+    printf("Reg[0x%X] = 0x%X\n", r, readLoRaRegister(r));
 }
 
 char *receiveLoRaMessage(int timeout)
@@ -315,12 +317,12 @@ char *receiveLoRaMessage(int timeout)
     printf("receiveLoRaMessage ERROR: setupLoRa not called");
     return (char *) "ERROR";
   }
-  printf("receiveLoRaMessage REG_HOP_CHANNEL = 0x%02x\n", sx1272.readRegister(REG_HOP_CHANNEL));
-  printf("receiveLoRaMessage REG_MODEM_CONFIG1 = 0x%02x\n", sx1272.readRegister(REG_MODEM_CONFIG1));
-  printf("receiveLoRaMessage REG_MODEM_CONFIG2 = 0x%02x\n", sx1272.readRegister(REG_MODEM_CONFIG2));
+  printf("receiveLoRaMessage REG_HOP_CHANNEL = 0x%02x\n", readLoRaRegister(REG_HOP_CHANNEL));
+  printf("receiveLoRaMessage REG_MODEM_CONFIG1 = 0x%02x\n", readLoRaRegister(REG_MODEM_CONFIG1));
+  printf("receiveLoRaMessage REG_MODEM_CONFIG2 = 0x%02x\n", readLoRaRegister(REG_MODEM_CONFIG2));
 #ifdef CRC_OFF
   sx1272.setCRC_OFF();
-  printf("receiveLoRaMessage REG_MODEM_CONFIG1 = 0x%02x\n", sx1272.readRegister(REG_MODEM_CONFIG1));
+  printf("receiveLoRaMessage REG_MODEM_CONFIG1 = 0x%02x\n", readLoRaRegister(REG_MODEM_CONFIG1));
   //dumpRegisters();
 #endif  //  CRC_OFF
 
