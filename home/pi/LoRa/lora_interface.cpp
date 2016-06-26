@@ -269,7 +269,8 @@ void dumpLoRaPacket(void)
     printf("REG_RX_PACKET_CNT_VALUE_LSB = 0x%02x\n", readLoRaRegister(REG_RX_PACKET_CNT_VALUE_LSB));
     printf("REG_RX_PACKET_CNT_VALUE_MSB = 0x%02x\n", readLoRaRegister(REG_RX_PACKET_CNT_VALUE_MSB));
 
-    writeLoRaRegister(REG_FIFO_ADDR_PTR, 0x00);  // Setting address pointer in FIFO data buffer
+    unsigned int current_addr = readLoRaRegister(REG_RegFifoRxCurrentaddr);  //  Get the address of last packet.
+    writeLoRaRegister(REG_FIFO_ADDR_PTR, current_addr);  // Setting address pointer in FIFO data buffer
     for(unsigned int i = 0; i < readLoRaRegister(REG_RX_NB_BYTES); i++)
         printf("[0x%02x] = 0x%02x\n", i, readLoRaRegister(REG_FIFO));
 }
@@ -365,7 +366,8 @@ char *receiveLoRaMessage(int timeout)
 int getLoRaSender()
 {
     //  Return the sender address of the last packet.
-    writeLoRaRegister(REG_FIFO_ADDR_PTR, 0x00);  // Setting address pointer in FIFO data buffer
+    unsigned int current_addr = readLoRaRegister(REG_RegFifoRxCurrentaddr);  //  Get the address of last packet.
+    writeLoRaRegister(REG_FIFO_ADDR_PTR, current_addr);  // Setting address pointer in FIFO data buffer
     readLoRaRegister(REG_FIFO);  //  First byte of header is recipient.
     int result = readLoRaRegister(REG_FIFO);  //  Second byte of header is sender.
     printf("getLoRaSender: done %d\n", result);
@@ -375,7 +377,8 @@ int getLoRaSender()
 int getLoRaRecipient()
 {
     //  Return the recipient address of the last packet.
-    writeLoRaRegister(REG_FIFO_ADDR_PTR, 0x00);  // Setting address pointer in FIFO data buffer
+    unsigned int current_addr = readLoRaRegister(REG_RegFifoRxCurrentaddr);  //  Get the address of last packet.
+    writeLoRaRegister(REG_FIFO_ADDR_PTR, current_addr);  // Setting address pointer in FIFO data buffer
     int result = readLoRaRegister(REG_FIFO);  //  First byte of header is recipient.
     printf("getLoRaRecipient: done %d\n", result);
     return result;
@@ -384,7 +387,8 @@ int getLoRaRecipient()
 int getLoRaPacketNumber()
 {
     //  Return the packet number of the last packet.
-    writeLoRaRegister(REG_FIFO_ADDR_PTR, 0x00);  // Setting address pointer in FIFO data buffer
+    unsigned int current_addr = readLoRaRegister(REG_RegFifoRxCurrentaddr);  //  Get the address of last packet.
+    writeLoRaRegister(REG_FIFO_ADDR_PTR, current_addr);  // Setting address pointer in FIFO data buffer
     readLoRaRegister(REG_FIFO);  //  First byte of header is recipient.
     readLoRaRegister(REG_FIFO);  //  Second byte of header is sender.
     int result = readLoRaRegister(REG_FIFO);  //  Third byte of header is packet number.

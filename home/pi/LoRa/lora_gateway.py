@@ -14,10 +14,13 @@ transmission_channel = lora_interface.cvar.LORA_CH_10_868
 transmission_power = "H"
 receive_timeout = 10000
 
-# TODO: Manage list of fields.
+# Sensor data message from sensor nodes must follow this sequence of sensor data, delimited by "|".
+# e.g. "28.1|72||OK".  We may skip fields by sending "||".
+# TODO: Manage this list of fields.
 fields = [
     "temperature",
     "humidity",
+    "light_level",
     "message"
 ]
 
@@ -153,8 +156,11 @@ def read_lora_message():
         for value in msg_split:
             key = fields[col]
             col = col + 1
+            value = value.strip()
+            if value == "": continue  # Allow "||" to denote skipping of fields.
+
             # If field is integer or decimal, convert accordingly.
-            if key != "timestamp" and value.isdecimal:
+            if key != "timestamp" and value.isdecimal():
                 if '.' in value: value = float(value)
                 else: value = int(value)
             device_state[key] = value
