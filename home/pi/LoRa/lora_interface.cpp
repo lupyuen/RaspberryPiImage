@@ -7,7 +7,10 @@
 #endif  //  MESSAGE_PACK
 #include <stdio.h>
 #include "arduPiLoRa.h"  //  Include the SX1272 and SPI library.
+#include "hope_rfm96.h"
 #include "lora_interface.h"
+#include "dragino_gps_hat.h"
+
 char *decodeChannel(uint32_t code);
 extern int lora_snr; int lora_snr = 0;
 
@@ -47,25 +50,25 @@ int getLoRaReceiveCount()
     return receiveCount;
 }
 
-uint8_t readLoRaRegister(uint8_t register)
+uint8_t readLoRaRegister(uint8_t reg)
 {
     //  Return the value of the register.
     switch (shield) {
         case Dragino:
-            return readDraginoRegister(register);
+            return readDraginoRegister(reg);
         case Libelium:
-            return sx1272.readRegister(register);
+            return sx1272.readRegister(reg);
     }
 }
 
-void writeLoRaRegister(uint8_t register, uint8_t value)
+void writeLoRaRegister(uint8_t reg, uint8_t value)
 {
     //  Write the value into the register.
     switch (shield) {
         case Dragino:
-            return writeDraginoRegister(register, value);
+            return writeDraginoRegister(reg, value);
         case Libelium:
-            return sx1272.writeRegister(register, value);
+            return sx1272.writeRegister(reg, value);
     }
 }
 
@@ -77,48 +80,14 @@ int setupLoRa(int address, int mode, uint32_t channel, char *power)
     printf("setupLoRa ERROR: setupLoRa already called");
     return -1;
   }
-#ifdef MESSAGE_PACK
-  //  Test MessagePack. Create MessagePack buffer and serializer instance.
-  //  MessagePack buffer and serializer instance.
-  msgpack_sbuffer* buffer = NULL;
-  msgpack_packer* pk = NULL;
-
-  buffer = msgpack_sbuffer_new();
-  pk = msgpack_packer_new(buffer, msgpack_sbuffer_write);
-  for (int j = 0; j < 5; j++) 
-  {
-     //  NB: the buffer needs to be cleared on each iteration.
-     msgpack_sbuffer_clear(buffer);
-
-     //  Serializes ["Hello", "MessagePack"].
-     msgpack_pack_array(pk, 3);
-     msgpack_pack_bin(pk, 5);
-     msgpack_pack_bin_body(pk, "Hello", 5);
-     msgpack_pack_bin(pk, 11);
-     msgpack_pack_bin_body(pk, "MessagePack", 11);
-     msgpack_pack_int(pk, j);
-
-     //  Deserializes it.
-     msgpack_unpacked msg;
-     msgpack_unpacked_init(&msg);
-     bool success = msgpack_unpack_next(&msg, buffer->data, buffer->size, NULL);
-
-     //  Prints the deserialized object.
-     msgpack_object obj = msg.data;
-     msgpack_object_print(stdout, obj);  // => ["Hello", "MessagePack"]
-     puts("");
-  }
-  //  Cleaning.
-  //msgpack_sbuffer_free(buffer);
-  //msgpack_packer_free(pk);
-#endif  //  MESSAGE_PACK
-
-  // Print a start message
   printf("setupLoRa: LoRa module and Raspberry Pi: send packets without ACK\n");
+  //  Check which shield is used.
+  int version = readDraginoRegister(REG_VERSION0);
+  printf("setupLoRa: version = %d\n", version);
 
   switch (shield) {
     case Dragino:
-        e = setupDraginoLoRa(int address, int mode, uint32_t channel, char *power);
+        e = setupDraginoLoRa(address, mode, channel, power);
         break;
     case Libelium:
         // Power ON the module
@@ -363,7 +332,7 @@ char *receiveLoRaMessage(int timeout)
         break;
     }
     printf("\nreceiveLoRaMessage: message=%s\n", lora_packet);
-    for (int j = 0; j < i; j++) {
+    for (int j = 0; j < lora_packet_length; j++) {
       //  TODO: Remove non-ASCII characters.
       if (lora_packet[j] == 0) break;
       if (lora_packet[j] < 0x20 || lora_packet[j] > 0x7f)
@@ -371,7 +340,7 @@ char *receiveLoRaMessage(int timeout)
     }
     receiveCount++;
     printf("receiveLoRaMessage: done %d, %d, %d\n", setupDone, sendCount, receiveCount);
-    dumpPacket(); ////
+    dumpLoRaPacket(); ////
     return (char *) lora_packet;
 }
 
@@ -434,8 +403,8 @@ int main() {
     printf("Setup status %d\n",setupStatus);
     delay(1000);
 	while(1) {
-        //  Send message1 broadcast and print the result
-        e = sendLoRaMessage(0, message1);
+        //  Send message1 and print the result
+        e = sendLoRaMessage(1, message1);
         printf("Packet sent, state %d\n",e);
         delay(4000);
 
@@ -516,3 +485,39 @@ uint32_t LORA_CH_09_900 = CH_09_900; //  0xE6A147; // channel 09, central freq =
 uint32_t LORA_CH_10_900 = CH_10_900; //  0xE72B85; // channel 10, central freq = 924.68MHz
 uint32_t LORA_CH_11_900 = CH_11_900; //  0xE7B5C2; // channel 11, central freq = 926.84MHz
 uint32_t LORA_CH_12_900 = CH_12_900; //  0xE4C000; // default channel 915MHz, the module is configured with it
+
+#ifdef MESSAGE_PACK
+  //  Test MessagePack. Create MessagePack buffer and serializer instance.
+  //  MessagePack buffer and serializer instance.
+  msgpack_sbuffer* buffer = NULL;
+  msgpack_packer* pk = NULL;
+
+  buffer = msgpack_sbuffer_new();
+  pk = msgpack_packer_new(buffer, msgpack_sbuffer_write);
+  for (int j = 0; j < 5; j++)
+  {
+     //  NB: the buffer needs to be cleared on each iteration.
+     msgpack_sbuffer_clear(buffer);
+
+     //  Serializes ["Hello", "MessagePack"].
+     msgpack_pack_array(pk, 3);
+     msgpack_pack_bin(pk, 5);
+     msgpack_pack_bin_body(pk, "Hello", 5);
+     msgpack_pack_bin(pk, 11);
+     msgpack_pack_bin_body(pk, "MessagePack", 11);
+     msgpack_pack_int(pk, j);
+
+     //  Deserializes it.
+     msgpack_unpacked msg;
+     msgpack_unpacked_init(&msg);
+     bool success = msgpack_unpack_next(&msg, buffer->data, buffer->size, NULL);
+
+     //  Prints the deserialized object.
+     msgpack_object obj = msg.data;
+     msgpack_object_print(stdout, obj);  // => ["Hello", "MessagePack"]
+     puts("");
+  }
+  //  Cleaning.
+  //msgpack_sbuffer_free(buffer);
+  //msgpack_packer_free(pk);
+#endif  //  MESSAGE_PACK

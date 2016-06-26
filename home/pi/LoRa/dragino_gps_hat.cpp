@@ -30,6 +30,9 @@ using namespace std;
 
 #include <wiringPi.h>
 #include <wiringPiSPI.h>
+#include "hope_rfm96.h"
+#include "dragino_gps_hat.h"
+#include "lora_interface.h"
 
 typedef bool boolean;
 typedef unsigned char byte;
@@ -193,7 +196,7 @@ void unselectreceiver()
     digitalWrite(ssPin, HIGH);
 }
 
-byte readDraginoRegister(byte addr)
+uint8_t readDraginoRegister(uint8_t addr)
 {
     unsigned char spibuf[2];
 
@@ -206,7 +209,7 @@ byte readDraginoRegister(byte addr)
     return spibuf[1];
 }
 
-void writeDraginoRegister(byte addr, byte value)
+void writeDraginoRegister(uint8_t addr, uint8_t value)
 {
     unsigned char spibuf[2];
 
@@ -358,7 +361,7 @@ int setupDraginoLoRa(int address, int mode, uint32_t channel, char *power)
     writeDraginoRegister(REG_RegPreambleLsb, preamble_length & 0xff);
     //  TP-IoT sync.
     const int RH_RF69_REG_39_NODEADRS = 0x39;
-    writeRegister(RH_RF69_REG_39_NODEADRS, 0x12);
+    writeDraginoRegister(RH_RF69_REG_39_NODEADRS, 0x12);
 
     int tmp = 0x04;  //AGC ON
     if (transmission_mode == 1) //  Low Data Rate Optimisation mandated for when the symbol length exceeds 16ms
@@ -561,7 +564,7 @@ int receiveDraginoPacket() {
             buff_index += 6;
             memcpy((void *)(buff_up + buff_index), (void *)",\"codr\":\"4/5\"", 13);
             buff_index += 13;
-            j = snprintf((char *)(buff_up + buff_index), TX_BUFF_SIZE-buff_index, ",\"lsnr\":%li", SNR);
+            j = snprintf((char *)(buff_up + buff_index), TX_BUFF_SIZE-buff_index, ",\"lsnr\":%li", lora_snr);
             buff_index += j;
             j = snprintf((char *)(buff_up + buff_index), TX_BUFF_SIZE-buff_index, ",\"rssi\":%d,\"size\":%u", readDraginoRegister(0x1A)-rssicorr, receivedbytes);
             buff_index += j;
@@ -600,7 +603,7 @@ int receiveDraginoPacket() {
     return 0;
 }
 
-int main () {
+int draginoMain () {
 
     struct timeval nowtime;
     uint32_t lasttime;
@@ -614,7 +617,11 @@ int main () {
     wiringPiSPISetup(CHANNEL, 500000);
     //cout << "Init result: " << fd << endl;
 
-    SetupLoRa();
+    const int address = 2;
+    const int mode = 1;
+    unsigned int channel = LORA_CH_10_868;
+    char *power = (char *) "H";
+    int setupStatus = setupLoRa(address, mode, channel, power);
 
     if ( (s=socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP)) == -1)
     {
