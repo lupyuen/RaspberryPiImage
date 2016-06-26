@@ -126,7 +126,6 @@ int setupLoRa(int address, int mode, uint32_t channel, char *power)
   printf("setupLoRa: Setting Node address %d: state %d\n", address, e);
 
 #ifdef INVERT_IQ
-  // TODO: To allow Hope RF95 (SX1276) to talk to Libelium SX1272, use inverted I/Q signal (prevent mote-to-mote communication)
   // Refer to http://openlora.com/forum/viewtopic.php?t=887
   // Also see example of SX1272-SX1276 interop: http://cpham.perso.univ-pau.fr/LORA/RPIgateway.html
   printf("setupLoRa: Before inverting I/Q REG_NODE_ADRS = 0x%02x\n", sx1272.readRegister(REG_NODE_ADRS));

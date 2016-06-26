@@ -63,21 +63,12 @@ enum sf_t { SF7=7, SF8, SF9, SF10, SF11, SF12 };
  *
  *******************************************************************************/
 
-////  TP-IoT: Mode 1 is max range but does NOT work with Dragino shield and Hope RF96 chip.
-////  TP-IoT Gateway runs on:
+////  TP-IoT: Mode 1 is max range. TP-IoT Gateway runs on:
 ////    case 1:     setCR(CR_5);        // CR = 4/5
 ////                setSF(SF_12);       // SF = 12
 ////                setBW(BW_125);      // BW = 125 KHz
 //setModemConfig(Bw125Cr45Sf4096);  ////  TP-IoT Mode 1
 int transmission_mode = 1;
-
-////  Testing TP-IoT Gateway on mode 5 (better reach, medium time on air)
-////  Works with Dragino shield and Hope RF96 chip.
-////    case 5:     setCR(CR_5);        // CR = 4/5
-////                setSF(SF_10);       // SF = 10
-////                setBW(BW_250);      // BW = 250 KHz -> 0x80
-//setModemConfig(Bw250Cr45Sf1024);  ////  TP-IoT Mode 5
-//int transmission_mode = 5;
 
 // SX1272 - Raspberry connections
 int ssPin = 6;
@@ -350,25 +341,13 @@ void SetupLoRa()
     const int RH_RF95_SPREADING_FACTOR_4096CPS                    = 0xc0;
     switch (transmission_mode) {
         case 1: {
-            ////  Mode 1 is max range but does NOT work with Dragino shield and Hope RF96 chip.
-            ////  TP-IoT Gateway runs on:
+            ////  Mode 1 is max range. TP-IoT Gateway runs on:
             ////    case 1:     setCR(CR_5);        // CR = 4/5
             ////                setSF(SF_12);       // SF = 12
             ////                setBW(BW_125);      // BW = 125 KHz
             //  TP-IoT Mode 1: Bw125Cr45Sf4096
             writeRegister(REG_MODEM_CONFIG, FIXED_RH_RF95_BW_125KHZ + FIXED_RH_RF95_CODING_RATE_4_5);
             writeRegister(REG_MODEM_CONFIG2, RH_RF95_SPREADING_FACTOR_4096CPS /* + FIXED_RH_RF95_RX_PAYLOAD_CRC_IS_ON */);
-            break;
-        }
-        case 5: {
-            ////  Testing TP-IoT Gateway on mode 5 (better reach, medium time on air)
-            ////  Works with Dragino shield and Hope RF96 chip.
-            ////    case 5:     setCR(CR_5);        // CR = 4/5
-            ////                setSF(SF_10);       // SF = 10
-            ////                setBW(BW_250);      // BW = 250 KHz -> 0x80
-            //  TP-IoT Mode 5: Bw250Cr45Sf1024
-            writeRegister(REG_MODEM_CONFIG, FIXED_RH_RF95_BW_250KHZ + FIXED_RH_RF95_CODING_RATE_4_5);
-            writeRegister(REG_MODEM_CONFIG2, RH_RF95_SPREADING_FACTOR_1024CPS /* + FIXED_RH_RF95_RX_PAYLOAD_CRC_IS_ON */);
             break;
         }
         default:
@@ -385,6 +364,11 @@ void SetupLoRa()
     const int RH_RF69_REG_39_NODEADRS                             = 0x39;
     writeRegister(RH_RF69_REG_39_NODEADRS, 0x12);
 
+    int tmp = 0x04;  //AGC ON
+    if (transmission_mode == 1) //  Low Data Rate Optimisation mandated for when the symbol length exceeds 16ms
+        tmp |= 0x08;  //  Data will be scrambled if you don't use this.
+    const int RegModemConfig3 = 0x26;  // This is NOT DOCUMENTED! Got this from HopeDuino_LoRa.h, only for RFM96/7/8
+    writeRegister(RegModemConfig3, tmp);
 
     // Set Continous Receive Mode
     writeRegister(REG_LNA, LNA_MAX_GAIN);  // max lna gain
