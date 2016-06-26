@@ -44,7 +44,7 @@ byte currentMode = 0x81;
 extern char lora_packet[];
 char b64[256];
 
-bool sx1272 = true;
+bool is_sx1272 = true;
 
 byte receivedbytes;
 
@@ -183,7 +183,7 @@ static char description[64] = "";                        /* used for free form d
 void die(const char *s)
 {
     perror(s);
-    exit(1);
+    //exit(1);
 }
 
 void selectreceiver()
@@ -258,6 +258,16 @@ boolean receivePkt(char *payload)
 
 int setupDraginoLoRa(int address, int mode, uint32_t channel, char *power)
 {
+    //  Initialise the Pi pins.
+    wiringPiSetup ();
+    pinMode(ssPin, OUTPUT);
+    pinMode(dio0, INPUT);
+    pinMode(RST, OUTPUT);
+
+    //int fd =
+    wiringPiSPISetup(CHANNEL, 500000);
+    //cout << "Init result: " << fd << endl;
+
     transmission_mode = mode;
     digitalWrite(RST, HIGH);
     delay(100);
@@ -269,7 +279,7 @@ int setupDraginoLoRa(int address, int mode, uint32_t channel, char *power)
     if (version == 0x22) {
         // sx1272
         printf("SX1272 detected, starting.\n");
-        sx1272 = true;
+        is_sx1272 = true;
     } else {
         // sx1276?
         digitalWrite(RST, LOW);
@@ -280,11 +290,11 @@ int setupDraginoLoRa(int address, int mode, uint32_t channel, char *power)
         if (version == 0x12) {
             // sx1276
             printf("SX1276 detected, starting.\n");
-            sx1272 = false;
+            is_sx1272 = false;
         } else {
             printf("Unrecognized transceiver.\n");
             //printf("Version: 0x%x\n",version);
-            exit(1);
+            return -1;
         }
     }
 
@@ -297,7 +307,7 @@ int setupDraginoLoRa(int address, int mode, uint32_t channel, char *power)
     writeDraginoRegister(REG_FRF_LSB, (uint8_t)(frf>> 0) );
 
     //  TODO: This code may be redundant due to settings below.
-    if (sx1272) {
+    if (is_sx1272) {
         if (sf == SF11 || sf == SF12) {
             writeDraginoRegister(REG_MODEM_CONFIG,0x0B);
         } else {
@@ -463,7 +473,7 @@ int receiveDraginoPacket() {
                 lora_snr = ( value & 0xFF ) >> 2;
             }
             
-            if (sx1272) {
+            if (is_sx1272) {
                 rssicorr = 139;
             } else {
                 rssicorr = 157;
@@ -608,15 +618,6 @@ int draginoMain () {
     struct timeval nowtime;
     uint32_t lasttime;
 
-    wiringPiSetup () ;
-    pinMode(ssPin, OUTPUT);
-    pinMode(dio0, INPUT);
-    pinMode(RST, OUTPUT);
-
-    //int fd = 
-    wiringPiSPISetup(CHANNEL, 500000);
-    //cout << "Init result: " << fd << endl;
-
     const int address = 2;
     const int mode = 1;
     unsigned int channel = LORA_CH_10_868;
@@ -667,3 +668,8 @@ int draginoMain () {
 
 }
 
+//  This fixes the missing __dso_handle error during linking.
+extern "C" {
+    extern void *__dso_handle __attribute__((__visibility__ ("hidden")));
+    void *__dso_handle;
+}

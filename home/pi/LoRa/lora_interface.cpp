@@ -82,12 +82,14 @@ int setupLoRa(int address, int mode, uint32_t channel, char *power)
   }
   printf("setupLoRa: LoRa module and Raspberry Pi: send packets without ACK\n");
   //  Check which shield is used.
-  int version = readDraginoRegister(REG_VERSION0);
-  printf("setupLoRa: version = %d\n", version);
-
+  shield = Dragino;
+  e = setupDraginoLoRa(address, mode, channel, power);
+  //  In case of error, assume shield is Libelium.
+  if (e < 0) shield = Libelium;
   switch (shield) {
     case Dragino:
-        e = setupDraginoLoRa(address, mode, channel, power);
+        //  Already initialised earlier.
+        //e = setupDraginoLoRa(address, mode, channel, power);
         break;
     case Libelium:
         // Power ON the module
@@ -347,7 +349,7 @@ char *receiveLoRaMessage(int timeout)
 int getLoRaSender()
 {
     //  Return the sender address of the last packet.
-    int result = 0;
+    int result = 2;  //  Default sender to address 2.
     switch (shield) {
         case Dragino:
             puts("*** getLoRaSender not implemented for Dragino");
@@ -363,7 +365,7 @@ int getLoRaSender()
 int getLoRaRecipient()
 {
     //  Return the recipient address of the last packet.
-    int result = 0;
+    int result = 1;  //  Default recipient to gateway.
     switch (shield) {
         case Dragino:
             puts("*** getLoRaRecipient not implemented for Dragino");

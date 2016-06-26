@@ -35,9 +35,9 @@ while True:
         setup_done = lora_interface.getLoRaSetupDone()
         send_count = lora_interface.getLoRaSendCount()
         receive_count = lora_interface.getLoRaReceiveCount()
-        snr = lora_interface.getLoRaSNR()
-        rssi = lora_interface.getLoRaRSSI()
-        rssi_packet = lora_interface.getLoRaRSSIpacket()
+        snr = lora_interface.getLoRaSNRValue()
+        rssi = lora_interface.getLoRaRSSIValue()
+        rssi_packet = lora_interface.getLoRaRSSIpacketValue()
         timestamp = datetime.datetime.now().isoformat()
 
         msg = str(device_address) + "|" + \

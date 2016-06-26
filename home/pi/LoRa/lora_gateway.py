@@ -69,10 +69,7 @@ def main():
     print("Calling setupLoRa...")
     status = lora_interface.setupLoRa(gateway_address, transmission_mode, transmission_channel, transmission_power)
     print("Status: " + str(status))
-    if lora_interface.getLoRaPreambleLength() == 0:
-        preamble_length = lora_interface.getLoRaPreambleLengthValue()
-    else:
-        preamble_length = -1
+    preamble_length = lora_interface.getLoRaPreambleLengthValue()
     print("Preamble Length: " + str(preamble_length))
     time.sleep(1)
 
@@ -125,18 +122,9 @@ def read_lora_message():
     status = lora_interface.getLoRaStatus()
     print("Msg: " + msg + ", Status: " + str(status))
     write_packet()
-    if lora_interface.getLoRaSNR() == 0:
-        gateway_snr = lora_interface.getLoRaSNRValue()
-    else:
-        gateway_snr = -1
-    if lora_interface.getLoRaRSSI() == 0:
-        gateway_rssi = lora_interface.getLoRaRSSIValue()
-    else:
-        gateway_rssi = -1
-    if lora_interface.getLoRaRSSIpacket() == 0:
-        gateway_rssi_packet = lora_interface.getLoRaRSSIpacketValue()
-    else:
-        gateway_rssi_packet = -1
+    gateway_snr = lora_interface.getLoRaSNRValue()
+    gateway_rssi = lora_interface.getLoRaRSSIValue()
+    gateway_rssi_packet = lora_interface.getLoRaRSSIpacketValue()
 
     # If no message available, try again.
     if len(msg) == 0:
