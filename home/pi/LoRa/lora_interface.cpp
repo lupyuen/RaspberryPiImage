@@ -17,6 +17,9 @@ static int setupDone = 0;
 static int sendCount = 0;
 static int receiveCount = 0;
 
+enum Shields { Libelium = 0, Dragino = 1 };
+static Shields shield = Dragino;
+
 int getLoRaStatus()
 {
   return e;

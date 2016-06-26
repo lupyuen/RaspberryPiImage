@@ -46,11 +46,10 @@
       <file leaf-file-name="lora_interface.cpp" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/LoRa/lora_interface.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="558">
-              <caret line="40" column="1" selection-start-line="40" selection-start-column="1" selection-end-line="40" selection-end-column="1" />
+            <state relative-caret-position="584">
+              <caret line="85" column="0" selection-start-line="85" selection-start-column="0" selection-end-line="85" selection-end-column="0" />
               <folding>
-                <element signature="e#0#17838#0" expanded="false" />
-                <element signature="e#0#17838#0" expanded="false" />
+                <element signature="e#0#17916#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -826,11 +825,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/LoRa/lora_interface.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="558">
-          <caret line="40" column="1" selection-start-line="40" selection-start-column="1" selection-end-line="40" selection-end-column="1" />
+        <state relative-caret-position="584">
+          <caret line="85" column="0" selection-start-line="85" selection-start-column="0" selection-end-line="85" selection-end-column="0" />
           <folding>
-            <element signature="e#0#17838#0" expanded="false" />
-            <element signature="e#0#17838#0" expanded="false" />
+            <element signature="e#0#17916#0" expanded="false" />
           </folding>
         </state>
       </provider>
