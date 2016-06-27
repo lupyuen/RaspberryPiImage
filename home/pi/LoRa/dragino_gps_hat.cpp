@@ -352,10 +352,10 @@ int setupDraginoLoRa(int address, int mode, uint32_t channel, char *power)
     const int RH_RF95_SPREADING_FACTOR_4096CPS                    = 0xc0;
     switch (transmission_mode) {
         case 1: {
-            ////  Mode 1 is max range. TP-IoT Gateway runs on:
-            ////    case 1:     setCR(CR_5);        // CR = 4/5
-            ////                setSF(SF_12);       // SF = 12
-            ////                setBW(BW_125);      // BW = 125 KHz
+            //  Mode 1 is max range. TP-IoT Gateway runs on:
+            //    case 1:     setCR(CR_5);        // CR = 4/5
+            //                setSF(SF_12);       // SF = 12
+            //                setBW(BW_125);      // BW = 125 KHz
             //  TP-IoT Mode 1: Bw125Cr45Sf4096
             writeDraginoRegister(REG_RegModemConfig1, FIXED_RH_RF95_BW_125KHZ + FIXED_RH_RF95_CODING_RATE_4_5);
             writeDraginoRegister(REG_RegModemConfig2, RH_RF95_SPREADING_FACTOR_4096CPS /* + FIXED_RH_RF95_RX_PAYLOAD_CRC_IS_ON */);
@@ -373,14 +373,19 @@ int setupDraginoLoRa(int address, int mode, uint32_t channel, char *power)
     const int RH_RF69_REG_39_NODEADRS = 0x39;
     writeDraginoRegister(RH_RF69_REG_39_NODEADRS, 0x12);
 
-    int tmp = 0x04;  //AGC ON
+    int tmp = 0x04;  //  AGC ON
     if (transmission_mode == 1) //  Low Data Rate Optimisation mandated for when the symbol length exceeds 16ms
         tmp |= 0x08;  //  Data will be scrambled if you don't use this.
     writeDraginoRegister(REG_RegModemConfig3, tmp);
+    //  Setting Testmode.
+    writeDraginoRegister(0x31, 0x43);
+    //  Set LowPnTxPllOff.
+    writeDraginoRegister(REG_RegPaRamp, 0x09);
 
     // Set Continous Receive Mode
-    writeDraginoRegister(REG_LNA, LNA_MAX_GAIN);  // max lna gain
+    writeDraginoRegister(REG_LNA, LNA_MAX_GAIN);  // Important for reception: max lna gain
     writeDraginoRegister(REG_OPMODE, SX72_MODE_RX_CONTINUOS);
+
     return 0;
 }
 

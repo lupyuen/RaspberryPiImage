@@ -2999,8 +2999,8 @@ uint8_t SX1272::receive()
 		  #if (SX1272_debug_mode > 1)
 		  	  printf("## Receiving LoRa mode activated with success ##\n");
 		  	  printf("\n");
-		  	  void dumpRegisters();  //  TP-IoT
-		  	  dumpRegisters();
+		  	  //void dumpRegisters();  //  TP-IoT
+		  	  //dumpRegisters();
 		  #endif
 	  }
 	  else

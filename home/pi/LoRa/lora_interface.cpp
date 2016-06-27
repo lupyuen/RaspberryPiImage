@@ -301,7 +301,6 @@ char *receiveLoRaMessage(int timeout)
     switch(shield) {
         case Dragino: {
             unsigned long start_time = millis();
-            dumpLoRaRegisters();////
             while(millis() - start_time < (unsigned long) timeout) {
                 e = receiveDraginoPacket();
                 if (e == 0) break;
