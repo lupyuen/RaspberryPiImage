@@ -2999,6 +2999,8 @@ uint8_t SX1272::receive()
 		  #if (SX1272_debug_mode > 1)
 		  	  printf("## Receiving LoRa mode activated with success ##\n");
 		  	  printf("\n");
+		  	  void dumpRegisters();  //  TP-IoT
+		  	  dumpRegisters();
 		  #endif
 	  }
 	  else
@@ -5068,3 +5070,12 @@ uint8_t SX1272::getTemp()
 
 
 SX1272 sx1272 = SX1272();
+
+void dumpRegisters()  //  TP-IoT
+{
+    //  Dump out all registers.
+    printf("dumpRegisters:\n");
+    for (int r = 0; r <= 0x64; r++)
+        printf("Reg[0x%02x] = 0x%02x\n", r, sx1272.readRegister(r));
+}
+

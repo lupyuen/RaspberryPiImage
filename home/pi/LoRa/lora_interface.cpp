@@ -280,7 +280,7 @@ void dumpLoRaRegisters(void)
     //  Dump out all registers.
     printf("dumpLoRaRegisters:\n");
     for (int r = 0; r <= 0x64; r++)
-        printf("Reg[0x%X] = 0x%X\n", r, readLoRaRegister(r));
+        printf("Reg[0x%02x] = 0x%02x\n", r, readLoRaRegister(r));
 }
 
 char *receiveLoRaMessage(int timeout)
@@ -301,6 +301,7 @@ char *receiveLoRaMessage(int timeout)
     switch(shield) {
         case Dragino: {
             unsigned long start_time = millis();
+            dumpLoRaRegisters();////
             while(millis() - start_time < (unsigned long) timeout) {
                 e = receiveDraginoPacket();
                 if (e == 0) break;
