@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$USER_HOME$/Downloads/160815/.idea/160815.iml" filepath="$USER_HOME$/Downloads/160815/.idea/160815.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/LoRa.iml" filepath="$PROJECT_DIR$/.idea/LoRa.iml" />
       <module fileurl="file://$USER_HOME$/LoRaArduino/.idea/LoRaArduino.iml" filepath="$USER_HOME$/LoRaArduino/.idea/LoRaArduino.iml" />
     </modules>
