@@ -20,45 +20,12 @@ from ajenti.users import PermissionProvider, UserManager, SecurityError
 from ajenti.ui import *
 from ajenti.util import make_report
 import ajenti.feedback
-import random
-import pwd
-import grp
-import os
 
 from api import SectionPlugin
 
 
 @plugin
 class MainServer (BasePlugin, HttpPlugin):
-    # Lup Yuen: Expose terminal.html for launching web terminal.
-    @url('/terminal.html')
-    def handle_terminal(self, context):
-        context.add_header('Content-Type', 'text/html')
-        # Must be logged in.
-        if context.session.identity is None:
-            context.respond_ok()
-            html = self.open_content('static/auth.html').read()
-            return html % {
-                'license': json.dumps(Licensing.get().get_license_status()),
-                'error': json.dumps(context.session.data.pop('login-error', None)),
-            }
-        context.respond_ok()
-        # Create a token and pass to tty.js.
-        token = str(int(random.random() * 1000000)) + '_' + str(int(random.random() * 1000000)) + '_' + str(int(random.random() * 1000000)) + '_' + str(int(random.random() * 1000000))
-        filename = '/tmp/tty' + token
-        f = open(filename, 'w')
-        f.write('Token passed by Ajenti to tty.js')
-        f.close()
-        # Change the permission so that tty.js can delete it.
-        uid = pwd.getpwnam("pi").pw_uid
-        gid = grp.getgrnam("pi").gr_gid
-        os.chown(filename, uid, gid)
-        # Redirect to tty.js url: http://host:3000?token=...
-        host = context.env['HTTP_HOST']
-        url = 'http://' + host + ':3000?token=' + token
-        result = '<meta http-equiv="refresh" content="0; url=' + url + '">'
-        return result
-
     @url('/')
     def handle_index(self, context):
         context.add_header('Content-Type', 'text/html')
