@@ -2,6 +2,8 @@
 <html class="ui-light">
     <head>
         <meta charset='utf-8' />
+        <!--  Lup Yuen: Include Font Awesome for icons used in text widgets  -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
         <link rel="icon" type="image/png" href="/ajenti:static/main/favicon.png" />
         <title></title>
         <link rel="stylesheet" href="/ajenti:static/resources.css" />
@@ -14,10 +16,11 @@
         <link rel="apple-touch-startup-image" href="/ajenti:static/main/webapp-icon.png">
         <meta name="viewport" content="user-scalable=no">
     </head>
-    
+
     <body>
         <div id="content-root" style="display: none">
-            <div id="ssl-alert">
+            <!--  Lup Yuen: Don't show SSL alert when running on Raspberry Pi.  -->
+            <div id="ssl-alert" style="visibility: hidden">
                 <i class="icon-white icon-unlock"></i>
                 &nbsp;<b>Insecure communication</b>
                 <br/>
@@ -48,7 +51,7 @@
 
             <div id="notifications">
             </div>
-            
+
             <div id="loading">
             </div>
 
@@ -58,7 +61,7 @@
                         <h1>Crashed</h1>
                         <pre id="crash-traceback">Blah blah</pre>
                         <div id="crash-report" style="display:none">
-                            Submit this report to 
+                            Submit this report to
                             <a target="_blank" href="https://github.com/ajenti/ajenti/issues?state=open">Github</a>.<br/>
                             <textarea></textarea>
                         </div>
@@ -80,7 +83,7 @@
                 <div class="content">
                     <div class="inner">
                         <h1>Access denied</h1>
-                        
+
                         <br class="clear" />
                         <div class="control hc" style="float:right">
                             <a onclick="document.location='/'" href="#" class="control button style-normal"><i class="icon-repeat"></i> Reload page</a>
@@ -122,10 +125,10 @@
             }
 
             #content-root-no-css code {
-                font-family: monospace; 
+                font-family: monospace;
             }
         </style>
-        
+
         <div id="content-root-no-css">
             <img src="/ajenti:static/main/error.jpeg" />
             <br/>
